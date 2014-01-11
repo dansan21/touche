@@ -7,8 +7,8 @@
 #
 # arch-tag: lib/config.inc
 #
-	$db_host = "localhost";
-	$db_user = "root";
-	$db_pass = "password";
-	$db_name = "test";
+	$db_host = "YOUR.DB.HOST";
+	$db_user = "contest_skeleton";
+	$db_pass = "YOUR_PASSWORD_HERE";
+	$db_name = "CONTEST_DATABASE_HERE";
 ?>
