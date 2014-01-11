@@ -84,9 +84,9 @@
 		}
 		$extension = $_FILES[source_file][name][$i].$extension;
 	}
-
+	
 	$queue_file_name = "$team_id-$problem_id-$ts.$extension";
-    move_uploaded_file($_FILES[source_file][tmp_name],
+	move_uploaded_file($_FILES[source_file][tmp_name],
 		       "$base_dir/queue/$queue_file_name");
     chmod("$base_dir/queue/$queue_file_name", 0644);
 

@@ -185,8 +185,8 @@ $cur_teams = "";
 $sql = "select * from TEAMS";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
-	$cur_teams .= "<br><table>";
+	//$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
+	$cur_teams = "<table>";
 	$cur_teams .= "<tr><td><font size=+1><b>Edit Current Teams</b></font></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_teams .= "<tr><td>" . $row['TEAM_NAME']; 

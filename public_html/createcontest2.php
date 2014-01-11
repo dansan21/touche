@@ -31,6 +31,7 @@ if($_POST['B1'] == "Submit") {
                                 <td bgcolor="#ffffff" colspan="2">
 				<center><b>
 <?php
+$user = `whoami`;
 $dbU = "contest_skeleton";
 $db_name = preg_replace("/ /", "_", $contest);
 $contest_noesc = $contest;
@@ -179,6 +180,7 @@ system($cmd,$result);
 $fhdl = fopen("../$contest_noesc/start_contest.crontab", "r") OR die("Error opening start crontab");
 $file = fread($fhdl, filesize("../$contest_noesc/start_contest.crontab"));
 $file = preg_replace("/CHANGE/", "$contest", $file);
+$file = preg_replace("/USERNAME/", "$user", $file);
 fclose($fhdl);
 $fhdl = fopen("../$contest_noesc/start_contest.crontab", "w") OR die("Error opening start crontab");
 $chk = fwrite($fhdl, $file);
@@ -227,8 +229,8 @@ fclose($fhdl);
 $fhdl = fopen("readme/inst.html", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);
 fclose($fhdl);
+
 #-----------------------------------------------------------------
-$user = `whoami`;
 echo "<p>To finish setting up the contest go to: <a href='http://touche.cse.taylor.edu/~$user/$contest_noesc/admin/index.php'>Administration setup</a></p>";
 ?>
 </center></b></td></tr>
