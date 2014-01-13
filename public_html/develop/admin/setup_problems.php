@@ -250,8 +250,8 @@ $http_pdf.="		<input type=file name=pdf_file></input></td>";
 $http_pdf.="	  </tr> ";
 
 
-
-
+#--------------------------------------------------~~~~~~
+echo "hi";
 //must be a http GET
 	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
 	echo " <tr><td width=30% valign='top'>";
