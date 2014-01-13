@@ -202,6 +202,7 @@ $cur_problems = "";
 $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
+
 	//$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
 	$cur_problems .= "<br><table class=\"table\">";
 	$cur_problems .= "<tr><td><font size=+1><h3>Edit Current Problems</h3></font></td></tr>";
@@ -256,8 +257,7 @@ $http_pdf.="		<input type=file name=pdf_file></input></td>";
 $http_pdf.="	  </tr> ";
 
 
-
-
+#--------------------------------------------------~~~~~~
 //must be a http GET
 	
 	echo " <div class=\"container\">";
@@ -306,11 +306,11 @@ $http_pdf.="	  </tr> ";
 	echo "		<td>Problem notes: </td>";
 	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
-	//if($_SESSION['edit_problem'])
-	//{
+	if($_SESSION['edit_problem'])
+	{
 		echo $http_html;
 		echo $http_pdf;
-	//}
+	}
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	echo "</form>";
 	echo "</table>";
