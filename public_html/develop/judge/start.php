@@ -27,7 +27,7 @@ if($_POST['submit'] == 'Start')
 	$cur_hour = date(G);
 	$cur_minute = date(i);
 	$cur_second = date(s);
-#	system("crontab $base_dir/start_contest.crontab", $result);
+	system("crontab $base_dir/start_contest.crontab", $result);
 	system("touch $base_dir/../active-contests/$contest_name", $result);
         if ($result != 0){
                 echo "<p><font color=$hd_txt_color2>Warning! Crontab Failed to start, please contact the system administrator</font></p>";
