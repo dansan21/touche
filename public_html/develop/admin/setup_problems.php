@@ -196,7 +196,6 @@ $cur_problems = "";
 $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
 	$cur_problems .= "<br><table>";
 	$cur_problems .= "<tr><td><font size=+1><b>Edit Current Problems</b></font></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
@@ -251,7 +250,6 @@ $http_pdf.="	  </tr> ";
 
 
 #--------------------------------------------------~~~~~~
-echo "hi";
 //must be a http GET
 	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
 	echo " <tr><td width=30% valign='top'>";
@@ -292,11 +290,11 @@ echo "hi";
 	echo "		<td>Problem notes: </td>";
 	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
-	//if($_SESSION['edit_problem'])
-	//{
+	if($_SESSION['edit_problem'])
+	{
 		echo $http_html;
 		echo $http_pdf;
-	//}
+	}
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	echo "</form>";
 	echo "</td></tr>";
