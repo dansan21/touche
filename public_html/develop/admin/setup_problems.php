@@ -18,13 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-
-//creates problems directory if it doesn't already exist
-if(!file_exists($problem_dir))
-{
-	mkdir ($problem_dir);
-}
-
+echo $problem_dir."<br/>";
 
 if ($_GET)
 {
@@ -91,6 +85,8 @@ else if($_POST)
 	if($_POST['submit'])
 	{
 		//Error Checking
+		Echo "<pre>"; 
+print_R($_FILES);
 		if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
 			mkdir($problem_dir . $_POST['problem_loc']);
@@ -114,17 +110,9 @@ else if($_POST)
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		print "File lengths:" . strlen($_FILES['ps_file']['tmp_name']) . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+		echo $_FILES['html_file']['tmp_name'] . "<br/>";
+		print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
 		//process new file uploads if they exist
-		// if(($_POST['upload_ps_id']) && strlen($_FILES['ps_file']['tmp_name']) > 0)
-		// {
-			// $result = move_uploaded_file($_FILES['ps_file']['tmp_name'], 
-					// $problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".ps");
-			// if(!$result)
-			// {
-				// $error_msg .= "Failed to upload ps file";
-			// }
-		// }
 		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
 		{
 			$result = move_uploaded_file($_FILES['html_file']['tmp_name'], 
@@ -217,6 +205,7 @@ if(mysql_num_rows($result) > 0) {
 	//$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
 	$cur_problems .= "<br><table class=\"table\">";
 	$cur_problems .= "<tr><td><font size=+1><h3>Edit Current Problems</h3></font></td></tr>";
+
 	while($row = mysql_fetch_assoc($result)){
 		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
 		$cur_problems .= " </td><td><font size=-1>";
@@ -232,25 +221,6 @@ else
 {
 	$cur_problems = "<tr>No current problems</tr>";
 }
-
-echo "</div>";
-
-// $http_ps.="	  <tr bgcolor=\"$data_bg_color1\">";
-// $http_ps.="		<td>Problem Postscript: </td>";
-// if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".ps"))
-// {
-	// $prev_ps_name = "<font color='green'>$edit_problem_name.ps</font><br>";
-// }
-// else
-// {
-	// $prev_ps_name = "<font color='red'>No file uploaded yet</font><br>";
-// }
-// $http_ps.="		<td>";
-// $http_ps.="		<input type=hidden name=upload_ps_id value=$edit_problem_id>";
-// $http_ps.= $prev_ps_name;
-// $http_ps.="		<input type=file name=ps_file></input></td>";
-// $http_ps.="	  </tr> ";
-
 
 $http_html.="	  <tr bgcolor=\"$data_bg_color1\">";
 $http_html.="		<td>Problem html: </td>";
@@ -336,12 +306,11 @@ $http_pdf.="	  </tr> ";
 	echo "		<td>Problem notes: </td>";
 	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
-	if($_SESSION['edit_problem'])
-	{
-		echo $http_ps;
+	//if($_SESSION['edit_problem'])
+	//{
 		echo $http_html;
 		echo $http_pdf;
-	}
+	//}
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	echo "</form>";
 	echo "</table>";
