@@ -129,16 +129,15 @@ $cur_sites = "";
 $sql = "select * from SITE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_sites = "<a href=setup_site.php><font size=+1>Add New Site</font></a><br>";
 	$cur_sites .= "<br><table>";
-	$cur_sites .= "<tr><td><font size=+1><b>Edit Current Sites</b></font></td></tr>";
+	$cur_sites .= "<tr><td><b>Edit Current Sites</b></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_sites .= "<tr><td>" . $row['SITE_NAME']; 
-		$cur_sites .= " </td><td><font size=-1>";
+		$cur_sites .= " </td><td>";
 		$cur_sites .= "<a href=setup_site.php?site_id=" . $row['SITE_ID'] . ">Edit</a>";
-		$cur_sites .= "</font></td><td><font size=-1>";
+		$cur_sites .= "</td><td>";
 		$cur_sites .= "<a href=setup_site.php?remove_id=" . $row['SITE_ID'] . ">Delete</a>";
-		$cur_sites .= "</font><br>\n";
+		$cur_sites .= "<br>\n";
 		$cur_sites .= "</td></tr>";
 	}
 	$cur_sites .= "</table>";
@@ -149,13 +148,16 @@ else
 }
 
 //must be a http GET
-	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
-	echo " <tr><td width=30% valign='top'>";
+	echo " <div class=\"container\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\">";
+	echo "<tr>";
+	echo "<td>";
+	echo " <h3>Add or Edit Sites</h3>";
 	echo $cur_sites;
-	echo " </td>";
-	echo " <td width=50%>";
+	echo "</td>";
+	echo "</tr>";
 	echo " <form action=setup_site.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
 	if($error_msg)
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
@@ -164,26 +166,22 @@ else
 	{
 		echo "<tr><td><b>&nbsp</b></td></tr>";
 	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Add or Edit Sites</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
-	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
-	echo "		<td>Site name: </td>";
-	echo "		<td><input type='text' name='site_name' ";
-	echo "			value = '$edit_site_name'></td>";
-	echo "	  </tr> ";
-	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
-	echo "</form>";
-	echo "</td></tr>";
-	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
-	echo "</table>";
+
+	echo " <tr>";
+	echo " <td>";
+	echo " $action";
+	echo " </td>";
+	echo " </tr> ";
+	echo " <tr>";
+	echo " <td>Site name: </td>";
+	echo " <td><input type='text' name='site_name' ";
+	echo " value = '$edit_site_name'></td>";
+	echo " </tr> ";
+	echo " <tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	echo " </form>";
+	echo " </td></tr>";
+	echo " </table>";
+	echo " </div>";
+	echo " </div>";
 	include("lib/footer.inc");
 ?>

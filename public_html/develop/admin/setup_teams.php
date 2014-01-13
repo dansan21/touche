@@ -187,14 +187,14 @@ $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 	//$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
 	$cur_teams = "<table>";
-	$cur_teams .= "<tr><td><font size=+1><b>Edit Current Teams</b></font></td></tr>";
+	$cur_teams .= "<h3>Edit Current Teams</h3>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_teams .= "<tr><td>" . $row['TEAM_NAME']; 
-		$cur_teams .= " </td><td><font size=-1>";
+		$cur_teams .= " </td><td>";
 		$cur_teams .= "<a href=setup_teams.php?team_id=" . $row['TEAM_ID'] . ">Edit</a>";
-		$cur_teams .= "</font></td><td><font size=-1>";
+		$cur_teams .= "</td><td>";
 		$cur_teams .= "<a href=setup_teams.php?remove_id=" . $row['TEAM_ID'] . ">Delete</a>";
-		$cur_teams .= "</font><br>\n";
+		$cur_teams .= "<br>\n";
 		$cur_teams .= "</td></tr>";
 //-------------------------------------------------------------------------------------------
 //pdf_show_xy($pdf, $row['TEAM_NAME'], 15, 595);
@@ -219,11 +219,13 @@ else
 }
 
 //must be a http GET
-	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
-	echo " <tr><td width=30% valign='top'>";
+	echo " <div class=\"container\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\">";
+	echo " <tr><td>";
 	echo $cur_teams;
 	echo " </td>";
-	echo " <td width=50%>";
+	echo " <td>";
 	echo " <form action=setup_teams.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
 	if($error_msg)
@@ -234,27 +236,27 @@ else
 	{
 		echo "<tr><td><b>&nbsp</b></td></tr>";
 	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
+	echo "	  <tr> ";
 	echo "		<td align='center' colspan=2>";
 	echo "			<font color='$hd_txt_color1'>";
 	echo "				<b>Add or Edit Teams</b></font>";
 	echo "		</td>";
 	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
+	echo "	  <tr>";
 	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
 	echo "		<b>$action</b></font></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Team name: </td>";
 	echo "		<td><input type='text' name='team_name' ";
 	echo "			value = '$edit_team_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Organization: </td>";
 	echo "		<td><input type='text' name='organization' ";
 	echo "			value = '$edit_organization'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Username</td>";
 	echo "		<td><input type='text' name='username' ";
 	echo "			value = '$edit_username'></td>";
@@ -268,43 +270,43 @@ if(!$edit_password) {
 	$edit_password .= substr($token, -3);
 }
 //-----------------------------------------------------------------------------------------------
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Password: </td>";
 	echo "		<td><input type='text' name='password' ";
 	echo "			value = '$edit_password'></td>";
 	echo "	  </tr> ";
 
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Site:</td>";
 	echo "		<td><select name=site_id> ";
 	echo "			$http_sites</select></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Coach: </td>";
 	echo "		<td><input type='text' name='coach_name' ";
 	echo "			value = '$edit_coach_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Contestant 1: </td>";
 	echo "		<td><input type='text' name='contestant_1_name' ";
 	echo "			value = '$edit_contestant_1_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Contestant 2: </td>";
 	echo "		<td><input type='text' name='contestant_2_name' ";
 	echo "			value = '$edit_contestant_2_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Contestant 3: </td>";
 	echo "		<td><input type='text' name='contestant_3_name' ";
 	echo "			value = '$edit_contestant_3_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr>";
 	echo "		<td>Alternate: </td>";
 	echo "		<td><input type='text' name='alternate_name' ";
 	echo "			value = '$edit_alternate_name'></td>";
 	echo "	  </tr> ";
-	echo "    <tr bgcolor=\"$data_bg_color1\">";
+	echo "    <tr>";
         echo "          <td>Email: </td>";
         echo "          <td><input type='text' name='email' ";
         echo "                  value = '$edit_email'></td>";
@@ -314,7 +316,9 @@ if(!$edit_password) {
 	echo "</form>";
 	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
+	echo "	</td><td></td></tr>";
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
 	include("lib/footer.inc");
 ?>

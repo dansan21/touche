@@ -235,16 +235,11 @@ End of POST section
 		}
 		
 		echo "</center>";
-		echo "<p>";
-		echo "<form method=POST action=setup_contest.php>\n";
-		echo "<table align=center bgcolor=#ffffff cellpadding=0 cellspacing=0 border=0<tr><td>";
-		echo "<table width=100% cellpadding=5 cellspacing=1 border=0>\n";
-		echo "  <tr bgcolor=\"$hd_bg_color1\">\n";
-		echo "		<td align=\"center\" colspan=\"2\"><font color=\"$hd_txt_color1\"><b>Edit Contest Info</b></font></td>\n";
-		echo "	</tr>";
-		echo "	<tr bgcolor=\"$hd_bg_color2\">";
-		echo "		<td colspan=\"2\">Which aspect of your contest would you like to change?</td>";
-		echo "	</tr>";
+		echo " <div class=\"container\">";
+		echo " <form method=POST action=setup_contest.php>\n";
+		echo " <div class=\"table-responsive\">";
+		echo " <table class=\"table\">";
+		echo "<td><h3>Edit Contest Info</h3></td>\n";
 		$host = $row['HOST'];
 		$contest_name = $row['CONTEST_NAME'];
 		$today_month  = date('m', $contest_start_ts);
@@ -320,9 +315,9 @@ End of POST section
 		echo "</center>\n";
 		echo "<form method=POST action=setup_contest.php>\n";
 		echo "<p>";
-		echo "<table align=center bgcolor=#ffffff cellpadding=0 cellspacing=0 border=0<tr><td>";
-		echo "<table width=100% cellpadding=5 cellspacing=1 border=0>\n";
-		echo "  <tr bgcolor=\"$hd_bg_color1\">\n";
+		echo "<table><tr><td>";
+		echo "<table>\n";
+		echo "  <tr>\n";
 		echo "		<td align=\"center\" colspan=\"2\"><font color=\"$hd_txt_color1\">";
 		echo "			<b>Contest Info</b></font></td>\n";
 		$host = "";
@@ -354,18 +349,26 @@ End of POST section
 
 //let's prompt for some content
 
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+
+
+
+
+	echo "		<tr>";
 	echo "			<td>Name of the contest <b>host</b>:</td>";
 	echo "			<td><input type=\"text\" name=\"contest_host\" ";
-	echo "				size=\"20\" value=\"$host\">";
+	echo "				size=\"30\" value=\"$host\">";
 	echo "				</input></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>The contest's <b>name</b>:</td>";
 	echo "			<td><input type=\"text\" name=\"contest_name\" ";
-	echo "				size=\"20\" value=\"$contest_name\">";
+	echo "				size=\"30\" value=\"$contest_name\">";
 	echo "				</input></td>";
 	echo "		</tr>";
+
+
 #	echo "		<tr bgcolor=\"$data_bg_color1\">";
 #	echo "			<td>Number of problems:</td>";
 #	echo "			<td><input type=\"text\" name=\"num_problems\" ";
@@ -381,7 +384,10 @@ End of POST section
 #	echo "			<input type=\"text\" name=\"contest_year\" size=\"2\" ";
 #	echo "				maxlength=4 value=\"$today_year\"></td>";
 #	echo "		</tr> ";
-	echo "		<tr bgcolor=\"$data_bg_color1\"> ";
+
+
+
+	echo "		<tr> ";
 	echo "			<td>Amount of time (HH:mm:ss) until the standings are frozen:</td> ";
 	echo "			<td><input type=\"text\" name=\"freeze_hour\" ";
 	echo "				size=\"2\" maxlength=2 value=\"$freeze_hour\"></input>:";
@@ -390,7 +396,8 @@ End of POST section
 	echo "			<input type=\"text\" name=\"freeze_second\" ";
 	echo "				size=\"2\" maxlength=2 value=\"$freeze_second\"></input></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Duration of the contest (HH:mm:ss)</td> ";
 	echo "			<td><input type=\"text\" name=\"end_hour\" size=\"2\"";
 	echo "				maxlength=2 value=\"$end_hour\"></input>:";
@@ -399,31 +406,37 @@ End of POST section
 	echo "			<input type=\"text\" name=\"end_second\" size=\"2\"";
 	echo "				maxlength=2 value=\"$end_second\"></input></td> ";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Base directory of the contest information (ex: ";
 	echo "			/usr/home/contest):</td> ";
 	echo "			<td><input type=\"text\" name=\"base_directory\" ";
 	echo "				size=\"30\" value=\"$base_directory\"></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Username for all the judges to use</td> ";
 	echo "			<td><input type=\"text\" name=\"username\" ";
-	echo "				size=\"20\" value=\"$username\"></td>";
+	echo "				size=\"30\" value=\"$username\"></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Password for the judge account</td> ";
 	echo "			<td><input type=password name=\"password\" ";
-	echo "				size=\"20\" value=\"$password\"></td>";
+	echo "				size=\"30\" value=\"$password\"></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$hd_bg_color2\">";
-	echo "			<td colspan=2>Customize the judging experience</td>";
+
+	echo "		<tr>";
+	echo "			<td colspan=2><h3>Customize the judging experience</h3></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Ignore standard error?</td>";
 	echo "			<td><input type=checkbox name=stderr $stderr_checked >";
 	echo "				</input>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Check for forbidden words (C, C++, Java)?</td>";
 	echo "			<td> C: &nbsp";
 	echo "			<input type=checkbox name=forbidden_c $forbidden_c_checked >";
@@ -433,7 +446,8 @@ End of POST section
 	echo "			<input type=checkbox name=forbidden_java $forbidden_java_checked >";
 	echo "				</input></td>";
 	echo "		</tr>";
-	echo "		<tr bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td>Automatically include standard headers";
 	echo "				(C, C++, Java)?</td>";
 	echo "			<td> C: &nbsp";
@@ -444,17 +458,21 @@ End of POST section
 	echo "			<input type=checkbox name=headers_java $headers_java_checked >";
 	echo "				</input></td>";
 	echo "		</tr>";
-        echo "          <tr bgcolor=\"$data_bg_color1\">";
+
+        echo "		<tr>";
         echo "                  <td>Display team names to judges?</td>";
         echo "                  <td><input type=checkbox name=team_show $team_show >";
         echo "                          </input>";
         echo "          </tr>";
-	echo "		<tr align=center bgcolor=\"$data_bg_color1\">";
+
+	echo "		<tr>";
 	echo "			<td colspan=2> <input type=\"submit\" value=";
 	echo 			"\"Submit\" name=\"B1\"></input></td> ";
 	echo "		</tr>";
 	echo "	</table>";
+	echo " </div>";
 	echo "	</form>";
+	echo " </div>";
 
 		include("lib/footer.inc");
 ?>

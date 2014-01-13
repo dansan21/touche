@@ -29,43 +29,40 @@ if (!$connect_good) {
 	}
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C/DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
+<head>
+<style>
+	<?php include_once("../styles/css/bootstrap.css"); ?>
+</style>
+</head>
 <body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">
-<table width="90%" align="center" cellpadding="1" cellspacing="0" border="0" bgcolor="#000000">
-	<tr><td>
-		<table width="100%" cellpadding="5" cellspacing="0" border="0">
-			<tr bgcolor="<?=$title_bg_color?>">	
-				<td>
-				<!-- Beautification hack. 2006-09-25 -sb -->
-                <img src="../images/favicon.ico">
 
-  				<font color="#ffffff">
-				<?if (!$contest_name)
-				{?>
-  				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
-				<?}
-				else { ?>
-  				<b><?=$contest_name?></b> - <small><?=$contest_host?></small>
-				<?}?>
-  				</font>
-				</td>
-				<td align="right">
- 					 <font color="#ffffff">
- 					 <b>JUDGE/ADMIN</b>
- 					 </font>
-				</td>
-			</tr>
-			<tr>	
-				<td bgcolor="#dcdcdc" align="left"><b>
-				<a href="setup_contest.php">Edit contest details</a> &nbsp;
-  				<a href="setup_problems.php">Problems</a> &nbsp;
-				<a href="setup_data_sets.php">Data Sets</a> &nbsp;
-  				<a href="setup_site.php">Sites</a> &nbsp; 
-  				<a href="setup_teams.php">Teams</a> &nbsp;  
-  				<a href="setup_categories.php">Categories</a> &nbsp;
-				<a href="setup_team_category.php">Team Category</a> &nbsp;
-				<?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
+<div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+            <?php 
+            $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+            header("Content-Type: image/png");
+            echo "<img src='$path' alt='Logo'>";
+            ?>
+        </div>
+         	<div class="text-right">
+            	<h3>JUDGE/ADMIN</h3>
+        	</div>
+        </div>
+</div>
+		<div class="container">
+          <ul class="nav nav-tabs nav-justified">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="setup_contest.php">Details</a></li>
+            <li><a href="setup_problems.php">Problems</a></li>
+            <li><a href="setup_data_sets.php">Data</a></li>
+            <li><a href="setup_site.php">Sites</a></li>
+            <li><a href="setup_teams.php">Teams</a></li>
+            <li><a href="setup_categories.php">Categories</a></li>
+            <li><a href="setup_team_category.php">TCats</a></li>
+            <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 				$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 				$lang_sql  .= "FROM LANGUAGE";
 				$sel_sql = mysql_query($lang_sql);
@@ -76,18 +73,32 @@ if (!$connect_good) {
 				}
 				$contest_stuff = mysql_fetch_assoc($sel_sql);
 				if ($contest_stuff['heads'] > 0) { ?>
-				<a href="setup_headers.php">Headers</a> &nbsp;
-				<?}
+			<li><a href="setup_headers.php">Headers</a></li>
+			<?}
 				if ($contest_stuff['bad_words'] > 0) { ?>
-				<a href="setup_forbidden.php">Forbidden</a> &nbsp;
-				<?} ?>
-				<a href="misc.php">Misc</a> &nbsp;
-				</b>
+            <li><a href="setup_forbidden.php">Forbidden</a></li>
+            <?} ?>
+            <li><a href="misc.php">Misc</a></li>
+
+            <li><a href="#">&raquo;</a></li>
+          </ul>
+      	</div>
+      	<div class="container">
+      		<div class="text-center">
+				<h4><?=$contest_name?></h4>
+				<h5><?=$contest_host?></h5>
+				<h1>Official Time: <?=date("H:i:s")?></h1>
+			</div>
+		</div>
+
+				<?if (!$contest_name)
+				{?>
+  				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
+				<?}
+				else { ?>
+  				
+				<?}?>
+ 					 
+
 				
-				</td>
-				<td align="right" bgcolor="#dcdcdc">
-				<b>Official Time: <?=date("H:i:s")?></b>
-				</td>
-			</tr>
-			<tr>
-				<td bgcolor="#ffffff" colspan="2">
+
