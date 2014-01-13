@@ -39,15 +39,17 @@ include_once("lib/header.inc");
     $cat_row = mysql_fetch_assoc($category);
 
     $tmp = $num_cat * 10;
+    echo " <div class=\"container\">";
+    echo " <div class=\"table-responsive\">";
     echo"<form method='POST' action='setup_team_category.php'>";
-    echo "<br><table align=center bgcolor=#000000 width='$tmp%' cellpadding=5 cellspacing=1 border=0>\n";
-    echo "<tr><td align=center colspan=99 bgcolor=$hd_bg_color1>";
-       echo "<font color=$hd_txt_color1><b>Teams</b></font>";
+    echo " <table class=\"table\">";
+    echo "<tr><td>";
+       echo "<b>Teams</b>";
     echo "</td></tr>\n";
-    echo "<tr bgcolor=$hd_bg_color2>\n";
-    echo "<td align=center><font color=$hd_txt_color2><b>Team Name</b></font></td>\n";
+    echo "<tr>\n";
+    echo "<td>Team Name</td>\n";
     for($i=1; $i<=$num_cat; $i++) { 
-	echo "<td align=center><font color=$hd_txt_color2><b>".$cat_row["CATEGORY_NAME"]."</b></font></td>";
+	echo "<td><b>".$cat_row["CATEGORY_NAME"]."</b></td>";
 	$cat_row = mysql_fetch_assoc($category);
     }
     echo "</tr>\n";
@@ -59,9 +61,9 @@ include_once("lib/header.inc");
     
     for($i=0; $i<$num_teams; $i++) {
 	if($i%2 == 0) {
-	    echo "<tr bgcolor=\"$data_bg_color1\">\n";
+	    echo "<tr>\n";
 	} else {
-	    echo "<tr bgcolor=\"$data_bg_color2\">\n";
+	    echo "<tr>\n";
 	}
 	echo "<td>".$team_row["TEAM_NAME"]."</td>";
 
@@ -79,7 +81,10 @@ include_once("lib/header.inc");
 	$team_row = mysql_fetch_assoc($team);
 	echo "</tr>";
     }
-    echo "</table>";
+
     echo "<input type='submit' value='Make Changes' name='submit'/>";
+    echo "</table>";
     echo "</form>";
+    echo "</div>";
+    echo "</div>";
 ?>

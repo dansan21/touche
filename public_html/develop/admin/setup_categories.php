@@ -122,16 +122,16 @@ $cur_categories = "";
 $sql = "select * from CATEGORIES";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_categories = "<a href=setup_categories.php><font size=+1>Add New Category</font></a><br>";
+	$cur_categories = "<a href=setup_categories.php>Add New Category</a><br>";
 	$cur_categories .= "<br><table>";
-	$cur_categories .= "<tr><td><font size=+1><b>Edit Current Categories</b></font></td></tr>";
+	$cur_categories .= "<tr><td><b>Edit Current Categories</b></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_categories .= "<tr><td>" . $row['CATEGORY_NAME']; 
-		$cur_categories .= " </td><td><font size=-1>";
+		$cur_categories .= " </td><td>";
 		$cur_categories .= "<a href=setup_categories.php?edit_id=" . $row['CATEGORY_ID'] . ">Edit</a>";
-		$cur_categories .= "</font></td><td><font size=-1>";
+		$cur_categories .= "</td><td>";
 		$cur_categories .= "<a href=setup_categories.php?remove_id=" . $row['CATEGORY_ID'] . ">Delete</a>";
-		$cur_categories .= "</font><br>\n";
+		$cur_categories .= "<br>\n";
 		$cur_categories .= "</td></tr>";
 	}
 	$cur_categories .= "</table>";
@@ -142,13 +142,15 @@ else
 }
 
 //must be a http GET
-	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
-	echo " <tr><td width=30% valign='top'>";
+	echo " <div class=\"container\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\">";
+	echo " <tr><td>";
 	echo $cur_categories;
 	echo " </td>";
-	echo " <td width=50%>";
+	echo " <td>";
 	echo " <form action=setup_categories.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
+	echo "	<table> ";
 	if($error_msg)
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
@@ -157,17 +159,19 @@ else
 	{
 		echo "<tr><td><b>&nbsp</b></td></tr>";
 	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
+	echo "	  <tr> ";
 	echo "		<td align='center' colspan=2>";
 	echo "			<font color='$hd_txt_color1'>";
 	echo "				<b>Add or Edit Categories</b></font>";
 	echo "		</td>";
 	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
+
+	echo "	  <tr>";
+	echo "		<td align='center' colspan=2>";
+	echo "		<b>$action</b></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+
+	echo "	  <tr>";
 	echo "		<td>Category name: </td>";
 	echo "		<td><input type='text' name='category_name' ";
 	echo "			value = '$edit_category_name'></td>";
@@ -176,7 +180,9 @@ else
 	echo "</form>";
 	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
+	echo "	</td><td></td></tr>";
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
 	include("lib/footer.inc");
 ?>

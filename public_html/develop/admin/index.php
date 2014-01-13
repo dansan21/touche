@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 #
@@ -37,7 +37,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C/DTD HTML 4.0 Transitional//EN">
+
+
+<!DOCTYPE html> <!-- START HTML -->
+
 <html>
 <head>
 <script language="javascript">
@@ -49,40 +52,58 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	}
     }
 </script>
+
+<style>
+<?php include_once("../styles/css/bootstrap.css"); ?>
+</style>
+
 </head>
-<body bgcolor=<?=$page_bg_color?> onLoad="set_focus()">
+<body onLoad="set_focus()">
+    <div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+        	<?php 
+        	$path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+        	header("Content-Type: image/png");
+        	echo "<img src='$path' alt='Logo'>";
+        	?>
 
-<form name="f" method="post" action="index.php">
-<table align="center" height="100%" border="0"><tr><td>
-<table cellpadding="1" cellspacing="0" border="0" bgcolor="#000000"><tr><td>
-<table cellpadding="5" cellspacing="0" border="0" bgcolor="<?=$title_bg_color?>"><tr><td>
-<font color="#ffffff">
-<b><?=$contest_name?></b><br>
-<small><?=$contest_host?></small>
-</font>
-</td></tr><tr><td bgcolor="#ffffff">
-<?
+        </div>
+        <div class="text-right">
+	        <form class="form-inline" name="f" method="post" action="index.php">
+        		<div class="form-group">
+				    <input type="text" class="form-control" name="user" size="30" placeholder="Username">
+				</div>
+				<div class="form-group">
+				    <input type="password" class="form-control" name="password" size="30" placeholder="Password">
+				</div>
+				<div class="form-group">
+				  <button type="submit" class="btn btn-default" name="submit">Sign in</button>
+				</div>
+				<?
 
-    if (isset($state) && $state == 1) {
-	echo "<center><font color=#cc0000><b>";
-	echo "Login or Password Invalid</b></font></center>\n";
-    }
-    else if (isset($state) && $state == 2) {
-	echo "<center><font color=#cc0000><b>";
-	    echo "You are not yet logged in</b></font></center>\n";
-    }
+			    if (isset($state) && $state == 1) {
+				echo "<center><font color=#cc0000><b>";
+				echo "Login or Password Invalid</b></font></center>\n";
+			    }
+			    else if (isset($state) && $state == 2) {
+				echo "<center><font color=#cc0000><b>";
+				    echo "You are not yet logged in</b></font></center>\n";
+			    }
 
-?><table cellpadding="5" cellspacing="0" border="0">
-<tr><td>Login:</td><td><input type="text" name="user" size="20">
-</td></tr>
-<tr><td>Password:</td><td><input type="password" name="password" size="20"></td></tr>
-<tr><td>&nbsp;</td><td><input type="submit" name="submit" value="  OK  ">
-<input type="reset" name="submit" value=" Cancel "></td></tr>
-</table>
-</td></tr></table>
-</td></tr></table>
-</td></tr></table>
-</form>
+				?>
+			</form>
+		</div>
+        </div>
+    </div>
+	<div class="container">
+		<div class="row">
+			<h3>Admin Login for: <?=$contest_name?></h3>
+		</div>
+		<div class="row">
+			<h4><?=$contest_host?></h4>
+		</div>	
+	</div>
 
 </body>
 </html>
