@@ -49,6 +49,7 @@ if ($_GET)
 				{			
 					$row = mysql_fetch_assoc($result);
 					$edit_problem_name = $row['PROBLEM_NAME'];
+					$edit_problem_short_name = $row['PROBLEM_SHORT_NAME'];
 					$edit_problem_id = $row['PROBLEM_ID'];
 					$edit_problem_loc = $row['PROBLEM_LOC'];
 					$edit_problem_note = $row['PROBLEM_NOTE'];
@@ -95,6 +96,10 @@ else if($_POST)
 		{
 			$error_msg .= "You forget to set the problem name<br>\n";
 		}
+		if(strlen($_POST['problem_short_name']) == 0)
+		{
+			$error_msg .= "You forget to set the shortened problem name<br>\n";
+		}
 		else if(strlen($_POST['problem_loc']) == 0)
 		{
 			$error_msg .= "You forget to set the problem location<br>\n";
@@ -135,6 +140,7 @@ else if($_POST)
 			if(isset($_SESSION['edit_problem']))
 			{
 				$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
+				$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
 				$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
 				$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
 				$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
@@ -158,8 +164,9 @@ else if($_POST)
 			else
 			{		
 				//adding a new problem
-				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
+				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
 				$sql .= "values('" . $_POST['problem_name'] . "', '";
+				$sql .= $_POST['problem_short_name'] . "', '";
 				$sql .= $_POST['problem_loc'] . "', '";
 				$sql .= $_POST['problem_note'] . "')";
 				
@@ -210,7 +217,7 @@ if(mysql_num_rows($result) > 0) {
 		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
 		$cur_problems .= " </td><td><font size=-1>";
 		$cur_problems .= "<a href=setup_problems.php?problem_id=" . $row['PROBLEM_ID'] . ">Edit</a>";
-		$cur_problems .= "</font></td><td><font size=-1>";;
+		$cur_problems .= "</font></td><td><font size=-1>";
 		$cur_problems .= "<a href=setup_problems.php?remove_id=" . $row['PROBLEM_ID'] . ">Delete</a>";
 		$cur_problems .= "</font><br>\n";
 		$cur_problems .= "</td></tr>";
@@ -295,7 +302,11 @@ $http_pdf.="	  </tr> ";
 	echo "		<td><input type='text' name='problem_name' ";
 	echo "			value = '$edit_problem_name'></td>";
 	echo "	  </tr> ";
-
+	echo "	  <tr> ";
+	echo "		<td>Problem name shortened: </td>";
+	echo "		<td><input type='text' name='problem_short_name' ";
+	echo "			value = '$edit_problem_short_name'></td>";
+	echo "	  </tr> ";
 	echo "	  <tr> ";
 	echo "		<td>Problem location: </td>";
 	echo "		<td><input type='text' name='problem_loc' ";

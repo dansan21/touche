@@ -1,12 +1,12 @@
 <?
-//change lines 8 and 20
+//change lines 9 and 20
 include("lib/admin_config.inc");
 	include("lib/data.inc");
 	include("lib/session.inc");
 $user = `whoami`;
 
 #~~~~~~~setup_contest.php automation~~~~~~~~~~~~~~~
-$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) VALUES ( 'daniel', 'danieltest', '1', '0000-00-00', '', '', '', '/home/".$user."/danieltest', '', 'judge', 'judge', '', '', '')";
+$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) VALUES ( 'mgoldsbe', 'mattTest', '1', '0000-00-00', '', '', '', '/home/".$user."/mattTest', '', 'judge', 'judge', '', '', '')";
 //$success = mysql_query($sql);
 echo "Contest_setup.php automated with response code: " . $success . "<br/>";
 
@@ -17,11 +17,11 @@ if(!file_exists($problem_dir . "Test"))
 		{
 			mkdir($problem_dir . "Test");
 			echo $problem_dir . "<br/>";
-			$cmd = "cp -r /home/".str_replace("\n","",$user)."/docs/* /home/".str_replace("\n","",$user)."/public_html/danieltest/problems/Test/";
+			$cmd = "cp -r /home/".str_replace("\n","",$user)."/docs/* /home/".str_replace("\n","",$user)."/public_html/mattTest/problems/Test/";
 			echo $cmd . "<br/>";
 			system($cmd,$result);
 		}
-$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_LOC, PROBLEM_NOTE) values('Test', 'Test', 'Test')";
+$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) values('Test', 'T', 'Test', 'Test')";
 $success = mysql_query($sql);
 echo "setup_problems.php automated with response code: " . $success . "<br/>";
 
@@ -55,4 +55,5 @@ $sql = "INSERT INTO CATEGORY_TEAM (TEAM_ID, CATEGORY_ID) VALUES ('1', '1');";
 $result = mysql_query($sql);
 echo "setup_team_categories.php automated with response code: " . $result . "<br/>";
 
+echo "<p><a href='http://touche.cse.taylor.edu/~$user/mattTest/admin/setup_problems.php'>Administration setup</a></p>";
 ?>

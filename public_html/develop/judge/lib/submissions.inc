@@ -61,9 +61,9 @@ if($row = mysql_fetch_assoc($sql_result)){
 	
 	if(!$_GET){
 		echo "All ";
-		echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_NAME'] . "</a> ";
+		echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_SHORT_NAME'] . "</a> ";
 		while ($row = mysql_fetch_assoc($sql_result)){
-			echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_NAME'] . "</a> ";
+			echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_SHORT_NAME'] . "</a> ";
 		}
 		$problem_name = "ALL";
 	}
@@ -75,7 +75,7 @@ if($row = mysql_fetch_assoc($sql_result)){
 			$problem_id = $row['PROBLEM_ID'];
 		}
 		else{
-			echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_NAME'] . "</a> ";
+			echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_SHORT_NAME'] . "</a> ";
 		}
 
 		while ($row = mysql_fetch_assoc($sql_result)){
@@ -84,7 +84,7 @@ if($row = mysql_fetch_assoc($sql_result)){
 				$problem_id = $row['PROBLEM_ID'];				
 			}
 			else{
-			       echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_NAME'] . "</a> ";
+			       echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_SHORT_NAME'] . "</a> ";
 			}
 		}
 	}
@@ -252,7 +252,7 @@ if($row = mysql_fetch_assoc($sql_result)){
 			$team_id = $row['TEAM_NAME'];
 		
 		echo "<tr><td bgcolor=$data_bg_color1>$min</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center>" . $row['PROBLEM_NAME'] . "</td>\n";
+		echo "<td bgcolor=$data_bg_color1 align=center>" . $row['PROBLEM_SHORT_NAME'] . "</td>\n";
 		echo "<td bgcolor=$data_bg_color1 align=center>" . $team_id . "</td>\n";
 		echo "<td bgcolor=$data_bg_color1 align=center>" . $row['ATTEMPT'] . "</td>\n";
 		echo "<td bgcolor=$data_bg_color1 align=center>$response</td>\n";
