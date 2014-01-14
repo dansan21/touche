@@ -65,6 +65,7 @@ if (!$connect_good) {
   				<a href="setup_teams.php">Teams</a> &nbsp;  
   				<a href="setup_categories.php">Categories</a> &nbsp;
 				<a href="setup_team_category.php">Team Category</a> &nbsp;
+				<a href="setup_judging_options.php">Judging Options</a>&nbsp;
 				<?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 				$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 				$lang_sql  .= "FROM LANGUAGE";

@@ -27,6 +27,7 @@ if ($_POST)
 	$end_hour = $_POST['end_hour'];
 	$end_minute = $_POST['end_minute'];
 	$end_second = $_POST['end_second'];
+	$time_penalty = $_POST['time_penalty'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$base_directory = $_POST['base_directory'];
@@ -153,11 +154,12 @@ if ($_POST)
 
 	$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, ";
 	$sql.= "CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, ";
-	$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) ";
+	$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED, TIME_PENALTY) ";
 	$sql.= "VALUES ( '$host_name', '$contest_name', '$num_problems', '$contest_date', ";
 	$sql.= "	     '$save_start', '$freeze_delay', '$contest_delay', ";
-	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs') ";
+	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs', '$time_penalty') ";
 	$success = mysql_query($sql);
+	echo $success;
 	if ($success) {
 		if ($forbidden_c == 1 || $forbidden_cpp == 1 || $forbidden_java == 1) {
 			$forbidden = true;
@@ -419,6 +421,12 @@ End of POST section
 	echo "			<td colspan=2>Customize the judging experience</td>";
 	echo "		</tr>";
 	echo "		<tr bgcolor=\"$data_bg_color1\">";
+	echo "			<td>Penalty for incorrect submission:</td>";
+	echo "			<td><input type=\"num\" name=\"time_penalty\" ";
+	echo "				size=\"5\" value=\"$time_penalty\">";
+	echo "				</input></td>";
+	echo "		</tr>";
+	echo "		<tr bgcolor=\"$data_bg_color1\">";
 	echo "			<td>Ignore standard error?</td>";
 	echo "			<td><input type=checkbox name=stderr $stderr_checked >";
 	echo "				</input>";
@@ -444,11 +452,11 @@ End of POST section
 	echo "			<input type=checkbox name=headers_java $headers_java_checked >";
 	echo "				</input></td>";
 	echo "		</tr>";
-        echo "          <tr bgcolor=\"$data_bg_color1\">";
-        echo "                  <td>Display team names to judges?</td>";
-        echo "                  <td><input type=checkbox name=team_show $team_show >";
-        echo "                          </input>";
-        echo "          </tr>";
+    echo "          <tr bgcolor=\"$data_bg_color1\">";
+    echo "                  <td>Display team names to judges?</td>";
+    echo "                  <td><input type=checkbox name=team_show $team_show >";
+    echo "                          </input>";
+    echo "      </tr>";
 	echo "		<tr align=center bgcolor=\"$data_bg_color1\">";
 	echo "			<td colspan=2> <input type=\"submit\" value=";
 	echo 			"\"Submit\" name=\"B1\"></input></td> ";

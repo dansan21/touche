@@ -145,7 +145,8 @@ CREATE TABLE CONTEST_CONFIG (
   JUDGE_PASS char(30) NOT NULL default '',
   START_TS int(11) NOT NULL default '0',
   HAS_STARTED int(11) NOT NULL default '0',
-  TEAM_SHOW smallint(1) NOT NULL default '0'
+  TEAM_SHOW smallint(1) NOT NULL default '0',
+  TIME_PENALTY int(2) NOT NULL default '20'
 );
 
 DROP TABLE IF EXISTS LANGUAGE;
