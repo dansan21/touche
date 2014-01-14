@@ -86,7 +86,10 @@ else if($_POST)
 	{
 		//Error Checking
 		//Echo "<pre>"; 
-//print_R($_FILES);
+
+
+		//print_R($_FILES);
+
 		if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
 			mkdir($problem_dir . $_POST['problem_loc']);
@@ -271,7 +274,6 @@ $http_pdf.="	  </tr> ";
 	echo $cur_problems;
 	echo "</table>";
 	echo "</div>";
-
 
 	if($error_msg)
 	{

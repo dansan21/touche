@@ -31,6 +31,7 @@ if($_POST['B1'] == "Submit") {
                                 <td bgcolor="#ffffff" colspan="2">
 				<center><b>
 <?php
+$user = `whoami`;
 $db_name = preg_replace("/ /", "_", $contest);
 $contest_noesc = $contest;
 $contest = preg_replace("/ /", "\ ", $contest);
@@ -136,6 +137,8 @@ if (!$contest_info) {
     exit;
 }
 echo"Finished.</p>";
+
+
 #-----------editing database.inc----------------------------------
 echo "<p>Editing Settings . . . ";
 $fhdl = fopen("$contest_noesc/lib/database.inc", "r") OR die("Error with opening file 1");
@@ -143,32 +146,25 @@ $file = fread($fhdl, filesize("$contest_noesc/lib/database.inc"));
 $file = preg_replace("/YOUR.DB.HOST/", $dbhost, $file);
 $file = preg_replace("/YOUR_PASSWORD_HERE/", "$dbpw", $file);
 $file = preg_replace("/CONTEST_DATABASE_HERE/", "$db_name", $file);
-#$file = preg_replace("/jacob/", $dbhost, $file);
-#$file = preg_replace("/guessme/", "$dbpw", $file);
-#$file = preg_replace("/tlitwill/", "$db_name", $file);
 fclose($fhdl);
 $fhdl = fopen("$contest_noesc/lib/database.inc", "w") OR die("Error with opening file 2");
 $chk = fwrite($fhdl, $file);
 fclose($fhdl);
 
-#-------------------Copy new database.inc-------------------------
+
+#-------------------Copy new database.inc for admin-------------------------
 $cmd = "cp $contest_noesc/lib/database.inc $contest_noesc/admin/lib/database.inc";
 system($cmd,$result);
 
-#-------------------edit cron start-------------------------------
-$fhdl = fopen("../$contest_noesc/start_contest.crontab", "r") OR dir("Error opening start crontab");
-$file = fread($fhdl, filesize("../$contest_noesc/start_contest.crontab"));
-$file = preg_replace("/CHANGE/", "$contest", $file);
-fclose($fhdl);
-$fhdl = fopen("../$contest_noesc/start_contest.crontab", "w") OR die("Error opening start crontab");
-$chk = fwrite($fhdl, $file);
-fclose($fhdl);
+
+#-------------------Copy new database.inc for judge-------------------------
+$cmd = "cp $contest_noesc/lib/database.inc $contest_noesc/judge/lib/database.inc";
+system($cmd,$result);
+
 #---------editing chroot_wrapper.c--------------------------------
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("../$contest_noesc/chroot_wrapper.c"));
 $file = preg_replace("/develop/", "$contest", $file);
-#$file = preg_replace("/502/", "success", $file);
-#$file = preg_replace("/need if diff/", "502", $file);
 fclose($fhdl);
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);
@@ -194,16 +190,19 @@ if ($result) {
 echo "Unable to set contest directory permissions<br />";
 }
 echo "Finished.</p>";
+
+
 #-------------------------edit readme-----------------------------
 $fhdl = fopen("readme/inst.html", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("readme/inst.html"));
-$file = preg_replace("/URLHERE/", "http://touche.cse.taylor.edu/~gharwood/$contest", $file);
+$file = preg_replace("/URLHERE/", "http://touche.cse.taylor.edu/~$user/$contest", $file);
 fclose($fhdl);
 $fhdl = fopen("readme/inst.html", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);
 fclose($fhdl);
+
 #-----------------------------------------------------------------
-echo "<p>To finish setting up the contest go to: <a href='http://touche.cse.taylor.edu/~gharwood/$contest_noesc/admin'>Administration setup</a></p>";
+echo "<p>To finish setting up the contest go to: <a href='http://touche.cse.taylor.edu/~$user/$contest_noesc/admin/index.php'>Administration setup</a></p>";
 ?>
 </center></b></td></tr>
 </body>

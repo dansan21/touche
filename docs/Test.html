@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Validation is Fun! </title>
+<script>
+function checkFields() {
+	var ref = document.getElementsByName("reference")[0];
+	var food = document.getElementsByName("foodPreference")[0];
+	var gender = document.getElementsByName("gender");
+	var meh = document.getElementById("ddl");
+	var returnBool = true;
+	if(ref.value === "") {
+		document.getElementById("chckX").innerHTML = "&#935 Enter information!";
+		document.getElementById("chckX").style.color = "red";
+		document.getElementById("txtLabel").style.color = "red";
+		returnBool = false;
+	} else {
+		document.getElementById("chckX").innerHTML = "&#8730";
+		document.getElementById("chckX").style.color = "green";
+		document.getElementById("txtLabel").style.color = "black";
+	}
+		
+	if(meh.options[meh.selectedIndex].value === "None") {
+		document.getElementById("chckY").innerHTML = "&#935 Enter information!";
+		document.getElementById("chckY").style.color = "red";
+			document.getElementById("txtLabel2").style.color = "red";
+			returnBool = false;
+	} else {
+		document.getElementById("chckY").innerHTML = "&#8730";
+		document.getElementById("chckY").style.color = "green";
+		document.getElementById("txtLabel2").style.color = "black";
+	}
+	var Check = false;
+	for(var i = 0; i < gender.length; i++){
+		if(gender[i].checked){
+			Check = true;
+		}
+	}
+	if(Check === false) {
+		document.getElementById("chckZ").innerHTML = "&#935 Enter information!";
+		document.getElementById("chckZ").style.color = "red";
+		document.getElementById("txtLabel3").style.color = "red";
+		returnBool = false;
+	} else {
+		document.getElementById("chckZ").innerHTML = "&#8730";
+		document.getElementById("chckZ").style.color = "green";
+		document.getElementById("txtLabel3").style.color = "black";
+	}
+	return returnBool;
+}
+
+function submitData() {
+	if(checkFields() === true) {
+		document.getElementById("infoForm").submit();
+	}
+}
+
+function youClicked() {
+	window.location.href="http://i.imgur.com/fc5rycQ.jpg";
+}
+</script>
+</head><body>
+<h2>Information Validator</h2>
+<form method="post" id="infoForm" action="http://cse.taylor.edu/~sbrandle/JavaScript/process.php">
+<label id="txtLabel"> Who referred you to us? <input type="text" name="reference"></label><label id="chckX"></label><br>
+<label id="txtLabel2"> Select food type: 
+<select name="foodPreference" id="ddl">
+  <option value="None">-- Select One --</option>
+  <option value="Apple">Apple</option>
+  <option value="Orange">Orange</option>
+  <option value="Banana">Banana</option>
+  <option value="Pomegranate">Pomegranate</option>
+</select> </label><label id="chckY"></label><br>
+<label id="txtLabel3">What is your gender?</label><label><input type="radio" name="gender" value="Male">Male</label><label><input type="radio" name="gender" value="Female">Female</label><label><input type="radio" name="gender" value="Other">Other</label><label id="chckZ"></label><br>
+<input type="button" id="btnSubmit" value="Submit" onclick="submitData()">
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<input type="button" id="newBtn" value="DO NOT CLICK OR MUCH TROUBLES" onclick="youClicked()">
+
+</body>
+</html>
