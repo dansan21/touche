@@ -26,7 +26,7 @@ if (flock($fp, LOCK_EX+LOCK_NB)){
 #This needs to be moved to the database - added to contest_config
 #or some other appropriate table, then added to the dbcreate.sql
 #as well as the judge.inc files
-$USE_CHROOT = 1;
+$USE_CHROOT = 0;
 
 # Look for a new submission
 $sql  = "SELECT * ";

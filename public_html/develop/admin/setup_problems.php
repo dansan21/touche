@@ -18,7 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-echo $problem_dir."<br/>";
+//echo $problem_dir."<br/>";
 
 if ($_GET)
 {
@@ -85,8 +85,8 @@ else if($_POST)
 	if($_POST['submit'])
 	{
 		//Error Checking
-		Echo "<pre>"; 
-print_R($_FILES);
+		//Echo "<pre>"; 
+		//print_R($_FILES);
 		if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
 			mkdir($problem_dir . $_POST['problem_loc']);
@@ -110,8 +110,8 @@ print_R($_FILES);
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		echo $_FILES['html_file']['tmp_name'] . "<br/>";
-		print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
+		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
 		//process new file uploads if they exist
 		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
 		{
@@ -272,7 +272,7 @@ $http_pdf.="	  </tr> ";
 
 	echo "	  <tr> ";
 	echo "		<td colspan=2>";
-	echo "				<h3>Add or Edit Categories</h3>";
+	echo "				<h3>Add or Edit Problems</h3>";
 	echo "		</td>";
 	echo "	  </tr>";
 

@@ -286,7 +286,7 @@ End of POST section
 					$forbidden_c_checked = "checked";
 				}
 			}
-			elseif ($lang_row['LANGUAGE_NAME'] == "CXX") {
+			elseif ($lang_row['LANGUAGE_NAME'] == "C++") {
 				$headers_cpp_checked = $lang_row['REPLACE_HEADERS'];
 				$forbidden_cpp_checked = $lang_row['CHECK_BAD_WORDS'];
 				if ($headers_cpp_checked) {

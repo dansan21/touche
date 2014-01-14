@@ -46,16 +46,16 @@ if($_POST)
 		$action = "Adding data set for problem: $edit_problem_name";
 		//adding a new data set
 		
-		print "Filename: " . $_FILES['data_set_in']['name'];
+		//print "Filename: " . $_FILES['data_set_in']['name'];
 		if(!preg_match("/\.in$/", $_FILES['data_set_in']['name']))
 		{
-			print "Adding in suffix";
+			//print "Adding in suffix";
 			$in_suffix = ".in";
 			$out_file_name = $_FILES['data_set_in']['name']. ".out";
 		}
 		else
 		{
-			print "No suffix added";
+			//print "No suffix added";
 			$in_suffix = "";
 			$out_file_name = preg_replace("/\.in$/", "", $_FILES['data_set_in']['name']) . ".out";
 		}
@@ -64,7 +64,7 @@ if($_POST)
 				$data_dir . $_POST['problem_id'] . "_" . $_FILES['data_set_in']['name'] . $in_suffix);
 		if(!$result)
 		{
-			print "Failed to upload in file";
+			//print "Failed to upload in file";
 			$error_msg = "Failed to upload 'in' file";
 		}
 		//copy over the destination out file name so when we glob the directory later
@@ -74,7 +74,7 @@ if($_POST)
 				$data_dir . $_POST['problem_id'] . "_" . $out_file_name);
 		if(!$result)
 		{
-			print "Failed to upload out file";
+			//print "Failed to upload out file";
 			$error_msg = "Failed to upload 'out' file";
 		}
 	}
