@@ -108,17 +108,14 @@ $cur_headers = "";
 $sql = "select * from LANGUAGE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_headers = "<font size=+1>&nbsp</font><br>";
-	$cur_headers .= "<br><table>";
-	$cur_headers .= "<tr><td><font size=+1><b>Edit Current Forbidden Words</b></font></td></tr>";
+
+	$cur_headers .= "<tr><td colspan=3><h3>Edit Current Forbidden Words</b=h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_headers .= "<tr><td>" . $row['LANGUAGE_NAME']; 
-		$cur_headers .= " </td><td><font size=-1>";
+		$cur_headers .= " </td><td>";
 		$cur_headers .= "<a href=setup_forbidden.php?lang_id=" . $row['LANGUAGE_ID'] . ">Edit</a>";
-		$cur_headers .= "</font>";
 		$cur_headers .= "</td></tr>";
 	}
-	$cur_headers .= "</table>";
 }
 else
 {
@@ -127,39 +124,44 @@ else
 
 //must be a http GET
 	echo " <div class=\"container\">";
+
+
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr><td width=30% valign='top'>";
+	echo " <table class=\"table\" align=\"left\">";
 	echo $cur_headers;
-	echo " </td>";
-	echo " <td width=50%>";
-	echo " <form action=setup_forbidden.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
+	echo " </table>";
+	echo "</div>";
+
 	if($error_msg)
 	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
+		echo "<tr><td><h3>$error_msg</h3></td></tr>";
 	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Edit Forbidden Words</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
+
+
+	echo "</div>";
+
+
+	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\">";
+	echo " <form action=setup_forbidden.php method=post>";
+
+
+
+	echo "	  <tr>";
+	echo "		<td colspan=2>";
+	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
 	//in this case, we don't add new things, so we need to check to see if we
 	//are editing something
 	if(isset($edit_forbidden_words))
 	{
 		$sub_headers = split(":", $edit_forbidden_words);
-		echo "	  <tr bgcolor=\"$data_bg_color1\">";
-		echo "		<td valign=top>Forbidden Words </td>";
+		echo "	  <tr>";
 		echo "		<td><textarea rows=10 name='edit_forbidden_words'>";
 		foreach($sub_headers as $forbidden_word)
 		{
@@ -170,9 +172,6 @@ else
 		echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	}
 	echo "</form>";
-	echo "</td></tr>";
-	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
 	echo "</table>";
 	echo "</div>";
 	echo "</div>";

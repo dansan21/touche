@@ -108,17 +108,13 @@ $cur_headers = "";
 $sql = "select * from LANGUAGE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_headers = "<font size=+1>&nbsp</font><br>";
-	$cur_headers .= "<br><table>";
-	$cur_headers .= "<tr><td><font size=+1><b>Edit Current Headers</b></font></td></tr>";
+	$cur_headers .= "<tr><td colspan=2><h3>Edit Current Headers</h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_headers .= "<tr><td>" . $row['LANGUAGE_NAME']; 
-		$cur_headers .= " </td><td><font size=-1>";
+		$cur_headers .= " </td><td>";
 		$cur_headers .= "<a href=setup_headers.php?lang_id=" . $row['LANGUAGE_ID'] . ">Edit</a>";
-		$cur_headers .= "</font>";
 		$cur_headers .= "</td></tr>";
 	}
-	$cur_headers .= "</table>";
 }
 else
 {
@@ -127,39 +123,41 @@ else
 
 //must be a http GET
 	echo " <div class=\"container\">";
+
+	//filler column
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+
+	//Select Language Column
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr><td width=30% valign='top'>";
-	echo $cur_headers;
-	echo " </td>";
-	echo " <td width=50%>";
+	echo " <table class=\"table\" align=\"center\">";
 	echo " <form action=setup_headers.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
+	echo $cur_headers;
+	echo "</table>";
+	echo "</div>";
+
 	if($error_msg)
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Edit Headers</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
+
+	echo "</div>";
+
+
+
+	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"center\">";
+	echo "	  <tr>";
+	echo "		<td colspan=2>";
+	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
 	//in this case, we don't add new things, so we need to check to see if we
 	//are editing something
 	if(isset($edit_headers))
 	{
 		$sub_headers = split(":", $edit_headers);
-		echo "	  <tr bgcolor=\"$data_bg_color1\">";
-		echo "		<td valign=top>Headers </td>";
 		echo "		<td><textarea rows=10 name='edit_headers'>";
 		foreach($sub_headers as $header)
 		{
@@ -172,8 +170,7 @@ else
 	echo "</form>";
 	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
-	echo "</table>";
+	echo "</div>";
 	echo "</div>";
 	echo "</div>";
 	include("lib/footer.inc");

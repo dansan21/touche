@@ -122,67 +122,81 @@ $cur_categories = "";
 $sql = "select * from CATEGORIES";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_categories = "<a href=setup_categories.php>Add New Category</a><br>";
-	$cur_categories .= "<br><table>";
-	$cur_categories .= "<tr><td><b>Edit Current Categories</b></td></tr>";
+	
+	$cur_categories .= "<tr><td colspan=3><h3>Pick Category to Edit</h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_categories .= "<tr><td>" . $row['CATEGORY_NAME']; 
 		$cur_categories .= " </td><td>";
 		$cur_categories .= "<a href=setup_categories.php?edit_id=" . $row['CATEGORY_ID'] . ">Edit</a>";
 		$cur_categories .= "</td><td>";
 		$cur_categories .= "<a href=setup_categories.php?remove_id=" . $row['CATEGORY_ID'] . ">Delete</a>";
-		$cur_categories .= "<br>\n";
 		$cur_categories .= "</td></tr>";
+
 	}
-	$cur_categories .= "</table>";
+
 }
 else
 {
 	$cur_categories = "No current categories";
 }
 
+
+
 //must be a http GET
+
+
+	//Open Container
 	echo " <div class=\"container\">";
+
+	//filler column
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+
+
+	//Edit a category
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr><td>";
+	echo " <table class=\"table\" align=\"left\">";
 	echo $cur_categories;
-	echo " </td>";
-	echo " <td>";
-	echo " <form action=setup_categories.php method=post>";
-	echo "	<table> ";
+	echo " </table>";
+
+
+	echo "</div>";
+
 	if($error_msg)
 	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
+		echo "<h3>$error_msg</h3>";
 	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
-	echo "	  <tr> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Add or Edit Categories</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
+
+
+	echo "</div>";
+
+
+
+	//Add a category
+	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\">";
+	echo " <form action=setup_categories.php method=post>";
 
 	echo "	  <tr>";
-	echo "		<td align='center' colspan=2>";
-	echo "		<b>$action</b></td>";
+	echo "		<td colspan='2'>";
+	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Category name: </td>";
 	echo "		<td><input type='text' name='category_name' ";
 	echo "			value = '$edit_category_name'></td>";
 	echo "	  </tr> ";
+
+
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+
 	echo "</form>";
-	echo "</td></tr>";
-	echo "</table>";
-	echo "	</td><td></td></tr>";
 	echo "</table>";
 	echo "</div>";
 	echo "</div>";
+	echo "</div>";
+
 	include("lib/footer.inc");
 ?>
