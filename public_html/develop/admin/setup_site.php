@@ -122,7 +122,7 @@ End of POST section
 //build some http strings we'll need later
 if(!$action)
 {
-	$action = "Add a new site";
+	$action = "<h3>Add a new site</h3>";
 }
 $cur_sites = "";
 //get all the current categories
@@ -148,30 +148,34 @@ else
 }
 
 //must be a http GET
+
+	//table for Editing a Site
 	echo " <div class=\"container\">";
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
+	echo " <table class=\"table\" align=\"left\">";
 	echo "<tr>";
 	echo "<td>";
-	echo " <h3>Add or Edit Sites</h3>";
+	echo " <h3>Edit a Site</h3>";
 	echo $cur_sites;
 	echo "</td>";
 	echo "</tr>";
-	echo " <form action=setup_site.php method=post>";
-	if($error_msg)
-	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
-	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
+	echo "</table>";
+	echo "</div>";
+	echo "</div>";
 
-	echo " <tr>";
-	echo " <td>";
+
+
+	//Table for Adding a Site
+	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\">";
+	echo " <form action=setup_site.php method=post>";
+	echo "<th colspan='2'>";
 	echo " $action";
-	echo " </td>";
-	echo " </tr> ";
+	echo "</th>";
 	echo " <tr>";
 	echo " <td>Site name: </td>";
 	echo " <td><input type='text' name='site_name' ";
@@ -180,8 +184,18 @@ else
 	echo " <tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	echo " </form>";
 	echo " </td></tr>";
+
+	if($error_msg)
+	{
+		echo "<tr><td><h4>$error_msg</h4></tr></td>";
+	}
+
+
 	echo " </table>";
 	echo " </div>";
 	echo " </div>";
+	echo " </div>";
+
+
 	include("lib/footer.inc");
 ?>

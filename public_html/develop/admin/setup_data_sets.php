@@ -46,6 +46,8 @@ if($_POST)
 		$action = "Adding data set for problem: $edit_problem_name";
 		//adding a new data set
 		
+		echo "<div class='text-center'>"; //center print statements
+
 		print "Filename: " . $_FILES['data_set_in']['name'];
 		if(!preg_match("/\.in$/", $_FILES['data_set_in']['name']))
 		{
@@ -126,6 +128,8 @@ else if ($_GET)
 		}
 	}
 }
+
+echo "</div>";
 /*******************************************************
 End of POST section
 *******************************************************/
@@ -139,14 +143,13 @@ $cur_data_sets = "";
 $sql = "select * from PROBLEMS ORDER BY 'PROBLEM_ID'";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_data_sets = "&nbsp";
-	$cur_data_sets .= "<h3>Edit Data Sets</h3>";
+	$cur_data_sets .= "<tr><td colspan='2'><h3>Edit Current Data Sets</h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		$cur_data_sets .= "<tr><td>" . $row['PROBLEM_NAME']; 
 		$cur_data_sets .= "</td><td><a href=setup_data_sets.php?problem_id";
 		$cur_data_sets .= "=" . $row['PROBLEM_ID'] . ">Add new data set</a></td></tr>";
 		$fs_parse = glob($data_dir . $row['PROBLEM_ID'] . "*in");
-		$cur_data_sets .= "<tr><td><table>";
+		$cur_data_sets .= "<tr><td>";
 		foreach ($fs_parse as $file)
 		{
 			$file_names = split("/", $file);
@@ -156,9 +159,8 @@ if(mysql_num_rows($result) > 0) {
 			$cur_data_sets .= "<td><a href=setup_data_sets.php";
 			$cur_data_sets .= "?remove_ds_name=$data_set_name>Delete</a></td></tr>";
 		}
-		$cur_data_sets .="</table></td></tr>";
+		$cur_data_sets .="</td></tr>";
 	}
-	$cur_data_sets .= "</table>";
 }
 else
 {
@@ -175,45 +177,58 @@ if(isset($_GET['problem_id']) || isset($_POST['problem_id']))
 	$http_form .=  "		<td>Output File: </td>";
 	$http_form .=  "		<td><input type='file' name='data_set_out'</td>";
 	$http_form .=  "	  </tr> ";
-	$http_form .=  "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	$http_form .=  "	<tr><td colspan='2'><input name=submit type=submit value='Submit'></td></tr>";
 }
 else
 {
-	$action = "<h4>Select a problem above to add a data set</h4>";
+	$action = "<h4>Select a problem to the left to add a data set</h4>";
 }
 
 
 //must be a http GET
 
 	echo " <div class=\"container\">";
+
+	//filler div
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+
+
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr><td>";
-	echo $cur_data_sets;
-	echo " </td>";
-	echo " <td>";
+	echo " <table class=\"table\" align=\"left\">";
 	echo " <form action=setup_data_sets.php enctype='multipart/form-data' method=post>";
+	echo $cur_data_sets;
+	echo "<tr><td>";
 	echo " <input type=hidden name=problem_id value=$problem_id>";
-	echo "	<table> ";
-	if($error_msg)
-	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
-	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
-	echo "	  <tr>";
-	echo "		<td>";
-	echo "		<b>$action</b></font></td>";
-	echo "	  </tr> ";
-	echo $http_form;
-	echo "</form>";
 	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td></td></tr>";
+	echo "</div>";
+
+	if($error_msg)
+	{
+		echo "<h3>$error_msg</h3>";
+	}
+
+	echo "</div>";
+
+
+	//Table for inputing a new input and output data set.
+	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align='left'>";
+	echo "<tr><td colspan='2'><h3>$action</h3></td></tr>";
+	echo $http_form;
 	echo "</table>";
 	echo "</div>";
 	echo "</div>";
+
+
+
+
+	//End the Form
+	echo "</form>";
+	echo "</div>";
+	
 	include("lib/footer.inc");
 ?>

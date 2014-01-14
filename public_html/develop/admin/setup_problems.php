@@ -18,7 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-echo $problem_dir."<br/>";
+//echo $problem_dir."<br/>";
 
 if ($_GET)
 {
@@ -71,7 +71,7 @@ if ($_GET)
 		}
 		else
 		{
-			$error_msg = "Problem deleted successfully";
+			$error_msg = "<h3>Problem deleted successfully</h3>";
 		}
 	}
 	else
@@ -85,8 +85,8 @@ else if($_POST)
 	if($_POST['submit'])
 	{
 		//Error Checking
-		Echo "<pre>"; 
-print_R($_FILES);
+		//Echo "<pre>"; 
+//print_R($_FILES);
 		if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
 			mkdir($problem_dir . $_POST['problem_loc']);
@@ -110,8 +110,8 @@ print_R($_FILES);
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		echo $_FILES['html_file']['tmp_name'] . "<br/>";
-		print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
+		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
 		//process new file uploads if they exist
 		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
 		{
@@ -147,7 +147,7 @@ print_R($_FILES);
 				else
 				{
 					unset($_SESSION['edit_problem']);
-					$error_msg = "Problem changed successfully";
+					$error_msg = "<h3>Problem changed successfully</h3>";
 				}
 			}
 			//--------------------------------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ print_R($_FILES);
 				$result = mysql_query($sql);
 				if($result)
 				{
-					$error_msg .= "Successful: New problem created";
+					$error_msg .= "<h3>New problem created!</h3>";
 				}
 				else{
 					$error_msg .= "Error:" . mysql_error();
@@ -193,10 +193,6 @@ End of POST section
 //build some http strings we'll need later
 
 echo " <div class=\"container\">";
-if(!$action)
-{
-	$action = "<h4>Add a new problem</h4>";
-}
 $cur_problems = "";
 //get all the current categories
 $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";
@@ -204,16 +200,15 @@ $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 
 	//$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
-	$cur_problems .= "<br><table class=\"table\">";
-	$cur_problems .= "<tr><td><font size=+1><h3>Edit Current Problems</h3></font></td></tr>";
+	$cur_problems .= "<tr><td colspan='2'><h3>Edit Current Problems</h3></td></tr>";
 
 	while($row = mysql_fetch_assoc($result)){
 		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
-		$cur_problems .= " </td><td><font size=-1>";
+		$cur_problems .= " </td><td>";
 		$cur_problems .= "<a href=setup_problems.php?problem_id=" . $row['PROBLEM_ID'] . ">Edit</a>";
-		$cur_problems .= "</font></td><td><font size=-1>";;
+		$cur_problems .= "</td><td>";;
 		$cur_problems .= "<a href=setup_problems.php?remove_id=" . $row['PROBLEM_ID'] . ">Delete</a>";
-		$cur_problems .= "</font><br>\n";
+		$cur_problems .= "<br>\n";
 		$cur_problems .= "</td></tr>";
 	}
 	$cur_problems .= "</table>";
@@ -221,6 +216,7 @@ if(mysql_num_rows($result) > 0) {
 else
 {
 	$cur_problems = "<tr>No current problems</tr>";
+	$cur_problems = "</table>";
 }
 
 $http_html.="	  <tr bgcolor=\"$data_bg_color1\">";
@@ -240,7 +236,7 @@ $http_html.="		<input type=file name=html_file></input></td>";
 $http_html.="	  </tr> ";
 
 
-$http_pdf.="	  <tr bgcolor=\"$data_bg_color1\">";
+$http_pdf.="	  <tr>";
 $http_pdf.="		<td>Problem pdf: </td>";
 if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".pdf"))
 {
@@ -260,62 +256,77 @@ $http_pdf.="	  </tr> ";
 #--------------------------------------------------~~~~~~
 //must be a http GET
 	
+
+
+
 	echo " <div class=\"container\">";
+
+	echo "<div class=\"col-md-3\">";
+	echo "</div>";
+
+
+	echo "<div class=\"col-md-3\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr>";
+	echo " <table class=\"table\" align=\"center\">";
 	echo $cur_problems;
-	echo " </tr>";
+	echo "</table>";
+	echo "</div>";
 
-	echo " <td>";
-	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
-	echo "	<table class=\"table\"> ";
-
-	echo "	  <tr> ";
-	echo "		<td colspan=2>";
-	echo "				<h3>Add or Edit Categories</h3>";
-	echo "		</td>";
-	echo "	  </tr>";
 
 	if($error_msg)
 	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
+		echo "<table>$error_msg</table>";
 	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
+
+	echo "</div>";
+
+
+
+
+	echo "<div class=\"col-md-3\">";
+	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\">";
+
+	echo " <tr> ";
+	echo " <td colspan='2'>";
+	echo " <h3>Add or Edit Categories</h3>";
+	echo " </td>";
+	echo " </tr>";
+
 
 	echo "	  <tr> ";
-	echo "		<td colspan=2>";
-	echo "		<b>$action</b></td>";
-	echo "	  </tr> ";
-
-		echo "	  <tr> ";
-	echo "		<td>Problem name: </td>";
-	echo "		<td><input type='text' name='problem_name' ";
+	echo "		<td align='right'>Problem name: </td>";
+	echo "		<td><input type='text' class='form-control' name='problem_name' ";
 	echo "			value = '$edit_problem_name'></td>";
 	echo "	  </tr> ";
+	
 
 	echo "	  <tr> ";
-	echo "		<td>Problem location: </td>";
-	echo "		<td><input type='text' name='problem_loc' ";
+	echo "		<td align='right'>Problem location: </td>";
+	echo "		<td><input type='text' class='form-control' name='problem_loc' ";
 	echo "			value = '$edit_problem_loc'></td>";
 	echo "	  </tr> ";
+
+
 	echo "	  <tr> ";
-	echo "		<td>Problem notes: </td>";
-	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
+	echo "		<td align='right'>Problem notes: </td>";
+	echo "		<td><textarea class='form-control' rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
+
+
 	if($_SESSION['edit_problem'])
 	{
 		echo $http_html;
 		echo $http_pdf;
 	}
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+
+
+
+	echo "</div>";
 	echo "</form>";
 	echo "</table>";
-	echo "</table>";
-	echo "</div>";
 	echo "</div>";
 	include("lib/footer.inc");
 ?>
