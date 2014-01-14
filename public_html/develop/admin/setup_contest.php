@@ -177,7 +177,7 @@ if ($_POST)
 		$insert_sql_c.= "WHERE LANGUAGE_NAME = 'C'";
 		$insert_sql_cpp = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_cpp',";
 		$insert_sql_cpp.= "			CHECK_BAD_WORDS = '$forbidden_cpp' ";
-		$insert_sql_cpp.= "WHERE LANGUAGE_NAME = 'C++'";
+		$insert_sql_cpp.= "WHERE LANGUAGE_NAME = 'CXX'";
 		$insert_sql_java = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_java',";
 		$insert_sql_java.= "			CHECK_BAD_WORDS = '$forbidden_java' ";
 		$insert_sql_java.= "WHERE LANGUAGE_NAME = 'JAVA'";
@@ -286,7 +286,7 @@ End of POST section
 					$forbidden_c_checked = "checked";
 				}
 			}
-			elseif ($lang_row['LANGUAGE_NAME'] == "C++") {
+			elseif ($lang_row['LANGUAGE_NAME'] == "CXX") {
 				$headers_cpp_checked = $lang_row['REPLACE_HEADERS'];
 				$forbidden_cpp_checked = $lang_row['CHECK_BAD_WORDS'];
 				if ($headers_cpp_checked) {
