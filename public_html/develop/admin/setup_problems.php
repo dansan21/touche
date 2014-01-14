@@ -18,13 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-
-//creates problems directory if it doesn't already exist
-if(!file_exists($problem_dir))
-{
-	mkdir ($problem_dir);
-}
-
+//echo $problem_dir."<br/>";
 
 if ($_GET)
 {
@@ -91,6 +85,8 @@ else if($_POST)
 	if($_POST['submit'])
 	{
 		//Error Checking
+		//Echo "<pre>"; 
+		//print_R($_FILES);
 		if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
 			mkdir($problem_dir . $_POST['problem_loc']);
@@ -114,17 +110,9 @@ else if($_POST)
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		print "File lengths:" . strlen($_FILES['ps_file']['tmp_name']) . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
+		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
 		//process new file uploads if they exist
-		// if(($_POST['upload_ps_id']) && strlen($_FILES['ps_file']['tmp_name']) > 0)
-		// {
-			// $result = move_uploaded_file($_FILES['ps_file']['tmp_name'], 
-					// $problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".ps");
-			// if(!$result)
-			// {
-				// $error_msg .= "Failed to upload ps file";
-			// }
-		// }
 		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
 		{
 			$result = move_uploaded_file($_FILES['html_file']['tmp_name'], 
@@ -164,7 +152,7 @@ else if($_POST)
 			}
 			//--------------------------------------------------------------------------------------------------------
 			else if($error_msg) {
-				$error_msg .= "No Problem Created";
+				$error_msg .= "<h3>No Problem Created</h3>";
 			}
 			//--------------------------------------------------------------------------------------------------------
 			else
@@ -178,7 +166,7 @@ else if($_POST)
 				$result = mysql_query($sql);
 				if($result)
 				{
-					$error_msg .= "Successfull: New problem created";
+					$error_msg .= "Successful: New problem created";
 				}
 				else{
 					$error_msg .= "Error:" . mysql_error();
@@ -198,10 +186,16 @@ else
 /*******************************************************
 End of POST section
 *******************************************************/
+
+
+
+
 //build some http strings we'll need later
+
+echo " <div class=\"container\">";
 if(!$action)
 {
-	$action = "Add a new problem";
+	$action = "<h4>Add a new problem</h4>";
 }
 $cur_problems = "";
 //get all the current categories
@@ -209,8 +203,9 @@ $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 	//$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
-	$cur_problems .= "<br><table>";
-	$cur_problems .= "<tr><td><font size=+1><b>Edit Current Problems</b></font></td></tr>";
+	$cur_problems .= "<br><table class=\"table\">";
+	$cur_problems .= "<tr><td><font size=+1><h3>Edit Current Problems</h3></font></td></tr>";
+
 	while($row = mysql_fetch_assoc($result)){
 		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
 		$cur_problems .= " </td><td><font size=-1>";
@@ -224,25 +219,8 @@ if(mysql_num_rows($result) > 0) {
 }
 else
 {
-	$cur_problems = "No current problems";
+	$cur_problems = "<tr>No current problems</tr>";
 }
-
-// $http_ps.="	  <tr bgcolor=\"$data_bg_color1\">";
-// $http_ps.="		<td>Problem Postscript: </td>";
-// if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".ps"))
-// {
-	// $prev_ps_name = "<font color='green'>$edit_problem_name.ps</font><br>";
-// }
-// else
-// {
-	// $prev_ps_name = "<font color='red'>No file uploaded yet</font><br>";
-// }
-// $http_ps.="		<td>";
-// $http_ps.="		<input type=hidden name=upload_ps_id value=$edit_problem_id>";
-// $http_ps.= $prev_ps_name;
-// $http_ps.="		<input type=file name=ps_file></input></td>";
-// $http_ps.="	  </tr> ";
-
 
 $http_html.="	  <tr bgcolor=\"$data_bg_color1\">";
 $http_html.="		<td>Problem html: </td>";
@@ -278,16 +256,26 @@ $http_pdf.="		<input type=file name=pdf_file></input></td>";
 $http_pdf.="	  </tr> ";
 
 
-
-
+#--------------------------------------------------~~~~~~
 //must be a http GET
-	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
-	echo " <tr><td width=30% valign='top'>";
+	
+	echo " <div class=\"container\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\">";
+	echo " <tr>";
 	echo $cur_problems;
-	echo " </td>";
-	echo " <td width=50%>";
+	echo " </tr>";
+
+	echo " <td>";
 	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
+	echo "	<table class=\"table\"> ";
+
+	echo "	  <tr> ";
+	echo "		<td colspan=2>";
+	echo "				<h3>Add or Edit Problems</h3>";
+	echo "		</td>";
+	echo "	  </tr>";
+
 	if($error_msg)
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
@@ -296,41 +284,37 @@ $http_pdf.="	  </tr> ";
 	{
 		echo "<tr><td><b>&nbsp</b></td></tr>";
 	}
-	echo "	  <tr bgcolor='$hd_bg_color1'> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Add or Edit Categories</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
-	echo "	  <tr bgcolor=$hd_bg_color2>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
+
+	echo "	  <tr> ";
+	echo "		<td colspan=2>";
+	echo "		<b>$action</b></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+
+		echo "	  <tr> ";
 	echo "		<td>Problem name: </td>";
 	echo "		<td><input type='text' name='problem_name' ";
 	echo "			value = '$edit_problem_name'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+
+	echo "	  <tr> ";
 	echo "		<td>Problem location: </td>";
 	echo "		<td><input type='text' name='problem_loc' ";
 	echo "			value = '$edit_problem_loc'></td>";
 	echo "	  </tr> ";
-	echo "	  <tr bgcolor=\"$data_bg_color1\">";
+	echo "	  <tr> ";
 	echo "		<td>Problem notes: </td>";
 	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
 	if($_SESSION['edit_problem'])
 	{
-		echo $http_ps;
 		echo $http_html;
 		echo $http_pdf;
 	}
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	echo "</form>";
-	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td width=20%></td></tr>";
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
 	include("lib/footer.inc");
 ?>

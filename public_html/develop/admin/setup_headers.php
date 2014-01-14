@@ -126,7 +126,9 @@ else
 }
 
 //must be a http GET
-	echo " <table align=center bgcoloer=#ffffff cellpadding=0 cellspacing=0 border=0 width=100%>";
+	echo " <div class=\"container\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\">";
 	echo " <tr><td width=30% valign='top'>";
 	echo $cur_headers;
 	echo " </td>";
@@ -172,5 +174,7 @@ else
 	echo "</table>";
 	echo "	</td><td width=20%></td></tr>";
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
 	include("lib/footer.inc");
 ?>
