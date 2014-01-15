@@ -1,9 +1,12 @@
 <?
-//change lines 8 and 20
+//change lines 12 and 23
 include("lib/admin_config.inc");
 	include("lib/data.inc");
 	include("lib/session.inc");
+
 $user = `whoami`;
+$user = str_replace("\n","",$user);
+$user = str_replace(" ","",$user);
 
 #~~~~~~~setup_contest.php automation~~~~~~~~~~~~~~~
 $sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) VALUES ( 'cstevens', 'calebtest', '1', '0000-00-00', '', '', '', '/home/".$user."/calebtest', '', 'judge', 'judge', '', '', '')";

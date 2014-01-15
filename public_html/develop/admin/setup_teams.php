@@ -129,7 +129,7 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if($result)
 			{
-				$error_msg = "Successfull: New team created";
+				$error_msg = "Successful: New team created";
 			}
 			else{
 				$error_msg = "Error:" . mysql_error();
@@ -189,8 +189,7 @@ $sql = "select * from TEAMS";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 	//$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
-	$cur_teams = "<table>";
-	$cur_teams .= "<h3>Edit Current Teams</h3>";
+	$cur_teams .= "<td colspan=2><h3>Edit Current Teams</h3></td>";
 	while($row = mysql_fetch_assoc($result)){
 		if($row['TEST_TEAM']=='1'){
 			$isChecked="checked";
@@ -216,7 +215,6 @@ if(mysql_num_rows($result) > 0) {
 //pdf_show_xy($pdf, $row['ALTERNATE_NAME'], 15, 505);
 //-------------------------------------------------------------------------------------------
 	}
-	$cur_teams .= "</table>";
 //-------------------------------------------------------------------------------------------
 //pdf_end_page($pdf);
 //pdf_close($pdf);
@@ -229,43 +227,54 @@ else
 }
 
 //must be a http GET
-	echo " <div class=\"container\">";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\">";
-	echo " <tr><td>";
+	echo " <div class=\"container\">"; // open container
+
+	//filler column
+	echo "<div class=\"col-md-3\">"; //open col
+	echo "</div>"; //close col
+
+
+	echo "<div class=\"col-md-3\">"; //open col
+
+	echo " <div class=\"table-responsive\">"; //open responsive
+	echo " <table class=\"table\" align=\"left\">";
+	echo "<tr>";
 	echo $cur_teams;
-	echo " </td>";
-	echo " <td>";
-	echo " <form action=setup_teams.php method=post>";
-	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
+	echo "</tr>";
+	echo "</table>";
+	echo "</div>"; //close responsive
+
 	if($error_msg)
 	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
+		echo "<h3>$error_msg</h3>";
 	}
-	else
-	{
-		echo "<tr><td><b>&nbsp</b></td></tr>";
-	}
-	echo "	  <tr> ";
-	echo "		<td align='center' colspan=2>";
-	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Add or Edit Teams</b></font>";
-	echo "		</td>";
-	echo "	  </tr>";
+
+	echo "</div>"; //close col
+
+
+	echo "<div class=\"col-md-4\">";
+	echo " <form action=setup_teams.php method=post>";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\">";
+
+
 	echo "	  <tr>";
-	echo "		<td align='center' colspan=2><font color='$hd_txt_color2'>";
-	echo "		<b>$action</b></font></td>";
+	echo "		<td colspan=2>";
+	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Team name: </td>";
 	echo "		<td><input type='text' name='team_name' ";
 	echo "			value = '$edit_team_name'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Organization: </td>";
 	echo "		<td><input type='text' name='organization' ";
 	echo "			value = '$edit_organization'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Username</td>";
 	echo "		<td><input type='text' name='username' ";
@@ -291,49 +300,59 @@ if(!$edit_password) {
 	echo "		<td><select name=site_id> ";
 	echo "			$http_sites</select></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Coach: </td>";
 	echo "		<td><input type='text' name='coach_name' ";
 	echo "			value = '$edit_coach_name'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Contestant 1: </td>";
 	echo "		<td><input type='text' name='contestant_1_name' ";
 	echo "			value = '$edit_contestant_1_name'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Contestant 2: </td>";
 	echo "		<td><input type='text' name='contestant_2_name' ";
 	echo "			value = '$edit_contestant_2_name'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Contestant 3: </td>";
 	echo "		<td><input type='text' name='contestant_3_name' ";
 	echo "			value = '$edit_contestant_3_name'></td>";
 	echo "	  </tr> ";
+
 	echo "	  <tr>";
 	echo "		<td>Alternate: </td>";
 	echo "		<td><input type='text' name='alternate_name' ";
 	echo "			value = '$edit_alternate_name'></td>";
 	echo "	  </tr> ";
+
 	echo "    <tr>";
     echo "          <td>Email: </td>";
     echo "          <td><input type='text' name='email' ";
     echo "                  value = '$edit_email'></td>";
     echo "    </tr> ";
+<<<<<<< HEAD
 	echo "    <tr>";
     echo "          <td>Test Team: </td>";
     echo "          <td><input type='checkbox' name='test_team' value=1";
     echo "                  value = '$edit_test_team'></td>";
     echo "    </tr> ";
+=======
+>>>>>>> 2aad555d709830c63fb59169824a20cb75bacb09
 
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
-	echo "</form>";
+	
 	echo "</td></tr>";
 	echo "</table>";
-	echo "	</td><td></td></tr>";
-	echo "</table>";
-	echo "</div>";
-	echo "</div>";
+	echo "</div>"; //close column
+	echo "</div>"; //close responsive
+	
+	echo "</form>"; // close form
+	echo "</div>"; //close container
 	include("lib/footer.inc");
 ?>

@@ -7,7 +7,7 @@
 #
 # arch-tag: admin/lib/session.inc
 #
-    include_once("admin_config.inc");
+	include_once("admin_config.inc");
 #
     session_name("TOUCHE-$db_name");
     session_start();

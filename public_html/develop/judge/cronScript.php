@@ -12,6 +12,7 @@
 #
 # Set up default directories
 $problem_handle['queue_dir'] = "$base_dir/queue/";
+echo $problem_handle['queue_dir'];
 $problem_handle['judged_dir'] = "$base_dir/judged/";
 $problem_handle['data_dir'] = "$base_dir/data/";
 
