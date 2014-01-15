@@ -9,6 +9,9 @@
    PATH - the path for the new chroot
    COMMAND - the command to execute within the new chroot (local to the new chroot)
 */
+
+//edit line 26,27,28
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <errno.h>
@@ -22,7 +25,7 @@
 // Ideally, all the "configurables" (uid, gid, judge home, chroot.log) will be parameterized. -sb
 const int JUDGE_UID = 5001;
 const int JUDGE_GID = 100;
-#define JUDGE_HOME  "/home/contest/develop/logs"
+#define JUDGE_HOME  "/home/daniel/develop/logs"
 
 int main(int argc, char** argv) {
 		FILE* pErrFileC;

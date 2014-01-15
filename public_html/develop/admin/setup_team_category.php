@@ -41,12 +41,12 @@ include_once("lib/header.inc");
     $tmp = $num_cat * 10;
     echo " <div class=\"container\">";
     echo " <div class=\"table-responsive\">";
-    echo"<form method='POST' action='setup_team_category.php'>";
-    echo " <table class=\"table\">";
+    echo "<form method='POST' action='setup_team_category.php'>";
+    echo " <table class=\"table\" align=\"center\">";
     echo "<tr><td>";
-       echo "<b>Teams</b>";
-    echo "</td></tr>\n";
-    echo "<tr>\n";
+    echo "<h3>Teams</h3>";
+    echo "</td></tr>";
+    echo "<tr>";
     echo "<td>Team Name</td>\n";
     for($i=1; $i<=$num_cat; $i++) { 
 	echo "<td><b>".$cat_row["CATEGORY_NAME"]."</b></td>";
@@ -81,8 +81,11 @@ include_once("lib/header.inc");
 	$team_row = mysql_fetch_assoc($team);
 	echo "</tr>";
     }
-
+    echo "<tr>";
+    echo "<td colspan=5>";
     echo "<input type='submit' value='Make Changes' name='submit'/>";
+    echo "</td>";
+    echo "</tr>";
     echo "</table>";
     echo "</form>";
     echo "</div>";

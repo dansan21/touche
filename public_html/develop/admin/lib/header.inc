@@ -9,6 +9,9 @@
 # arch-tag: admin/lib/header.inc
 #
 
+include_once("admin_config.inc");
+include_once ("session.inc");
+
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
     print "Sorry.  Database connect failed.  Retrying...";
@@ -53,7 +56,7 @@ if (!$connect_good) {
 </div>
 		<div class="container">
           <ul class="nav nav-tabs nav-justified">
-            <li><a href="#">&laquo;</a></li>
+            <!--<li><a href="#">&laquo;</a></li> -->
             <li><a href="setup_contest.php">Details</a></li>
             <li><a href="setup_problems.php">Problems</a></li>
             <li><a href="setup_data_sets.php">Data</a></li>
@@ -78,17 +81,18 @@ if (!$connect_good) {
             <li><a href="setup_forbidden.php">Forbidden</a></li>
             <?} ?>
             <li><a href="misc.php">Misc</a></li>
+			<li><a href="start.php">Start Contest</a></li>
 
-            <li><a href="#">&raquo;</a></li>
+            <!--<li><a href="#">&raquo;</a></li> -->
           </ul>
       	</div>
       	<div class="container">
-      		<div class="text-center">
-				<h4><?=$contest_name?></h4>
-				<h5><?=$contest_host?></h5>
-				<h1>Official Time: <?=date("H:i:s")?></h1>
-			</div>
-		</div>
+
+        <div class="text-center">
+				<h2>Official Time: <?=date("H:i:s")?></h2>
+        <h5><?=$contest_name?> - <?=$contest_host?></h5>
+		    </div>
+        </div>
 
 				<?if (!$contest_name)
 				{?>
