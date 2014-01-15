@@ -9,6 +9,9 @@
 # arch-tag: admin/lib/header.inc
 #
 
+include_once("admin_config.inc");
+include_once ("session.inc");
+
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
     print "Sorry.  Database connect failed.  Retrying...";
@@ -79,6 +82,7 @@ if (!$connect_good) {
             <li><a href="setup_forbidden.php">Forbidden</a></li>
             <?} ?>
             <li><a href="misc.php">Misc</a></li>
+			<li><a href="start.php">Start Contest</a></li>
 
             <!--<li><a href="#">&raquo;</a></li> -->
           </ul>
