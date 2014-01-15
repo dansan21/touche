@@ -47,6 +47,7 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 <script src="js/bootstrap.min.js"></script>
 
 </head>
+
 <body>
 <!-- START TOP BAR-->
 	<div class="page-header">
@@ -80,13 +81,6 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
   <ul class="nav nav-tabs nav-justified">
 
 <?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?> 
-
-
-  	<li class=<?php if (strpos($actual_link,'start') !== false) {
-  				echo "'active'";
-  			}
-  		?>><a href="start.php">Start Contest</a></li>
-
 
     <li class=<?php if (strpos($actual_link,'judge.php') !== false) {
   				echo "'active'";
@@ -128,6 +122,7 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 <!-- START OF PANEL -->
 <div class="container">
 <div class="text-center">
+
 
 <?
 		    $sql  = "SELECT * ";

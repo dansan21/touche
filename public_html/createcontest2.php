@@ -31,11 +31,18 @@ if($_POST['B1'] == "Submit") {
                                 <td bgcolor="#ffffff" colspan="2">
 				<center><b>
 <?php
+
 $user = `whoami`;
+$user = str_replace("\n","",$user);
+$user = str_replace(" ","",$user);
+
+$dbPass = $dbpw;
+$dbU = "contest_skeleton";
 $db_name = preg_replace("/ /", "_", $contest);
 $contest_noesc = $contest;
 $contest = preg_replace("/ /", "\ ", $contest);
 $contest_dir = "../$contest";
+$base_dir = "/home/$user/$contest";
 echo "<p>Creating contest folder (takes a while) . . . \n";
    $cmd = "cp -pr ../develop/ ";
    $cmd .= $contest_dir;
@@ -46,79 +53,146 @@ echo "<p>Clearing folders . . . ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/data/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/judged/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/queue/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/test_compile/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/c_jail/home/contest/*";
+   $cmd2 .= "/c_jail/home/$user/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/cpp_jail/home/contest/*";
+   $cmd2 .= "/cpp_jail/home/$user/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/java_jail/home/contest/*";
+   $cmd2 .= "/java_jail/home/$user/*";
    system($cmd2, $result);
+   echo "Result: $result \n";
 echo"Finished.</p>\n";
 echo "<p>Making Directories . . . ";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/c_jail/home/contest/";
+   $cmd2 .= "/cpp_jail/home";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/c_jail/home/$user";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/c_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/c_jail/home/contest/";
+   $cmd2 .= "/c_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/cpp_jail/home/contest/";
+   $cmd2 .= "/cpp_jail/home";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/cpp_jail/home/$user";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/cpp_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/cpp_jail/home/contest/";
+   $cmd2 .= "/cpp_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/java_jail/home/contest/";
+   $cmd2 .= "/java_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
+   echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/java_jail/home/contest/";
+   $cmd2 .= "/java_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
+   echo "Result: $result \n";
 echo"Finished.</p>\n";
+
+echo "<p> Adding in jail files. . . ";
+//cpp_jail
+	$user = str_replace("\n","",$user);
+	$cmd = "cp -R /home/$user/jails/cpp_jail/lib64 /home/$user/$contest/cpp_jail/lib64";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/cpp_jail/usr /home/$user/$contest/cpp_jail/usr";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/cpp_jail/lib /home/$user/$contest/cpp_jail/lib";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/cpp_jail/bin /home/$user/$contest/cpp_jail/bin";
+	system($cmd,$result);
+	echo "Result: $result \n";
+
+//c_jail	
+	$cmd = "cp -R /home/$user/jails/c_jail/lib64 /home/$user/$contest/c_jail/lib64";
+	system($cmd,$result);
+	echo "Result: $result | dir = $contest \n";
+	$cmd = "cp -R /home/$user/jails/c_jail/usr /home/$user/$contest/c_jail/usr";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/c_jail/lib /home/$user/$contest/c_jail/lib";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/c_jail/bin /home/$user/$contest/c_jail/bin";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	
+	$test = "chmod -R 0755 /home/$user/$contest";
+	system($test);
+	echo "Finished</p>";
+	
 echo "<p>Creating Database . . . ";
-   $mypwd = "password";
-   $cmd3 = "mysqladmin --password=$mypwd -u root create $db_name";
+   $cmd3 = "mysqladmin --password=$dbPass -u root create $db_name";
    system($cmd3, $result);
-   $cmd3 = "mysql --password=$mypwd -u root $db_name < dbcreate.sql";
+   $cmd3 = "mysql --password=$dbPass -u root $db_name < dbcreate.sql";
    system($cmd3, $result);
    $cmd4 = "cp -r develop/ ./";
    $cmd4 .= $contest;
    system($cmd4, $result);
-$dbU = "contest_skeleton";
+   
 $link = mysql_connect($dbhost, $dbU, $dbpw);
 if (!$link) {
     print "Sorry.  Database connect failed.";
@@ -130,7 +204,7 @@ if (!$connect_good) {
     print "Sorry.  Database selection failed.";
     exit;
 }
-$base_dir = "/home/contest/$contest";
+
 $contest_info = mysql_query("INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, JUDGE_USER) VALUES ('$HOST', '$contest', '14400', '18000', '$base_dir', 'judge')");
 if (!$contest_info) {
     print "Sorry.  Database request (INSERT) failed.";

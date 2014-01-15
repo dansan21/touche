@@ -6,13 +6,11 @@
 # See the file "COPYING" for further information about the copyright
 # and warranty status of this work.
 #
-# arch-tag: judge/start.php
+# arch-tag: admin/start.php
 #
-include_once("lib/config.inc");
-include_once("lib/judge.inc");
-include_once("lib/header.inc");
 
-judge_header(0);
+include_once("lib/header.inc");
+include_once("lib/judge.inc");
 
 function make_file_readable($fp, $missing_files) {
 	if (file_exists($fp)) {
@@ -32,31 +30,32 @@ if($_POST['submit'] == 'Start')
         if ($result != 0){
                 echo "<p><font color=$hd_txt_color2>Warning! Crontab Failed to start, please contact the system administrator</font></p>";
         }
-
+	
 	foreach($_POST['chksite'] as $site)
 	{
 		if($site == 'contest')
 		{
 			$contest_started = true;
-//set permissions for html and pdf files
-$sql = "SELECT * FROM PROBLEMS";
-$result = mysql_query($sql);
-if(mysql_num_rows($result) > 0) { 
-       while($row = mysql_fetch_assoc($result)){
-		$dir_name = "../problems/" . $row['PROBLEM_LOC'];
-		chmod($dir_name, 0755);
+			
+			//set permissions for html and pdf files
+			$sql = "SELECT * FROM PROBLEMS";
+			$result = mysql_query($sql);
+			if(mysql_num_rows($result) > 0) { 
+				while($row = mysql_fetch_assoc($result)){
+					$dir_name = "../problems/" . $row['PROBLEM_LOC'];
+					chmod($dir_name, 0755);
 
-		$missing_files = 0;
-		$problem_name = "$dir_name/" . $row['PROBLEM_NAME'];
-		make_file_readable("$problem_name.html", &$missing_files);
-		make_file_readable("$problem_name.ps", &$missing_files);
-		make_file_readable("$problem_name.pdf", &$missing_files);
-		if ($missing_files == 3) {
-			echo "Warning: no problem file for " . $row['PROBLEM_NAME'] . "<br />";
-		}
-        }
-}
-	//		print "cur hour: $cur_hour cur minute: $cur_minute cur second: $cur_second";
+					$missing_files = 0;
+					$problem_name = "$dir_name/" . $row['PROBLEM_NAME'];
+					make_file_readable("$problem_name.html", &$missing_files);
+					make_file_readable("$problem_name.ps", &$missing_files);
+					make_file_readable("$problem_name.pdf", &$missing_files);
+					if ($missing_files == 3) {
+						echo "Warning: no problem file for " . $row['PROBLEM_NAME'] . "<br />";
+					}
+				}
+			}
+			//print "cur hour: $cur_hour cur minute: $cur_minute cur second: $cur_second";
 			$sql = "UPDATE CONTEST_CONFIG set START_TIME = '$cur_hour:$cur_minute:$cur_second'";
 			$result = mysql_query($sql);
 			if(!$result)
@@ -100,6 +99,7 @@ if(mysql_num_rows($result) > 0) {
 	}
 }
 
+
 echo "<form action=start.php method=post>";
 
 
@@ -111,6 +111,8 @@ echo "<tr><td colspan=2 align='center'>\n";
 echo "<h3>Start Contest</h3></td></tr>\n";
 echo "<tr><td>Start contest</td><td>";
 //$cur_time = time();
+
+
 if(!$contest_started)
 {
 	echo "<input type=checkbox name=chksite[] value='contest'>";
@@ -118,7 +120,7 @@ if(!$contest_started)
 else
 {
 	echo "<input type=checkbox name=chksite[] value='contest' disabled checked>";
-//	$contest_started = true;
+	//$contest_started = true;
 }
 
 echo "</td></tr>";

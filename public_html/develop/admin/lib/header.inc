@@ -9,6 +9,9 @@
 # arch-tag: admin/lib/header.inc
 #
 
+include_once("admin_config.inc");
+include_once ("session.inc");
+
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
     print "Sorry.  Database connect failed.  Retrying...";
@@ -54,6 +57,7 @@ if (!$connect_good) {
         	</div>
         </div>
 </div>
+
 <!-- END -->
 
 <!-- START OF NAVIGATION -->
@@ -62,6 +66,7 @@ if (!$connect_good) {
 
 <div class="container">
     <div class="text-center">
+
         <h5><?=$contest_name?> - <?=$contest_host?></h5>
     </div>
 
@@ -94,7 +99,7 @@ if (!$connect_good) {
     <li class=<?php if (strpos($actual_link,'start') !== false) {
                 echo "'active'";
             }
-        ?>><a href="setup_team_category.php">TCats</a></li>
+        ?>><a href="setup_team_category.php">Team Categories</a></li>
     <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 		$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 		$lang_sql  .= "FROM LANGUAGE";
@@ -121,6 +126,11 @@ if (!$connect_good) {
                 echo "'active'";
             }
         ?>><a href="misc.php">Misc</a></li>
+
+         <li class=<?php if (strpos($actual_link,'start.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="start.php">Start Contest</a></li>
 
     <!--<li><a href="#">&raquo;</a></li> -->
   </ul>
