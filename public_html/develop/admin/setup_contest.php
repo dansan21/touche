@@ -238,8 +238,8 @@ End of POST section
 		echo " <div class=\"container\">";
 		echo " <form method=POST action=setup_contest.php>\n";
 		echo " <div class=\"table-responsive\">";
-		echo " <table class=\"table\" align=\"center\">";
-		echo " <td align='right' colspan='1'><h3>Edit Contest Info</h3></td>";
+		echo " <table class=\"table\" align=\"center\" width=70%>";
+		echo " <td align='right'><h3>Edit Contest Info</h3></td>";
 		$host = $row['HOST'];
 		$contest_name = $row['CONTEST_NAME'];
 		$today_month  = date('m', $contest_start_ts);
@@ -317,9 +317,9 @@ End of POST section
 		echo "<p>";
 		echo "<table><tr><td>";
 		echo "<table>\n";
-		echo "  <tr>\n";
-		echo "		<td align=\"center\" colspan=\"2\">";
-		echo "			<b>Contest Info</b></td></tr>\n";
+		echo "<tr>\n";
+		echo "<td align=\"center\" colspan=\"2\">";
+		echo "<b>Contest Info</b></td></tr>\n";
 		$host = "";
 		$contest_name = "";
 		$today_month  = date('m');
@@ -368,7 +368,7 @@ End of POST section
 	echo "				</input></td>";
 	echo "		</tr>";
 
-	echo "		<tr> ";
+	echo "		<tr>";
 	echo "			<td align='right'>Amount of time (HH:mm:ss) until the standings are frozen:</td> ";
 	echo "			<td><input type=\"text\" name=\"freeze_hour\" ";
 	echo "				size=\"2\" maxlength=2 value=\"$freeze_hour\"></input>:";
@@ -451,9 +451,7 @@ End of POST section
 	echo 			"\"Submit\" name=\"B1\"></input></td> ";
 	echo "		</tr>";
 	echo "	</table>";
-	echo " </div>";
 	echo "	</form>";
-	echo " </div>";
 
 		include("lib/footer.inc");
 ?>

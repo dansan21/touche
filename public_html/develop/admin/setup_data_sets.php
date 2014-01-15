@@ -14,7 +14,7 @@ include_once("lib/admin_config.inc");
 include_once("lib/data.inc");
 include_once("lib/session.inc");
 include_once("lib/contest_info.inc");
-include_once("lib/header.inc");
+
 $data_dir = $base_dir . "/data/";
 
 if($_POST)
@@ -136,6 +136,10 @@ echo "</div>";
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
+
+include_once("lib/header.inc");
+
+
 if(!$action)
 {
 	$action = "Add a new data set";

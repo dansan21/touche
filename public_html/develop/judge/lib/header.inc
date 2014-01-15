@@ -39,82 +39,145 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 		echo "<meta http-equiv='refresh' content='$refresh_time'>";	
 	}
 ?>
-</head>
-<body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">
-<table width="90%" align="center" cellpadding="1" cellspacing="0" border="0" bgcolor="#000000">
-	<tr><td>
-		<table width="100%" cellpadding="5" cellspacing="0" border="0">
-			<tr bgcolor="<?=$title_bg_color?>">	
-				<td>
-                                <!-- Beautification hack. 2006-09-25 -sb -->
-                                <img src="../images/favicon.ico">
-  				<font color="#ffffff">
-				<?
-				if (!$contest_name)
-				{?>
-  				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
-				<?}
-				else { ?>
-  				<b><?=$contest_name?></b> - <small><?=$contest_host?></small>
-				<?}?>
-  				</font>
-				</td>
-				<td align="right">
- 					 <font color="#ffffff">
- 					 <b>JUDGE</b>
- 					 </font>
-				</td>
-			</tr>
-			<tr>	
-				<td bgcolor="#dcdcdc" align="left"><b>
-				<a href="start.php">Start Contest</a> &nbsp;
-				<a href="judge.php">Judge Submissions</a> &nbsp;
-				<a href="review.php">Review Judgements</a> &nbsp;
-				<a href="problems.php">Problems</a> &nbsp;
-				<a href="clarifications.php">Clarifications</a> &nbsp;
-				<a href="standings.php">Standings</a> &nbsp;
-<?
-    				    $sql  = "SELECT * ";
-				    $sql .= "FROM CLARIFICATION_REQUESTS ";
-				    $sql .= "WHERE ";
-				    $sql .= "    RESPONSE='' ";
-				    $result = mysql_query($sql);
-					$num_clarifications = mysql_num_rows($result);
-				    if($row = mysql_fetch_row($result)) {
-					echo "<font color='#ff0000'><b>";
-					echo "Clarification Requested";
-					echo "</b></font>";
-				    }
-?>
-				    
-				</td>
-				<td align="right" bgcolor="#dcdcdc">
-				<b>Official Time: <?=date("H:i:s")?></b><br/>
-<?
-				$freeze_diff = $contest_freeze_ts + $site_start_offset - time();
-				$time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
 
-				if ($freeze_diff > 0) {
-                                        print "Time left until freeze begins: ";
-                                        print $time_till_freeze_starts;
-                                        print "<br />";
-                                }
-				else {
-					print"Standings Frozen<br>";
-				}
+<style>
+	<?php include_once("../styles/css/bootstrap.css"); ?>
+</style>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!-- START TOP BAR-->
+	<div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+            <?php 
+            $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+            header("Content-Type: image/png");
+            echo "<img src='$path' alt='Logo'>";
+            ?>
+        </div>
+         	<div class="text-right">
+            	<h3>JUDGE</h3>
+        	</div>
+        </div>
+</div>
+<!-- END TOP BAR -->
+
+<!-- START OF NAVIGATION -->
+<div class="container">
+	<div class="text-center">
+					<?
+		if (!$contest_name)
+		{?>
+			<b>No contest exists yet
+		<?}
+		else { ?>
+			<h5><?=$contest_name?> - <?=$contest_host?></h5>
+		<?}?>
+	</div>
+  <ul class="nav nav-tabs nav-justified">
+
+<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?> 
+
+
+  	<li class=<?php if (strpos($actual_link,'start') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="start.php">Start Contest</a></li>
+
+
+    <li class=<?php if (strpos($actual_link,'judge.php') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="judge.php">Judge Submissions</a></li>
+
+
+    <li class=<?php if (strpos($actual_link,'review') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="review.php">Review Judgements</a></li>
+
+
+    <li class=<?php if (strpos($actual_link,'problems') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="problems.php">Problems</a></li>
+
+
+    <li class=<?php if (strpos($actual_link,'clarifications') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="clarifications.php">Clarifications</a></li>
+
+
+
+    <li class=<?php if (strpos($actual_link,'standings') !== false) {
+  				echo "'active'";
+  			}
+  		?>><a href="standings.php">Standings</a></li>
+
+
+  </ul>
+</div>
+</div>
+
+<!-- END OF NAVIGATION -->
+
+<!-- START OF PANEL -->
+<div class="container">
+<div class="text-center">
+
+<?
+		    $sql  = "SELECT * ";
+	    $sql .= "FROM CLARIFICATION_REQUESTS ";
+	    $sql .= "WHERE ";
+	    $sql .= "    RESPONSE='' ";
+	    $result = mysql_query($sql);
+		$num_clarifications = mysql_num_rows($result);
+	    if($row = mysql_fetch_row($result)) {
+		echo "Clarification Requested";
+	    }
 ?>
-				Time Till Contest End: <?=gmdate("H:i:s", $contest_end_ts - time())?><br>
-				</td>
-			</tr>
-			<tr>
-				<td bgcolor="#dcdcdc"/>
-				<td align="right" bgcolor="#dcdcdc">
-				Queued Submissions: <?=$num_queued?><br>
-				Unanswered Clarifications: <?=$num_clarifications?>
-				</td>
-			</tr>
-			<tr>
-				<td bgcolor="#ffffff" colspan="2">
+
+								    
+	<div class="panel panel-default">
+	  		<div class="panel-body">
+	  			<div class="table-responsive">
+	  			<table class="table" align='center'>
+	  				<tr>
+	  				<?
+						$freeze_diff = $contest_freeze_ts + $site_start_offset - time();
+						$time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
+
+						if ($freeze_diff > 0) {
+					                            print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+					                            print "<td align='left'><h3>$time_till_freeze_starts</h3></td>";
+					                    }
+						else {
+							print"<td align='right' colspan=2><div class='tablehelp'><h4>Standings Frozen</h4></div></td>";
+						}
+					?>
+						<td align='right'><div class="tablehelp"><h4>Queued Submissions:</h4></div></td>
+	  					<td align='left'><h3><?=$num_queued?></h3></td>
+	  					
+	  				</tr>
+	  				<tr>
+	  					<td align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
+	  					<td align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+	  					<td align='right'><div class="tablehelp"><h4>Unanswered Clarifications:</h4></div></td>
+	  					<td align='left'><h3><?=$num_clarifications?></h3></td>
+	  				</tr>
+
+				</table>
+			</div>
+	 		</div>
+	</div>
+<!-- END OF PANEL -->
+
+</div>
+</div>
 <?
 	}
 ?>

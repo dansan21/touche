@@ -6,7 +6,7 @@ include("lib/admin_config.inc");
 $user = `whoami`;
 
 #~~~~~~~setup_contest.php automation~~~~~~~~~~~~~~~
-$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) VALUES ( 'daniel', 'danieltest', '1', '0000-00-00', '', '', '', '/home/".$user."/danieltest', '', 'judge', 'judge', '', '', '')";
+$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) VALUES ( 'george', 'georgeofficial30', '1', '0000-00-00', '', '', '', '/home/".$user."/georgeofficial30', '', 'judge', 'judge', '', '', '')";
 //$success = mysql_query($sql);
 echo "Contest_setup.php automated with response code: " . $success . "<br/>";
 
@@ -17,7 +17,7 @@ if(!file_exists($problem_dir . "Test"))
 		{
 			mkdir($problem_dir . "Test");
 			echo $problem_dir . "<br/>";
-			$cmd = "cp -r /home/".str_replace("\n","",$user)."/docs/* /home/".str_replace("\n","",$user)."/public_html/danieltest/problems/Test/";
+			$cmd = "cp -r /home/".str_replace("\n","",$user)."/docs/* /home/".str_replace("\n","",$user)."/public_html/georgeofficial30/problems/Test/";
 			echo $cmd . "<br/>";
 			system($cmd,$result);
 		}

@@ -44,12 +44,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
 <?
     if (isset($state) && $state == 1) {
-	echo "<center><font color=#cc0000><b>";
-	echo "Login or Password Invalid</b></font></center>\n";
+	echo "<center><b>";
+	echo "Login or Password Invalid</b></center>\n";
     }
     else if (isset($state) && $state == 2) {
-	echo "<center><font color=#cc0000><b>";
-	echo "You are not yet logged in</b></font></center>\n";
+	echo "<center><b>";
+	echo "You are not yet logged in</b></center>\n";
     }
 ?>
 
@@ -75,7 +75,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($user == $judge_user && $password == $judge_pass) {
 	$_SESSION['judge_username'] = $user;
 	$_SESSION['judge_password'] = $password;
-	header ("Location: main.php");
+	header ("Location: start.php");
     }
     else {
 	header ("Location: index.php?state=1");

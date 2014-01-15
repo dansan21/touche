@@ -4,11 +4,11 @@ include_once("lib/session.inc");
 include_once("lib/create.inc");
 
 //change this info
-$contest = "danieltest";
+$contest = "georgeofficial30";
    $dbhost = "localhost";
    $dbpw = "password";
-   $HOST = "daniel";
-$base_dir = "/home/daniel/" . $contest;
+   $HOST = "george";
+$base_dir = "/home/gharwood/" . $contest;
 
 
 $user = `whoami`;
