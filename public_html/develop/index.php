@@ -85,6 +85,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($password == $users[$user]['password']) {
 	$_SESSION['contestant_user'] = $user;
 	$_SESSION['contestant_pass'] = $password;
+	$_SESSION['test_team']=$users[$user]['test_team'];
 	$_SESSION['team_id'] = $users[$user]['team_id'];
 	$_SESSION['team_name'] = $users[$user]['team_name'];
 	header ("Location: main.php");

@@ -96,6 +96,7 @@ CREATE TABLE TEAMS (
   CONTESTANT_3_NAME char(30) NOT NULL default '',
   ALTERNATE_NAME char(30) NOT NULL default '',
   EMAIL char(30) NOT NULL default '',
+  TEST_TEAM boolean NOT NULL default true,
   PRIMARY KEY  (TEAM_ID)
 );
 
@@ -163,7 +164,7 @@ CREATE TABLE LANGUAGE (
 
 INSERT INTO LANGUAGE VALUES(NULL,"C","30","c_jail",
 	"1","1");
-INSERT INTO LANGUAGE VALUES(NULL,"C++","30","cpp_jail",
+INSERT INTO LANGUAGE VALUES(NULL,"CXX","30","cpp_jail",
 	"1","1");
 INSERT INTO LANGUAGE VALUES(NULL,"JAVA","60","java_jail",
 	"0","0");

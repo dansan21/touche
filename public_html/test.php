@@ -4,11 +4,12 @@ include_once("lib/session.inc");
 include_once("lib/create.inc");
 
 //change this info
-$contest = "danieltest";
-   $dbhost = "localhost";
-   $dbpw = "password";
-   $HOST = "daniel";
-$base_dir = "/home/daniel/" . $contest;
+$contest = "calebtest";
+$HOST = "caleb";   
+$dbhost = "localhost";
+$dbpw = "password";
+   
+$base_dir = "/home/cstevens/" . $contest;
 
 
 $user = `whoami`;
@@ -177,7 +178,7 @@ echo "Finished.</p>";
 #-------------------------edit readme-----------------------------
 $fhdl = fopen("readme/inst.html", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("readme/inst.html"));
-$file = preg_replace("/URLHERE/", "http://touche.cse.taylor.edu/~daniel/$contest", $file);
+$file = preg_replace("/URLHERE/", "http://touche.cse.taylor.edu/~cstevens/$contest", $file);
 fclose($fhdl);
 $fhdl = fopen("readme/inst.html", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);
