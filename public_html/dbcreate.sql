@@ -97,6 +97,7 @@ CREATE TABLE TEAMS (
   CONTESTANT_3_NAME char(30) NOT NULL default '',
   ALTERNATE_NAME char(30) NOT NULL default '',
   EMAIL char(30) NOT NULL default '',
+  NON_PARTICIPANT char(30) NOT NULL default 'unknown',
   PRIMARY KEY  (TEAM_ID)
 );
 
