@@ -59,6 +59,7 @@ $row = mysql_fetch_assoc($contest_info);
     $contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
     $contest_end_ts = $contest_start_ts + $contest_end_time;
 	$contest_started = $row['HAS_STARTED'];
+	$time_penalty = $row['TIME_PENALTY'];
 
 if(isset($team_id)){
     $sql = "SELECT * FROM SITE, TEAMS ";
@@ -95,6 +96,7 @@ while ($row = mysql_fetch_assoc($teams_query)) {
     $users[$team_user]['team_id'] = $team_id_ctr;
     $users[$team_user]['password'] = $team_password;
     $users[$team_user]['team_name'] = $my_team_name;
+	$users[$team_user]['test_team'] = $row['TEST_TEAM'];
 
     $teams[$team_id_ctr]['id'] = $team_id_ctr;
     $teams[$team_id_ctr]['user'] = $team_user;

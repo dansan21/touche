@@ -45,8 +45,8 @@ function java_compile() {
     mkdir($problem_handle['judged_dir'] . $problem_handle['file_name'], 0700);
 
 // Embedded version assumption! -- Needs to be "parameterized" through a setting in some config file. -sb
-#    $command  = "/usr/java/jdk1.5.0_02/bin/javac ";
-    $command  = "/opt/sun-jdk-1.6.0.15/bin/javac ";
+    $command  = "/usr/lib/jvm/java-6-openjdk-amd64/bin/javac ";
+#    $command  = "/opt/sun-jdk-1.6.0.15/bin/javac ";
     $command .= $problem_handle['judged_dir'];
     $command .= $problem_handle['file_name'];
     $command .= ".java -d ";
@@ -63,7 +63,7 @@ function java_execute() {
     global $problem_handle;
     $mem_size = "128M";
 // Embedded version assumption! -- Needs to be "parameterized" through a setting in some config file. -sb
-    $command  = "\"/opt/sun-jdk-1.6.0.15/bin/java -Xms$mem_size -Xmx$mem_size -jar ";
+    $command  = "\"/usr/lib/jvm/java-6-openjdk-amd64/bin/java -Xms$mem_size -Xmx$mem_size -jar ";
     $command .= $problem_handle['jar_filename'] . "\"";
     return $command;
 }

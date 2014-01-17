@@ -43,8 +43,8 @@ if (!$connect_good) {
 </head>
 <body>
 
-
 <!-- This is the start of the top bar -->
+
 <div class="page-header">
         <div class="container">
         <div class="img-responsive2">

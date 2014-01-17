@@ -116,7 +116,7 @@
 	while($row = mysql_fetch_assoc($result)) {
 	    if($row['RESPONSE_ID'] == 9) {
 		// each incorrect submission counts as 20 penalty points
-		$incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * 20;
+		$incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * $time_penalty;
 		// each minute counts as one penalty point
 		$time_penalty = (int) ((($row['TS'] - $contest_start_ts) / 60)/* + 0.5*/);
 		$standings[$i]['problems'][$row['PROBLEM_ID']]['ts'] = $row['TS'];

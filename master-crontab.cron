@@ -2,11 +2,14 @@
 
 # Copyright (C) 2013 Jonathan Geisler
 
-if [ `ls /home/gharwood/active-contests | wc -l` -gt 0 ] ; then
-	for file in /home/gharwood/active-contests/*
+
+$user=`whoami`
+
+if [ `ls /home/$user/active-contests | wc -l` -gt 0 ] ; then
+	for file in /home/$user/active-contests/*
 	do
 		dir=`basename $file`
-		cd "/home/gharwood/public_html/$dir/judge"
+		cd "/home/$user/public_html/$dir/judge"
 		./cronScript.php > ./errorLog.txt &
 	done
 fi

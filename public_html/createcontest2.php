@@ -43,11 +43,13 @@ $contest_noesc = $contest;
 $contest = preg_replace("/ /", "\ ", $contest);
 $contest_dir = "../$contest";
 $base_dir = "/home/$user/$contest";
+
 echo "<p>Creating contest folder (takes a while) . . . \n";
    $cmd = "cp -pr ../develop/ ";
    $cmd .= $contest_dir;
    system($cmd, $result);
 echo "Finished.</p>\n";
+
 echo "<p>Clearing folders . . . ";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
@@ -85,10 +87,11 @@ echo "<p>Clearing folders . . . ";
    system($cmd2, $result);
    echo "Result: $result \n";
 echo"Finished.</p>\n";
+
 echo "<p>Making Directories . . . ";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
-   $cmd2 .= "/cpp_jail/home";
+   $cmd2 .= "/c_jail/home";
    system($cmd2, $result);
    echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
@@ -136,6 +139,16 @@ echo "<p>Making Directories . . . ";
    echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
+   $cmd2 .= "/java_jail/home";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/java_jail/home/$user";
+   system($cmd2, $result);
+   echo "Result: $result \n";
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
@@ -177,6 +190,22 @@ echo "<p> Adding in jail files. . . ";
 	system($cmd,$result);
 	echo "Result: $result \n";
 	$cmd = "cp -R /home/$user/jails/c_jail/bin /home/$user/$contest/c_jail/bin";
+	system($cmd,$result);
+	echo "Result: $result \n";
+
+//java_jail	
+	$cmd = "cp -R /home/$user/jails/java_jail/lib64 /home/$user/$contest/java_jail/lib64";
+	system($cmd,$result);
+	echo "Result: $result | dir = $contest \n";
+	$cmd = "cp -R /home/$user/jails/java_jail/usr /home/$user/$contest/java_jail/usr";
+	system($cmd,$result);
+	$cmd = "sudo cp -R /home/$user/jails/java_jail/proc /home/$user/$contest/java_jail/proc";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/java_jail/lib /home/$user/$contest/java_jail/lib";
+	system($cmd,$result);
+	echo "Result: $result \n";
+	$cmd = "cp -R /home/$user/jails/java_jail/bin /home/$user/$contest/java_jail/bin";
 	system($cmd,$result);
 	echo "Result: $result \n";
 	
@@ -236,9 +265,14 @@ $cmd = "cp $contest_noesc/lib/database.inc $contest_noesc/judge/lib/database.inc
 system($cmd,$result);
 
 #---------editing chroot_wrapper.c--------------------------------
+$stuff = `id`;
+preg_match_all('/[0-9]+/',$stuff,$matches);
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("../$contest_noesc/chroot_wrapper.c"));
-$file = preg_replace("/develop/", "$contest", $file);
+$file = preg_replace("/CONTEST/", "$contest", $file);
+$file = preg_replace("/UIDCHANGEME/",$matches[0][0],$file);
+$file = preg_replace("/GIDCHANGEME/",$matches[0][1],$file);
+$file = preg_replace("/USERCHANGEME/",$user,$file);
 fclose($fhdl);
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);

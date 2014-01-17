@@ -27,6 +27,7 @@ if ($_POST)
 	$end_hour = $_POST['end_hour'];
 	$end_minute = $_POST['end_minute'];
 	$end_second = $_POST['end_second'];
+	$time_penalty = $_POST['time_penalty'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$base_directory = $_POST['base_directory'];
@@ -153,11 +154,12 @@ if ($_POST)
 
 	$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, ";
 	$sql.= "CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, ";
-	$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED) ";
+	$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED, TIME_PENALTY) ";
 	$sql.= "VALUES ( '$host_name', '$contest_name', '$num_problems', '$contest_date', ";
 	$sql.= "	     '$save_start', '$freeze_delay', '$contest_delay', ";
-	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs') ";
+	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs', '$time_penalty') ";
 	$success = mysql_query($sql);
+	echo $success;
 	if ($success) {
 		if ($forbidden_c == 1 || $forbidden_cpp == 1 || $forbidden_java == 1) {
 			$forbidden = true;
@@ -259,6 +261,7 @@ End of POST section
 		$password = $row['JUDGE_PASS'];
 		$base_directory = $row['BASE_DIRECTORY'];
 		$num_problems = $row['NUM_PROBLEMS'];
+		$time_penalty = $row['TIME_PENALTY'];
 		if($row['TEAM_SHOW'] == 1)
 			$team_show = "checked";
 		else
@@ -405,6 +408,12 @@ End of POST section
 	echo "			<<td align='right'>Password for the judge account:</td> ";
 	echo "			<td><input type=password name=\"password\" ";
 	echo "				size=\"30\" class='form-control' value=\"$password\"></td>";
+	echo "		</tr>";
+	
+	echo "		<tr>";
+	echo "			<<td align='right'>Penalty for incorrect submission (in minutes):</td> ";
+	echo "			<td><input type=text name=\"time_penalty\" ";
+	echo "				size=\"30\" class='form-control' value=\"$time_penalty\"></td>";
 	echo "		</tr>";
 
 	echo "		<tr>";
