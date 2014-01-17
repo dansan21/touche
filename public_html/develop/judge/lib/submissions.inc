@@ -10,6 +10,10 @@
 #
 # Set up default directories
 
+	echo "<div class='container'>";
+	echo "<div class='innerglow'>";
+	echo "<div class='table-responsive'>";
+
 if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['team']) {
     if ($page == "judge.php"){
 	$set = "SET RESPONSE_ID = $_POST[result], JUDGED = 1 ";
@@ -58,7 +62,6 @@ echo "<center>";
 # Checks to make sure that there are problems to judge
 if($row = mysql_fetch_assoc($sql_result)){
 	echo "Problems: ";
-	
 	if(!$_GET){
 		echo "All ";
 		echo "| <a href='$page?problem=" . $row['PROBLEM_NAME'] . "'>" . $row['PROBLEM_SHORT_NAME'] . "</a> ";
@@ -174,22 +177,38 @@ if($row = mysql_fetch_assoc($sql_result)){
                 $team_id = "Team Name";
 
 	# display appropreate queued submissions
-	echo "<br><table align=center bgcolor=#000000 width=50%
-	cellpadding=0 cellspacing=0 border=0><tr><td>\n";
-	echo "<table align=center width=100% cellpadding=5 cellspacing=1 border=0>\n";
-	echo "<tr><td colspan=6 align=center bgcolor=$hd_bg_color1>\n";
-	echo "<font color=$hd_txt_color1><b>Submissions Queued for Judging</b></font></td></tr>\n";
-	echo "<tr><td bgcolor=$hd_bg_color2>Submission Time</td>\n";
-	echo "<td bgcolor=$hd_bg_color2 align=center>Problem</td>\n";
-	echo "<td bgcolor=$hd_bg_color2 align=center>$team_id</td>\n";
-	echo "<td bgcolor=$hd_bg_color2 align=center>Attempt</td>\n";
+    
+	echo "<br><table class='table' align=center width=100% cellpadding=0 cellspacing=0 border=0>\n";
+	echo "<tr><td colspan=6 align=center>\n";
+	echo "<h3>Submissions Queued for Judging</h3></td></tr>\n";
+
+	echo "<tr>";
+	echo "<td align='right'>";
+
+	echo "</td>";
+	echo "<td>";
+	echo "</td>";
+	echo "</tr>";
+
+
+	echo "<tr>";
+	echo "<td>";
+	echo "</td>";
+	echo "<td>";
+	echo "</td>";
+	echo "</tr>";
+
+	echo "<tr><td>Submission Time</td>\n";
+	echo "<td align=center>Problem</td>\n";
+	echo "<td align=center>$team_id</td>\n";
+	echo "<td align=center>Attempt</td>\n";
 	if ($page == "judge.php"){
-		echo "<td bgcolor=$hd_bg_color2 align=center>Auto Response</td>\n";
+		echo "<td align=center>Auto Response</td>\n";
         }
         else{
-		echo "<td bgcolor=$hd_bg_color2 align=center>Current Response</td>\n";
+		echo "<td align=center>Current Response</td>\n";
         }
-	echo "<td bgcolor=$hd_bg_color2 align=center>Go to judging page</td></tr>\n";
+	echo "<td align=center>Go to judging page</td></tr>\n";
 	    
 	while($row = mysql_fetch_assoc($sql_result)){
 		#calculate time sence start of contest
@@ -251,12 +270,13 @@ if($row = mysql_fetch_assoc($sql_result)){
 		else
 			$team_id = $row['TEAM_NAME'];
 		
-		echo "<tr><td bgcolor=$data_bg_color1>$min</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center>" . $row['PROBLEM_SHORT_NAME'] . "</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center>" . $team_id . "</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center>" . $row['ATTEMPT'] . "</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center>$response</td>\n";
-		echo "<td bgcolor=$data_bg_color1 align=center><a href='judge_response.php?judged_id=" . 
+		echo "<tr><td>$min</td>\n";
+		echo "<td align=center>" . $row['PROBLEM_SHORT_NAME'] . "</td>\n";
+		echo "<td align=center>" . $team_id . "</td>\n";
+		echo "<td align=center>" . $row['ATTEMPT'] . "</td>\n";
+		echo "<td align=center>$response</td>\n";
+		echo "<td align=center><a href='judge_response.php?judged_id=" . 
+
 			$row['JUDGED_ID'] . "&team_id=" . $team_id . 
 			"&problem=" . $row['PROBLEM_ID'] . "&attempt=" . $row['ATTEMPT'] . "&page=$page'>judge submission</a></td>\n";
 		echo "</tr>\n";					    
@@ -264,7 +284,10 @@ if($row = mysql_fetch_assoc($sql_result)){
 		$data_bg_color1 = $color_preserve;
 
 	}
-	echo "</table></table>\n";
+	echo "</table>\n";
+	echo "</div>";
+	echo "</div>";
+	echo "</div>";
 	echo "<center>$end_string</center>\n";
 	
 	

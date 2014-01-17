@@ -43,12 +43,13 @@ if (mysql_num_rows($contest_info) > 0) {
     $contest_end_time = $row['CONTEST_END_DELAY'];
     $base_dir = $row['BASE_DIRECTORY'];
 
-    $contest_start_ts = mktime($contest_start_hour,
+/*    $contest_start_ts = mktime($contest_start_hour,
 			    $contest_start_minute,
 			    0,
 			    $contest_month,
 			    $contest_day,
-			    $contest_year);
+			    $contest_year);*/
+    $contest_start_ts = $row['START_TS'];
     $contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
     $contest_end_ts = $contest_start_ts + $contest_end_time;
     

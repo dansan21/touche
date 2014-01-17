@@ -14,7 +14,7 @@ include_once("lib/admin_config.inc");
 include_once("lib/data.inc");
 include_once("lib/session.inc");
 include_once("lib/contest_info.inc");
-include_once("lib/header.inc");
+
 $data_dir = $base_dir . "/data/";
 
 if($_POST)
@@ -149,6 +149,10 @@ echo "</div>";
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
+
+include_once("lib/header.inc");
+
+
 if(!$action)
 {
 	$action = "Add a new data set";
@@ -204,14 +208,11 @@ else
 
 	echo " <div class=\"container\">";
 
-	//filler div
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
 
 
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_data_sets.php enctype='multipart/form-data' method=post>";
 	echo $cur_data_sets;
 	echo "<tr><td>";
@@ -229,9 +230,9 @@ else
 
 
 	//Table for inputing a new input and output data set.
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align='left'>";
+	echo " <table class=\"table\" align='left' width=100%>";
 	echo "<tr><td colspan='2'><h3>$action</h3></td></tr>";
 	echo $http_form;
 	echo "</table>";

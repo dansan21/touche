@@ -11,6 +11,8 @@
 
 include_once("admin_config.inc");
 include_once ("session.inc");
+include_once("data.inc");
+
 
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
@@ -39,7 +41,10 @@ if (!$connect_good) {
 	<?php include_once("../styles/css/bootstrap.css"); ?>
 </style>
 </head>
-<body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">
+<body>
+
+<!-- This is the start of the top bar -->
+
 <div class="page-header">
         <div class="container">
         <div class="img-responsive2">
@@ -50,49 +55,134 @@ if (!$connect_good) {
             ?>
         </div>
          	<div class="text-right">
-            	<h3>JUDGE/ADMIN</h3>
+            	<h3>ADMIN</h3>
         	</div>
         </div>
 </div>
-		<div class="container">
-          <ul class="nav nav-tabs nav-justified">
-            <!--<li><a href="#">&laquo;</a></li> -->
-            <li><a href="setup_contest.php">Details</a></li>
-            <li><a href="setup_problems.php">Problems</a></li>
-            <li><a href="setup_data_sets.php">Data</a></li>
-            <li><a href="setup_site.php">Sites</a></li>
-            <li><a href="setup_teams.php">Teams</a></li>
-            <li><a href="setup_categories.php">Categories</a></li>
-            <li><a href="setup_team_category.php">TCats</a></li>
-            <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
-				$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
-				$lang_sql  .= "FROM LANGUAGE";
-				$sel_sql = mysql_query($lang_sql);
-				if (!$sel_sql) {
-					echo "Error!  Could not create the header ";
-					echo "correctly.<br /> Please contact an ";
-					echo "administrator.";
-				}
-				$contest_stuff = mysql_fetch_assoc($sel_sql);
-				if ($contest_stuff['heads'] > 0) { ?>
-			<li><a href="setup_headers.php">Headers</a></li>
-			<?}
-				if ($contest_stuff['bad_words'] > 0) { ?>
-            <li><a href="setup_forbidden.php">Forbidden</a></li>
-            <?} ?>
-            <li><a href="misc.php">Misc</a></li>
-			<li><a href="start.php">Start Contest</a></li>
 
-            <!--<li><a href="#">&raquo;</a></li> -->
-          </ul>
-      	</div>
-      	<div class="container">
+<!-- END -->
 
-        <div class="text-center">
-				<h2>Official Time: <?=date("H:i:s")?></h2>
+<!-- START OF NAVIGATION -->
+
+<?php $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?> 
+
+<div class="container">
+    <div class="text-center">
+
         <h5><?=$contest_name?> - <?=$contest_host?></h5>
-		    </div>
+    </div>
+
+  <ul class="nav nav-tabs nav-justified">
+    <!--<li><a href="#">&laquo;</a></li> -->
+    <li class=<?php if (strpos($actual_link,'setup_contest.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_contest.php">Details</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_problems.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_problems.php">Problems</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_data_sets.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_data_sets.php">Data</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_site.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_site.php">Sites</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_teams.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_teams.php">Teams</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_categories.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_categories.php">Categories</a></li>
+    <li class=<?php if (strpos($actual_link,'setup_team_category') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_team_category.php">TCats</a></li>
+    <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
+		$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
+		$lang_sql  .= "FROM LANGUAGE";
+		$sel_sql = mysql_query($lang_sql);
+		if (!$sel_sql) {
+			echo "Error!  Could not create the header ";
+			echo "correctly.<br /> Please contact an ";
+			echo "administrator.";
+		}
+		$contest_stuff = mysql_fetch_assoc($sel_sql);
+		if ($contest_stuff['heads'] > 0) { ?>
+	<li class=<?php if (strpos($actual_link,'setup_headers.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_headers.php">Headers</a></li>
+	<?}
+		if ($contest_stuff['bad_words'] > 0) { ?>
+    <li class=<?php if (strpos($actual_link,'setup_forbidden.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="setup_forbidden.php">Forbidden</a></li>
+    <?} ?>
+    <li class=<?php if (strpos($actual_link,'misc.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="misc.php">Misc</a></li>
+
+         <li class=<?php if (strpos($actual_link,'start.php') !== false) {
+                echo "'active'";
+            }
+        ?>><a href="start.php">Start</a></li>
+
+    <!--<li><a href="#">&raquo;</a></li> -->
+  </ul>
+
+<!-- END OF NAVIGATION -->
+
+<div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table" align='center'>
+                <tr>
+                <?
+                        $freeze_diff = $contest_freeze_ts + $site_start_offset - time();
+                        $time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
+                        $time_till_contest_end = gmdate("H:i:s", $contest_end_ts - time());
+                        $end_diff = $contest_end_ts + $site_start_offset - time();
+
+                    if ($freeze_diff > 0) {
+                                            print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+                                            print "<td align='left'><h3>$time_till_freeze_starts</h3></td>";
+                                    }
+                    else {
+                        print"<td align='center' colspan=2><div class='tablehelp'><h4>Standings Are Now Frozen</h4></div></td>";
+                    }
+                ?>
+                    
+                </tr>
+                <tr>
+                        <?php
+                        if ($end_diff > 0) {
+
+                            print "<td align='right'><div class=\"tablehelp\"><h4>Contest Ends in:</h4></div></td>";
+                            print "<td align='left'><h3>$time_till_contest_end</h3></td>";
+                        }
+
+                        else {
+                            print "<td align='right' colspan=2><div class='tablehelp'><h4>Contest is Over</h4></div></td>";
+
+                        }
+
+                        ?>
+                </tr>
+
+            </table>
         </div>
+</div>
+
+
+
+
+</div>
 
 				<?if (!$contest_name)
 				{?>
@@ -101,6 +191,8 @@ if (!$connect_good) {
 				else { ?>
   				
 				<?}?>
+<div class='container'>
+<div class='innerglow'>
  					 
 
 				

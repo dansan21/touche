@@ -144,10 +144,14 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 
 
 echo "<form action=start.php method=post>";
-echo "<table align=center width=60% cellpadding=5 cellspacing=1 border=0>\n";
-echo "<tr><td colspan=2 align=center bgcolor=$hd_bg_color1>\n";
-echo "<font color=$hd_txt_color1><b>Start Contest</b></font></td></tr>\n";
-echo "<tr><td bgcolor=$hd_bg_color2>Start contest</td><td bgcolor=$hd_bg_color2 align=center>";
+
+
+
+echo "<div class='table-responsive'>";
+echo "<table class='table' align=center width=100%>\n";
+echo "<tr><td colspan=2 align='center'>\n";
+echo "<h3>Start Contest</h3></td></tr>\n";
+echo "<tr><td>Start contest</td><td>";
 //$cur_time = time();
 
 
@@ -167,13 +171,13 @@ $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
 {
-	echo "<tr><td bgcolor=$hd_bg_color2>SELECT from SITE table failed</tr></td>";
+	echo "<tr><td>SELECT from SITE table failed</tr></td>";
 }
 
 while($row = mysql_fetch_assoc($result))
 {
-	echo "<tr><td bgcolor=$data_bg_color1>" . $row['SITE_NAME'];
-	echo "</td><td align=center bgcolor=$data_bg_color1>";
+	echo "<tr><td>" . $row['SITE_NAME'];
+	echo "</td><td>";
 	if(!$contest_started)
 	{	
 		echo "<input type=checkbox name=chksite[] value='" . $row['SITE_ID'] . "' disabled></td></tr>";
@@ -191,9 +195,13 @@ while($row = mysql_fetch_assoc($result))
 		}
 	}
 }
-echo "<tr><td>&nbsp;</td><td align=center><input type=submit name=submit value=Start>";
+
+echo "<tr><td align=center><input type=submit name=submit value=Start>";
 echo "<align=center><input type=submit name=test_submit value='Test Start'></tr>";
+
 echo "</table>\n";
+echo "</div>";
+
 	
     include("lib/footer.inc");
 ?>

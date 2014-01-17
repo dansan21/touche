@@ -269,34 +269,12 @@ $http_pdf.="	  </tr> ";
 
 
 
-	echo " <div class=\"container\">";
-
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
-
-
-	echo "<div class=\"col-md-3\">";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"center\">";
-	echo $cur_problems;
-	echo "</table>";
-	echo "</div>";
-
-	if($error_msg)
-	{
-		echo "<table>$error_msg</table>";
-	}
-
-	echo "</div>";
-
-
-
-
-	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"container\">"; //start container
 	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
-
+	echo "<div class=\"col-md-5\">"; //start COL
+	
+	echo " <div class=\"table-responsive\">"; //start RESPONSIVE
+	echo " <table class=\"table\" align=\"left\" width=100%>"; //Start Table
 	echo " <tr> ";
 	echo " <td colspan='2'>";
 	echo " <h3>Add or Edit Categories</h3>";
@@ -336,9 +314,27 @@ $http_pdf.="	  </tr> ";
 
 
 
-	echo "</div>";
-	echo "</form>";
+	echo "</table>"; //end table
+	echo "</div>"; //end responsive
+	echo "</div>"; //end COL
+
+
+	echo "<div class=\"col-md-6\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
+	echo $cur_problems;
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
+
+	if($error_msg)
+	{
+		echo "<table>$error_msg</table>";
+	}
+
+	
+
+	echo "</form>";
 	echo "</div>";
 	include("lib/footer.inc");
 ?>

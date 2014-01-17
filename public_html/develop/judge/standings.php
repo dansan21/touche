@@ -16,6 +16,10 @@
 #
 judge_header(60);
 
+echo "<div class='container'>";
+echo "<div class='innerglow'>";
+echo "<div class='table-responsive'>";
+
 if (!isset($HTTP_GET_VARS['selected_category'])) {
     $selected_category = "Overall";
 } else {
@@ -175,24 +179,21 @@ $current_rank = 1;
 #    $standings[$i]['rank'] = $current_rank;
 #}
 
-echo "<br><table align=center bgcolor=#000000 width=90% cellpadding=0 cellspacing=0 border=0><tr><td>\n";
-echo "<table align=center width=100% cellpadding=5 cellspacing=1 border=0>\n";
-echo "<tr><td colspan=99 align=center bgcolor=";
+echo "<br><table class='table' align=center width=90% cellpadding=0 cellspacing=0 border=0>\n";
+echo "<tr><td colspan=99 align=center>";
     if($contest_freeze_ts < time()) {
-        echo "red>";
+        echo "";
     }
     else {
-        echo "$hd_bg_color1>";
     }
-echo "<font color=$hd_txt_color1><b>Standings</b></font></td></tr>\n";
-echo "<tr bgcolor=$hd_bg_color2>\n";
-echo "<td>&nbsp</td>\n";
-echo "<td align=center><font color=$hd_txt_color2><b>Team Name</b></font></td>\n";
+echo "<h3>Standings</h3></td></tr>\n";
+echo "<tr>\n";
+echo "<td align=center><b>Team Name</b></td>\n";
 for($i=1; $i<=$num_problems; $i++) {
-    echo "<td align=center><font color=$hd_txt_color2>";
-    echo "<b>Prob #$i</b></font></td>";
+    echo "<td align=center>";
+    echo "<b>Prob #$i</b></td>";
 }
-echo "<td align=center><font color=$hd_txt_color2><b>Completed</b></font></td>";
+echo "<td align=center><b>Completed</b></td>";
 echo "</tr>\n";
 
 for($i=0; $i<count($standings); $i++) {
@@ -253,11 +254,17 @@ for($i=0; $i<count($standings); $i++) {
     echo "</tr>\n";
 }
 echo "</table>\n";
-echo "</table>\n";
+
+echo "</div>";
+echo "</div>";
+echo "</div>";
+
 echo "<br>\n";
 //---------------------------------------------------------
 # Broken -- does generate PDF doc, but way off.
+echo "<div class='text-center'>";
 echo "[<!--<a href=\"export_pdf.php\">-->PDF View<!--</a>--> - tba]\n";
+echo "</div>";
 //---------------------------------------------------------
 include("lib/footer.inc");
 

@@ -188,35 +188,34 @@
 	}
     }
 
-    echo "<br><table align=center bgcolor=#000000 width=90% cellpadding=0 cellspacing=0 border=0><tr><td>\n";
-    echo "<table align=center width=100% cellpadding=5 cellspacing=1 border=0>\n";
+    echo "<table class='table' align=center width=100%>\n";
     echo "<tr><td align=center colspan=99 bgcolor=";
     if($contest_freeze_ts < time()) {
 	echo "red>";
     }
     else {
-	echo "$hd_bg_color1>";
+	echo "#CCCCCC>";
     }
-    echo "<font color=$hd_txt_color1><b>Standings";
+    echo "<h3>Standings";
     if($contest_freeze_ts < time()) {
 	echo " - Frozen";
     }
-    echo "</b></font>";
+    echo "</h3>";
     echo "</td></tr>\n";
-    echo "<tr bgcolor=$hd_bg_color2>\n";
+    echo "<tr>\n";
     echo "<td>&nbsp</td>\n";
-    echo "<td align=center><font color=$hd_txt_color2><b>Team Name</b></font></td>\n";
+    echo "<td align=center><h4>Team Name</h4></td>\n";
     for($i=1; $i<=$num_problems; $i++) { // changes this later
-	echo "<td align=center><font color=$hd_txt_color2><b>Prob #$i</b></font></td>";
+	echo "<td align=center><h4>Prob #$i</h4></td>";
     }
-    echo "<td align=center><font color=$hd_txt_color2><b>Completed</b></font></td>";
+    echo "<td align=center><h4>Completed</h4></td>";
     echo "</tr>\n";
 
     for($i=0; $i<count($standings); $i++) {
 	if($i%2 == 0) {
-	    echo "<tr bgcolor=\"$data_bg_color1\">\n";
+	    echo "<tr bgcolor=\"#CCCCCC\">\n";
 	} else {
-	    echo "<tr bgcolor=\"$data_bg_color2\">\n";
+	    echo "<tr bgcolor=\"#FFFFFF\">\n";
 	}
 	echo "<td>\n";
 	echo "<font face=\"Arial\" size=\"3\">\n";
