@@ -23,9 +23,10 @@
 #include <stdio.h>
 // Configurable values go here
 // Ideally, all the "configurables" (uid, gid, judge home, chroot.log) will be parameterized. -sb
-const int JUDGE_UID = 1003;
-const int JUDGE_GID = 1003;
-#define JUDGE_HOME  "/home/mgoldsbe/develop/logs"
+
+const int JUDGE_UID = UIDCHANGEME;
+const int JUDGE_GID = GIDCHANGEME;
+#define JUDGE_HOME  "/home/USERDIR/develop/logs"
 
 int main(int argc, char** argv) {
 		FILE* pErrFileC;
