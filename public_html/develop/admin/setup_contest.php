@@ -405,13 +405,13 @@ End of POST section
 	echo "		</tr>";
 
 	echo "		<tr>";
-	echo "			<<td align='right'>Password for the judge account:</td> ";
+	echo "			<td align='right'>Password for the judge account:</td> ";
 	echo "			<td><input type=password name=\"password\" ";
 	echo "				size=\"30\" class='form-control' value=\"$password\"></td>";
 	echo "		</tr>";
 	
 	echo "		<tr>";
-	echo "			<<td align='right'>Penalty for incorrect submission (in minutes):</td> ";
+	echo "			<td align='right'>Penalty for incorrect submission (in minutes):</td> ";
 	echo "			<td><input type=text name=\"time_penalty\" ";
 	echo "				size=\"30\" class='form-control' value=\"$time_penalty\"></td>";
 	echo "		</tr>";

@@ -316,7 +316,7 @@ if(!$edit_password) {
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Alternate: </td>";
+	echo "		<td>Alternate (leave empty if none): </td>";
 	echo "		<td><input type='text' name='alternate_name' ";
 	echo "			value = '$edit_alternate_name'></td>";
 	echo "	  </tr> ";
