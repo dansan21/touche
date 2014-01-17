@@ -119,14 +119,28 @@ CREATE TABLE CATEGORIES (
 DROP TABLE IF EXISTS SITE;
 
 CREATE TABLE SITE (
+  HOST char(30) NOT NULL default '',
+  CONTEST_NAME char(30) NOT NULL default '',
+  CONTEST_DATE date NOT NULL,
   SITE_ID int(11) NOT NULL auto_increment,
   SITE_NAME char(30) NOT NULL default '',
   START_TIME time NOT NULL,
   PRIMARY KEY  (SITE_ID),
   START_TS int(11) NOT NULL default '0',
-  HAS_STARTED int(11) NOT NULL default '0'
+  HAS_STARTED int(11) NOT NULL default '0',
+  FREEZE_DELAY int(11) NOT NULL default '0',
+  CONTEST_END_DELAY int(11) NOT NULL default '0',
+  BASE_DIRECTORY char(255) NOT NULL default '',
+  QUEUE_DIRECTORY char(255) NOT NULL default '',
+  JUDGE_DIRECTORY char(255) NOT NULL default '',
+  DATA_DIRECTORY char(255) NOT NULL default '',
+  NUM_PROBLEMS int(11) NOT NULL default '0',
+  IGNORE_STDERR int(1) NOT NULL default '0',
+  JUDGE_USER char(30) NOT NULL default '',
+  JUDGE_PASS char(30) NOT NULL default '',
+  TEAM_SHOW smallint(1) NOT NULL default '0'
 );
-
+/*
 DROP TABLE IF EXISTS CONTEST_CONFIG;
 
 CREATE TABLE CONTEST_CONFIG (
@@ -148,7 +162,7 @@ CREATE TABLE CONTEST_CONFIG (
   HAS_STARTED int(11) NOT NULL default '0',
   TEAM_SHOW smallint(1) NOT NULL default '0'
 );
-
+*/
 DROP TABLE IF EXISTS LANGUAGE;
 
 CREATE TABLE LANGUAGE (

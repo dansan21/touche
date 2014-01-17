@@ -51,8 +51,8 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 	
 	foreach($_POST['chksite'] as $site)
 	{
-		if($site == 'contest')
-		{
+//		if($site == 'contest') for master start page
+//		{
 			$contest_started = true;
 			
 			//set permissions for html and pdf files
@@ -86,7 +86,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			{
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
 			}
-			
+/*			
 			if($_POST['test_submit'] == 'Test Start'){
 				$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '2'";
 				$result = mysql_query($sql);
@@ -105,10 +105,10 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 				}
 			}
 			
-			
-		}
-		else
-		{
+*/			
+//		}
+//		else
+//		{
 			$sql = "UPDATE SITE set START_TIME = '$cur_hour:$cur_minute:$cur_second' WHERE SITE_ID = '$site'";
 			$result = mysql_query($sql);
 			if(!$result)
@@ -138,7 +138,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
 			}
 			}
-		}
+//		}
 	}
 }
 

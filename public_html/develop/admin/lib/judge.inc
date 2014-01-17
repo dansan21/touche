@@ -25,13 +25,13 @@ if (!$connect_good) {
     print "Sorry.  Database selection failed.  Retrying...";
     exit;
 }
-
+/*
 $contest_info = mysql_query("SELECT * FROM CONTEST_CONFIG");
 if (!$contest_info) {
     print "Sorry.  Database request (CONTEST_CONFIG) failed.  Retrying...";
     exit;
 }
-
+*/
 $row = mysql_fetch_assoc($contest_info);
     if (mysql_num_rows($contest_info) < 1) {
 	print "Sorry.  No contest configuration information exists.<br /> ";
