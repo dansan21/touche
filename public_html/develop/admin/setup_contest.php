@@ -261,6 +261,7 @@ End of POST section
 		$password = $row['JUDGE_PASS'];
 		$base_directory = $row['BASE_DIRECTORY'];
 		$num_problems = $row['NUM_PROBLEMS'];
+		$time_penalty = $row['TIME_PENALTY'];
 		if($row['TEAM_SHOW'] == 1)
 			$team_show = "checked";
 		else
@@ -407,6 +408,12 @@ End of POST section
 	echo "			<<td align='right'>Password for the judge account:</td> ";
 	echo "			<td><input type=password name=\"password\" ";
 	echo "				size=\"30\" class='form-control' value=\"$password\"></td>";
+	echo "		</tr>";
+	
+	echo "		<tr>";
+	echo "			<<td align='right'>Penalty for incorrect submission (in minutes):</td> ";
+	echo "			<td><input type=text name=\"time_penalty\" ";
+	echo "				size=\"30\" class='form-control' value=\"$time_penalty\"></td>";
 	echo "		</tr>";
 
 	echo "		<tr>";

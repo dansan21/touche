@@ -81,15 +81,19 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user = $_POST['user'];
     $password = $_POST['password'];
-	$sql = "select NON_PARTICIPANT from TEAMS WHERE USERNAME = $user";
-	$non_participant = mysql_query($sql);
+	$sql = "SELECT NON_PARTICIPANT FROM TEAMS WHERE USERNAME = '".$user."'";
+	$result = mysql_query($sql);
+	//echo "result:".$result;
+	$row = mysql_fetch_assoc($result);
+	$non_participant = $row['NON_PARTICIPANT'];
+	
    
     if($password == $users[$user]['password']) {
 		$_SESSION['contestant_user'] = $user;
 		$_SESSION['contestant_pass'] = $password;
 		$_SESSION['team_id'] = $users[$user]['team_id'];
 		$_SESSION['team_name'] = $users[$user]['team_name'];
-		if($non_participant = "unknown"){
+		if($non_participant == "unknown"){
 			header ("Location: non_participant.php");
 		}
 		else{
