@@ -61,7 +61,7 @@ if ($_GET)
 		$result = mysql_query($sql);
 
 		if ($result) {
-			$sql = "DELETE FROM CATEGORY_TEAMS WHERE TEAM_ID = $remove_id";
+			$sql = "DELETE FROM CATEGORY_TEAM WHERE TEAM_ID = $remove_id";
 			$result2 = mysql_query($sql);
 		}
 
