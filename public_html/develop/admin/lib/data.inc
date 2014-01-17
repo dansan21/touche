@@ -96,6 +96,11 @@ while ($row = mysql_fetch_assoc($teams_query)) {
     $team_contestant_3_name = $row['CONTESTANT_3_NAME'];
     $teams[$team_id]['contestant_3_name'] = $team_contestant_3_name;
     $users[$team_user]['contestant_3_name'] = $team_contestant_3_name;
+	
+/*	$test_team = $row['TEST_TEAM'];
+	$teams[$team_id]['test_team'] = $test_team;
+	$users[$team_user]['test_team'] = $test_team;
+*/
 }
 
 $sql = "SELECT ct.TEAM_ID, c.CATEGORY_NAME";
@@ -115,7 +120,7 @@ while ($row = mysql_fetch_assoc($categories_query)) {
 	    $categories[$cat_name]['team_ids'] = array();
 	}
 	array_push($categories[$cat_name]['team_ids'], $row['TEAM_ID']);
-	//print $categories[$cat_name]['team_ids'].$row['TEAM_ID']."<br />";
+	print $categories[$cat_name]['team_ids'].$row['TEAM_ID']."<br />";
     }
 }
 

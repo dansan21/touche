@@ -96,6 +96,7 @@ while ($row = mysql_fetch_assoc($teams_query)) {
     $users[$team_user]['team_id'] = $team_id_ctr;
     $users[$team_user]['password'] = $team_password;
     $users[$team_user]['team_name'] = $my_team_name;
+	$users[$team_user]['test_team'] = $row['TEST_TEAM'];
 
     $teams[$team_id_ctr]['id'] = $team_id_ctr;
     $teams[$team_id_ctr]['user'] = $team_user;

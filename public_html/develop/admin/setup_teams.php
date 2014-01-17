@@ -49,6 +49,7 @@ if ($_GET)
 					$edit_contestant_3_name = $row['CONTESTANT_3_NAME'];
 					$edit_alternate_name = $row['ALTERNATE_NAME'];
 					$edit_email = $row['EMAIL'];
+					$edit_test_team = $row['TEST_TEAM'];
 				}
 			}
 		}
@@ -92,7 +93,8 @@ else if($_POST)
 			$sql .= "CONTESTANT_2_NAME = '" . $_POST['contestant_2_name'] . "',  ";
 			$sql .= "CONTESTANT_3_NAME = '" . $_POST['contestant_3_name'] . "',  ";
 			$sql .= "ALTERNATE_NAME = '" . $_POST['alternate_name'] . "', ";
-			$sql .= "EMAIL = '" . $_POST['email'];
+			$sql .= "EMAIL = '" . $_POST['email'] . "', ";
+			$sql .= "TEST_TEAM = '" . $_POST['test_team'];
 			$sql .= "' where TEAM_ID = " . $_SESSION['edit_team'];
 			$result = mysql_query($sql);
 			if(!$result)
@@ -111,7 +113,7 @@ else if($_POST)
 			//adding a new person
 			$sql = "insert into TEAMS (TEAM_NAME, ORGANIZATION, USERNAME, PASSWORD, ";
 			$sql .= "SITE_ID, COACH_NAME, CONTESTANT_1_NAME, CONTESTANT_2_NAME, ";
-			$sql .= "CONTESTANT_3_NAME, ALTERNATE_NAME, EMAIL) ";
+			$sql .= "CONTESTANT_3_NAME, ALTERNATE_NAME, EMAIL, TEST_TEAM) ";
 			$sql .= "values('" . $_POST['team_name'] . "', '";
 			$sql .= $_POST['organization'] . "', '";
 			$sql .= $_POST['username'] . "', '";
@@ -122,7 +124,8 @@ else if($_POST)
 			$sql .= $_POST['contestant_2_name'] . "', '";
 			$sql .= $_POST['contestant_3_name'] . "', '";
 			$sql .= $_POST['alternate_name'] . "', '";
-			$sql .= $_POST['email'] . "')";
+			$sql .= $_POST['email'] . "', '";
+			$sql .= $_POST['test_team'] . "')";
 			$result = mysql_query($sql);
 			if($result)
 			{
@@ -188,7 +191,14 @@ if(mysql_num_rows($result) > 0) {
 	//$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
 	$cur_teams .= "<td colspan=2><h3>Edit Current Teams</h3></td>";
 	while($row = mysql_fetch_assoc($result)){
-		$cur_teams .= "<tr><td>" . $row['TEAM_NAME']; 
+		if($row['TEST_TEAM']=='1'){
+			$isChecked="checked";
+		}
+		else{
+			$isChecked="";
+		}
+		$cur_teams .= "<tr><td><input type='checkbox' name='show_test_team' value=1 $isChecked>";
+		$cur_teams .= "</td><td>" . $row['TEAM_NAME']; 
 		$cur_teams .= " </td><td>";
 		$cur_teams .= "<a href=setup_teams.php?team_id=" . $row['TEAM_ID'] . ">Edit</a>";
 		$cur_teams .= "</td><td>";
@@ -326,6 +336,12 @@ if(!$edit_password) {
     echo "          <td><input type='text' name='email' ";
     echo "                  value = '$edit_email'></td>";
     echo "    </tr> ";
+	echo "    <tr>";
+    echo "          <td>Test Team: </td>";
+    echo "          <td><input type='checkbox' name='test_team' value=1";
+    echo "                  value = '$edit_test_team'></td>";
+    echo "    </tr> ";
+
 
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	

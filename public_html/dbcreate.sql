@@ -98,6 +98,7 @@ CREATE TABLE TEAMS (
   ALTERNATE_NAME char(30) NOT NULL default '',
   EMAIL char(30) NOT NULL default '',
   NON_PARTICIPANT char(30) NOT NULL default 'unknown',
+  TEST_TEAM boolean NOT NULL default true,
   PRIMARY KEY  (TEAM_ID)
 );
 
