@@ -15,6 +15,11 @@
 
 
 judge_header(60);
+
+echo "<div class='container'>";
+echo "<div class='innerglow'>";
+echo "<div class='table-responsive'>";
+
 $clar_id = $_GET["clar_id"];
 if(!isset($_GET['sort']) || $_GET['sort'] == 'time') {
 	$sort = 'time';
@@ -58,6 +63,7 @@ echo "</center>\n";
 
 
 echo "<form action=clarifications.php method=get>";
+echo "<div class='text-center'>";
 echo "<b>Sort By:</b><select name='sort' onchange='JavaScript:submit()'>";
 echo "<option value='time'";
 if($sort == 'time') {
@@ -102,22 +108,23 @@ else{
 
 $result = mysql_query($sql);
 
-echo "<br><table align=center bgcolor=#000000 width=90% 
-    cellpadding=0 cellspacing=0 border=0><tr><td>\n";
-echo "<table align=center width=100% cellpadding=5 cellspacing=1 border=0>\n";
-echo "<tr><td colspan=5 align=center bgcolor=$hd_bg_color1>\n";
-echo "<font color=$hd_txt_color1><b>Clarifications</b></font></td></tr>\n";
+echo "</div>";
+
+echo "<br><table class='table' align=center width=90% 
+    cellpadding=0 cellspacing=0 border=0>\n";
+echo "<tr><td colspan=5 align=center >\n";
+echo "<h3>Clarifications</h3></td></tr>\n";
 
 $clar = 0;
 while ($row = mysql_fetch_assoc($result)) {
     $clar = 1;
-    echo "<tr bgcolor=$hd_bg_color2>\n";
+    echo "<tr>\n";
     echo "<td align=center width=33%>";
-    echo "<font color=$hd_txt_color2><b>Team</b></font></td>\n";
+    echo "<b>Team</b></td>\n";
     echo "<td align=center width=33%>";
-    echo "<font color=$hd_txt_color2><b>Submission Time</b></font></td>\n";
+    echo "<b>Submission Time</b></td>\n";
     echo "<td align=center width=34%>";
-    echo "<font color=$hd_txt_color2><b>Reply Time</b></font></td>\n";
+    echo "<b>Reply Time</b></td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
     if ($row['TEAM_ID'] != -1) {
@@ -125,20 +132,20 @@ while ($row = mysql_fetch_assoc($result)) {
 	echo $teams[$row['TEAM_ID']]['name'] . "</td>\n";
     }
     else {
-	echo "<td align=center bgcolor=$data_bg_color1>Judge</td>\n";
+	echo "<td align=center>Judge</td>\n";
     }
-    echo "<td align=center bgcolor=$data_bg_color1>\n";
+    echo "<td align=center>\n";
     echo date("g:ia",$row['SUBMIT_TS'])."\n";
     echo "</td>\n";
-    echo "<td align=center bgcolor=$data_bg_color1>\n";
+    echo "<td align=center>\n";
     if($row['REPLY_TS'] != 0) {
 	echo date("g:ia",$row['REPLY_TS'])."\n";
     }
     echo "</td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
-    echo "<td align=left valign=top bgcolor=$hd_bg_color2><font color=$hd_txt_color2><b>Problem</b></font></td>\n";
-    echo "		<td bgcolor=$data_bg_color1 colspan=2>\n";
+    echo "<td align=left valign=top><b>Problem</b></td>\n";
+    echo "		<td colspan=2>\n";
     if ($row['PROBLEM_ID']==-1) {
 	echo "General\n";
     }
@@ -148,18 +155,18 @@ while ($row = mysql_fetch_assoc($result)) {
     echo "</td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
-    echo "<td align=left valign=top bgcolor=$hd_bg_color2>";
-    echo "<font color=$hd_txt_color2><b>Question</b></font></td>\n";
-    echo "<td colspan=2 bgcolor=$data_bg_color1>$row[QUESTION]</td>\n";
+    echo "<td align=left valign=top>";
+    echo "<b>Question</b></td>\n";
+    echo "<td colspan=2>$row[QUESTION]</td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
     echo "<td align=left valign=top bgcolor=$hd_bg_color2>";
-    echo "<font color=$hd_txt_color2><b>Response</b></font></td>\n";
-    echo "<td colspan=2 bgcolor=$data_bg_color1>$row[RESPONSE]</td>\n";
+    echo "<b>Response</b></td>\n";
+    echo "<td colspan=2>$row[RESPONSE]</td>\n";
     echo "</tr>\n";
     if ($row['RESPONSE']=='') {
 	echo "	<tr>\n";
-	echo "<td colspan=3 bgcolor=$data_bg_color1>";
+	echo "<td colspan=3>";
 	echo "<a href='clarification_response_form.php?clarification_id=$row[CLARIFICATION_ID]'>";
 	echo "Respond to Clarification</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
 	echo "<a href='clarification_response_form.php?clarification_id=$row[CLARIFICATION_ID]&ignore=y'>";
@@ -171,7 +178,10 @@ while ($row = mysql_fetch_assoc($result)) {
 	echo "<tr><td align=center bgcolor=$data_bg_color1>";
 	echo "There are no new clarifications</td></tr>";
     }
-    echo "</table></table>";
-    echo "<center><a href='clarification_response_form.php?clarification_id=0'>Make new Clarification</a></center>\n";	
+    echo "</table>";
+    echo "<center><a href='clarification_response_form.php?clarification_id=0'>Make new Clarification</a></center>\n";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
     include("lib/footer.inc");
 ?>

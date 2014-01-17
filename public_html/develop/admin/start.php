@@ -20,8 +20,26 @@ function make_file_readable($fp, $missing_files) {
 	}
 }
 
-if($_POST['submit'] == 'Start')
+if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 {
+/* code for changing type of team to the contest state, move as needed or delete
+	if($_POST['submit'] == 'Start'){
+		$sql = "SELECT * FROM TEAMS";
+		$result = mysql_query($sql);
+		if(mysql_num_rows($result) > 0){
+			while($row=mysql_fetch_assoc($result)){
+				if($row['TEST_TEAM']==0){
+					$row['TEST_TEAM']=1;
+					$sql = "update TEAMS set TEST_TEAM = '" . $row['TEST_TEAM'];
+					$sql .= "' where TEAM_ID = " . $row['TEAM_ID'];
+					mysql_query($sql);
+				}
+			}
+		}
+		else{
+			echo "error with sql.";
+		}
+	}*/
 	$cur_hour = date(G);
 	$cur_minute = date(i);
 	$cur_second = date(s);
@@ -68,12 +86,26 @@ if($_POST['submit'] == 'Start')
 			{
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
 			}
-			$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '1'";
-			$result = mysql_query($sql);
-			if(!$result)
-			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+			
+			if($_POST['test_submit'] == 'Test Start'){
+				$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '2'";
+				$result = mysql_query($sql);
+				if(!$result)
+				{
+					print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				}
 			}
+			
+			if($_POST['submit'] == 'Start'){
+				$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '1'";
+				$result = mysql_query($sql);
+				if(!$result)
+				{
+					print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				}
+			}
+			
+			
 		}
 		else
 		{
@@ -89,11 +121,22 @@ if($_POST['submit'] == 'Start')
 			{
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
 			}
+			
+			if($_POST['test_submit'] == 'Test Start'){
+			$sql = "UPDATE SITE set HAS_STARTED = '2' WHERE SITE_ID = '$site'";
+			$result = mysql_query($sql);
+			if(!$result)
+			{
+				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+			}
+			}
+			else{
 			$sql = "UPDATE SITE set HAS_STARTED = '1' WHERE SITE_ID = '$site'";
 			$result = mysql_query($sql);
 			if(!$result)
 			{
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+			}
 			}
 		}
 	}
@@ -101,10 +144,14 @@ if($_POST['submit'] == 'Start')
 
 
 echo "<form action=start.php method=post>";
-echo "<table align=center width=60% cellpadding=5 cellspacing=1 border=0>\n";
-echo "<tr><td colspan=2 align=center bgcolor=$hd_bg_color1>\n";
-echo "<font color=$hd_txt_color1><b>Start Contest</b></font></td></tr>\n";
-echo "<tr><td bgcolor=$hd_bg_color2>Start contest</td><td bgcolor=$hd_bg_color2 align=center>";
+
+
+
+echo "<div class='table-responsive'>";
+echo "<table class='table' align=center width=100%>\n";
+echo "<tr><td colspan=2 align='center'>\n";
+echo "<h3>Start Contest</h3></td></tr>\n";
+echo "<tr><td>Start contest</td><td>";
 //$cur_time = time();
 
 
@@ -124,13 +171,13 @@ $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
 {
-	echo "<tr><td bgcolor=$hd_bg_color2>SELECT from SITE table failed</tr></td>";
+	echo "<tr><td>SELECT from SITE table failed</tr></td>";
 }
 
 while($row = mysql_fetch_assoc($result))
 {
-	echo "<tr><td bgcolor=$data_bg_color1>" . $row['SITE_NAME'];
-	echo "</td><td align=center bgcolor=$data_bg_color1>";
+	echo "<tr><td>" . $row['SITE_NAME'];
+	echo "</td><td>";
 	if(!$contest_started)
 	{	
 		echo "<input type=checkbox name=chksite[] value='" . $row['SITE_ID'] . "' disabled></td></tr>";
@@ -138,7 +185,7 @@ while($row = mysql_fetch_assoc($result))
 	else
 	{
 		$site_started = $row['HAS_STARTED'];
-		if(!$site_started)
+		if($site_started!=1)
 		{
 			echo "<input type=checkbox name=chksite[] value='" . $row['SITE_ID'] . "' ></td></tr>";
 		}
@@ -148,8 +195,13 @@ while($row = mysql_fetch_assoc($result))
 		}
 	}
 }
-echo "<tr><td>&nbsp;</td><td align=center><input type=submit name=submit value=Start></form></td></tr>";
+
+echo "<tr><td align=center><input type=submit name=submit value=Start>";
+echo "<align=center><input type=submit name=test_submit value='Test Start'></tr>";
+
 echo "</table>\n";
+echo "</div>";
+
 	
     include("lib/footer.inc");
 ?>

@@ -6,8 +6,7 @@
 
     arch-tag: admin/lib/footer.inc
 !-->
-
-</td></tr></table>
-</td></tr></table>
+</div>
+</div>
 </body>
 </html>

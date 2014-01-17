@@ -26,7 +26,7 @@
 
 const int JUDGE_UID = UIDCHANGEME;
 const int JUDGE_GID = GIDCHANGEME;
-#define JUDGE_HOME  "/home/USERDIR/develop/logs"
+#define JUDGE_HOME  "/home/USERCHANGEME/CONTEST/logs"
 
 int main(int argc, char** argv) {
 		FILE* pErrFileC;

@@ -43,12 +43,13 @@ if (mysql_num_rows($contest_info) > 0) {
     $contest_end_time = $row['CONTEST_END_DELAY'];
     $base_dir = $row['BASE_DIRECTORY'];
 
-    $contest_start_ts = mktime($contest_start_hour,
+/*    $contest_start_ts = mktime($contest_start_hour,
 			    $contest_start_minute,
 			    0,
 			    $contest_month,
 			    $contest_day,
-			    $contest_year);
+			    $contest_year);*/
+    $contest_start_ts = $row['START_TS'];
     $contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
     $contest_end_ts = $contest_start_ts + $contest_end_time;
     
@@ -96,6 +97,11 @@ while ($row = mysql_fetch_assoc($teams_query)) {
     $team_contestant_3_name = $row['CONTESTANT_3_NAME'];
     $teams[$team_id]['contestant_3_name'] = $team_contestant_3_name;
     $users[$team_user]['contestant_3_name'] = $team_contestant_3_name;
+	
+/*	$test_team = $row['TEST_TEAM'];
+	$teams[$team_id]['test_team'] = $test_team;
+	$users[$team_user]['test_team'] = $test_team;
+*/
 }
 
 $sql = "SELECT ct.TEAM_ID, c.CATEGORY_NAME";
@@ -115,7 +121,7 @@ while ($row = mysql_fetch_assoc($categories_query)) {
 	    $categories[$cat_name]['team_ids'] = array();
 	}
 	array_push($categories[$cat_name]['team_ids'], $row['TEAM_ID']);
-	//print $categories[$cat_name]['team_ids'].$row['TEAM_ID']."<br />";
+	print $categories[$cat_name]['team_ids'].$row['TEAM_ID']."<br />";
     }
 }
 

@@ -42,7 +42,7 @@ include_once("lib/header.inc");
     echo " <div class=\"container\">";
     echo " <div class=\"table-responsive\">";
     echo "<form method='POST' action='setup_team_category.php'>";
-    echo " <table class=\"table\" align=\"center\">";
+    echo " <table class=\"table\" align=\"left\" width=90%>";
     echo "<tr><td>";
     echo "<h3>Teams</h3>";
     echo "</td></tr>";
