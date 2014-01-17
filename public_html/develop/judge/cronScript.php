@@ -27,7 +27,7 @@ if (flock($fp, LOCK_EX+LOCK_NB)){
 #This needs to be moved to the database - added to contest_config
 #or some other appropriate table, then added to the dbcreate.sql
 #as well as the judge.inc files
-$USE_CHROOT = 0;
+$USE_CHROOT = 1;
 
 # Look for a new submission
 $sql  = "SELECT * ";
@@ -247,7 +247,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 							$tmp_cmd = $problem_handle['copy_cmd']();
 							system($tmp_cmd, $result);
 							echo "\n\nsys 265: $tmp_cmd\n\n";
-							if(!result)
+							if(!$result)
 							{
 								print "Something went wrong with copying the executable to the chroot jail<br>";
 								print "Cmd: $tmp_cmd<br>";
@@ -446,7 +446,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
                                                 $sub_source =
                                                         $problem_handle['file_name'] . "_" . $outfile;
 				echo "\nauto_resopnse_number: $auto_response_number\n";	        
-    				if($auto_response_number != RUNTIME){
+    				if($auto_response_number != ERUNTIME){
 					echo "\nerror: $run_time_errorno\n";
 					update_submission($judged_id,$auto_response_number, $cur_input, $run_time_errorno);
 				}

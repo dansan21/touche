@@ -70,7 +70,14 @@ if($_POST)
 		{
 			//print "Failed to upload in file";
 			$error_msg = "Failed to upload 'in' file";
+		} else {
+			//dos2unix to fix any issues that Microsoft(bleh) could have caused. -TG
+			//echo "dos2unix on " . $data_dir . $_POST['problem_id'] . "_" . $_FILES['data_set_in']['name'] . $in_suffix;
+			$cmd = "dos2unix " . $data_dir . $_POST['problem_id'] . "_" . $_FILES['data_set_in']['name'] . $in_suffix;
+			system($cmd,$result);
+			//echo $result . "<br/>";
 		}
+		
 		//copy over the destination out file name so when we glob the directory later
 		//we can search for pars of input/output files with the same name
 		
@@ -80,6 +87,12 @@ if($_POST)
 		{
 			//print "Failed to upload out file";
 			$error_msg = "Failed to upload 'out' file";
+		} else {
+			//dos2unix to fix any issues that Microsoft(bleh) could have caused. -TG
+			//echo "dos2unix on " . $data_dir . $_POST['problem_id'] . "_" . $out_file_name;
+			$cmd = "dos2unix " . $data_dir . $_POST['problem_id'] . "_" . $out_file_name;
+			system($cmd,$result);
+			//echo $result . "<br/>";
 		}
 	}
 
