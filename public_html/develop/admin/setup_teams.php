@@ -336,14 +336,12 @@ if(!$edit_password) {
     echo "          <td><input type='text' name='email' ";
     echo "                  value = '$edit_email'></td>";
     echo "    </tr> ";
-<<<<<<< HEAD
 	echo "    <tr>";
     echo "          <td>Test Team: </td>";
     echo "          <td><input type='checkbox' name='test_team' value=1";
     echo "                  value = '$edit_test_team'></td>";
     echo "    </tr> ";
-=======
->>>>>>> 2aad555d709830c63fb59169824a20cb75bacb09
+
 
 	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
 	
