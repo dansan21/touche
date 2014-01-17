@@ -76,6 +76,7 @@ DROP TABLE IF EXISTS PROBLEMS;
 CREATE TABLE PROBLEMS (
   PROBLEM_ID int(11) NOT NULL auto_increment,
   PROBLEM_NAME char(30) NOT NULL default '',
+  PROBLEM_SHORT_NAME char(10) NOT NULL default '',
   PROBLEM_LOC char(20) NOT NULL default '',
   PROBLEM_NOTE char(100) NOT NULL default '',
   PRIMARY KEY  (PROBLEM_ID)
@@ -96,6 +97,7 @@ CREATE TABLE TEAMS (
   CONTESTANT_3_NAME char(30) NOT NULL default '',
   ALTERNATE_NAME char(30) NOT NULL default '',
   EMAIL char(30) NOT NULL default '',
+  NON_PARTICIPANT char(30) NOT NULL default 'unknown',
   TEST_TEAM boolean NOT NULL default true,
   PRIMARY KEY  (TEAM_ID)
 );
@@ -160,7 +162,8 @@ CREATE TABLE CONTEST_CONFIG (
   JUDGE_PASS char(30) NOT NULL default '',
   START_TS int(11) NOT NULL default '0',
   HAS_STARTED int(11) NOT NULL default '0',
-  TEAM_SHOW smallint(1) NOT NULL default '0'
+  TEAM_SHOW smallint(1) NOT NULL default '0',
+  TIME_PENALTY int(2) NOT NULL default '20'
 );
 */
 DROP TABLE IF EXISTS LANGUAGE;

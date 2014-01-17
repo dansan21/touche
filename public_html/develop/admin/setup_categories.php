@@ -148,15 +148,11 @@ else
 	//Open Container
 	echo " <div class=\"container\">";
 
-	//filler column
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
-
 
 	//Edit a category
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo $cur_categories;
 	echo " </table>";
 
@@ -174,9 +170,9 @@ else
 
 
 	//Add a category
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_categories.php method=post>";
 
 	echo "	  <tr>";

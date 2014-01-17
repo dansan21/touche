@@ -17,18 +17,19 @@
     include_once("../lib/data.inc");
 
 judge_header(0);
-echo "<br><table align=center bgcolor=#000000 width=50%
-    cellpadding=0 cellspacing=0 border=0><tr><td>\n";
-echo "<table align=center width=100% cellpadding=5 cellspacing=1 border=0>\n";
-echo "<tr><td colspan=5 align=center bgcolor=$hd_bg_color1>\n";
-echo "<font color=$hd_txt_color1><b>Problems Listing</b></font></td></tr>\n";
+echo "<div class='container'>";
+echo "<div class='innerglow'>";
+echo "<div class='table-responsive'>";
+echo "<table class='table' align=center width=100%>\n";
+echo "<tr><td colspan=5 align=center>\n";
+echo "<h3>Problems Listing</h3></td></tr>\n";
 
 
 #echo "<table width=400 align=center>\n";
-echo "<tr><td bgcolor=$hd_bg_color2>Problem Name</td>";
-echo "<td bgcolor=$hd_bg_color2 align=center>HTML</td>";
+echo "<tr><td>Problem Name</td>";
+echo "<td align=center>HTML</td>";
 #echo "<td bgcolor=$hd_bg_color2 align=center>PS</td>";
-echo "<td bgcolor=$hd_bg_color2 align=center>PDF</td></tr>";
+echo "<td align=center>PDF</td></tr>";
 #echo "<tr><td bgcolor=$data_bg_color1>All problems</td>";
 #echo "<td bgcolor=$data_bg_color1 align=center>";
 #echo "<a href='../$problem_url/problems.html'>HTML</td>";
@@ -39,16 +40,19 @@ echo "<td bgcolor=$hd_bg_color2 align=center>PDF</td></tr>";
 #echo "</tr>";
 
 foreach ($problems as $problem) {
-    echo "<tr><td bgcolor=$data_bg_color1>$problem[id] - $problem[name]</td>";
-    echo "<td bgcolor=$data_bg_color1 align=center>";
+    echo "<tr><td>$problem[id] - $problem[name]</td>";
+    echo "<td align=center>";
     echo "<a href='../$problem_url/$problem[loc]/$problem[name].html'>HTML</a></td>";
   //  echo "<td bgcolor=$data_bg_color1 align=center>";
   //  echo "<a href='$problem_url/$problem[loc]/problem.ps'>PS</a></td>";
-    echo "<td bgcolor=$data_bg_color1 align=center>";
+    echo "<td align=center>";
     echo "<a href='../$problem_url/$problem[loc]/$problem[name].pdf'>PDF</a></td>";
     echo "</tr>";
 }
 echo "</table>\n";
+echo "</div>";
+echo "</div>";
+echo "</div>";
 
     include("lib/footer.inc");
 ?>

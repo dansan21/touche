@@ -126,12 +126,10 @@ else
 	echo " <div class=\"container\">";
 
 
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
 
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo $cur_headers;
 	echo " </table>";
 	echo "</div>";
@@ -145,9 +143,9 @@ else
 	echo "</div>";
 
 
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_forbidden.php method=post>";
 
 

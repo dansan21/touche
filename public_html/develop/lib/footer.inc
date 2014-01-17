@@ -1,6 +1,5 @@
 
-</td></tr></table>
-</td></tr></table>
+
 
 <!--
     Copyright (C) 2002 David Whittington
@@ -10,6 +9,7 @@
 
     arch-tag: lib/footer.inc
 !-->
-
+</div>
+</div>
 </body>
 </html>

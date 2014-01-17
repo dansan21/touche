@@ -267,14 +267,14 @@ system($cmd,$result);
 #---------editing chroot_wrapper.c--------------------------------
 $stuff = `id`;
 preg_match_all('/[0-9]+/',$stuff,$matches);
-//echo "UID = " . $matches[0][0];
-//echo "GID = " . $matches[0][1];
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("../$contest_noesc/chroot_wrapper.c"));
-$file = preg_replace("/develop/", "$contest", $file);
-$file = preg_replace("UIDCHANGEME",$matches[0][0],$file);
-$file = preg_replace("GIDCHANGEME",$matches[1][0],$file);
-//$file = preg_replace("USERDIR",$user,$file);
+
+$file = preg_replace("/CONTEST/", "$contest", $file);
+$file = preg_replace("/UIDCHANGEME/",$matches[0][0],$file);
+$file = preg_replace("/GIDCHANGEME/",$matches[0][1],$file);
+$file = preg_replace("/USERCHANGEME/",$user,$file);
+
 fclose($fhdl);
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);

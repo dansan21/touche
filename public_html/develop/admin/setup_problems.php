@@ -49,6 +49,7 @@ if ($_GET)
 				{			
 					$row = mysql_fetch_assoc($result);
 					$edit_problem_name = $row['PROBLEM_NAME'];
+					$edit_problem_short_name = $row['PROBLEM_SHORT_NAME'];
 					$edit_problem_id = $row['PROBLEM_ID'];
 					$edit_problem_loc = $row['PROBLEM_LOC'];
 					$edit_problem_note = $row['PROBLEM_NOTE'];
@@ -98,6 +99,10 @@ else if($_POST)
 		{
 			$error_msg .= "You forget to set the problem name<br>\n";
 		}
+		if(strlen($_POST['problem_short_name']) == 0)
+		{
+			$error_msg .= "You forget to set the shortened problem name<br>\n";
+		}
 		else if(strlen($_POST['problem_loc']) == 0)
 		{
 			$error_msg .= "You forget to set the problem location<br>\n";
@@ -138,6 +143,7 @@ else if($_POST)
 			if(isset($_SESSION['edit_problem']))
 			{
 				$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
+				$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
 				$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
 				$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
 				$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
@@ -161,8 +167,9 @@ else if($_POST)
 			else
 			{		
 				//adding a new problem
-				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
+				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
 				$sql .= "values('" . $_POST['problem_name'] . "', '";
+				$sql .= $_POST['problem_short_name'] . "', '";
 				$sql .= $_POST['problem_loc'] . "', '";
 				$sql .= $_POST['problem_note'] . "')";
 				
@@ -209,7 +216,7 @@ if(mysql_num_rows($result) > 0) {
 		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
 		$cur_problems .= " </td><td>";
 		$cur_problems .= "<a href=setup_problems.php?problem_id=" . $row['PROBLEM_ID'] . ">Edit</a>";
-		$cur_problems .= "</td><td>";;
+		$cur_problems .= "</font></td><td><font size=-1>";
 		$cur_problems .= "<a href=setup_problems.php?remove_id=" . $row['PROBLEM_ID'] . ">Delete</a>";
 		$cur_problems .= "<br>\n";
 		$cur_problems .= "</td></tr>";
@@ -262,34 +269,12 @@ $http_pdf.="	  </tr> ";
 
 
 
-	echo " <div class=\"container\">";
-
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
-
-
-	echo "<div class=\"col-md-3\">";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"center\">";
-	echo $cur_problems;
-	echo "</table>";
-	echo "</div>";
-
-	if($error_msg)
-	{
-		echo "<table>$error_msg</table>";
-	}
-
-	echo "</div>";
-
-
-
-
-	echo "<div class=\"col-md-3\">";
+	echo " <div class=\"container\">"; //start container
 	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
-
+	echo "<div class=\"col-md-5\">"; //start COL
+	
+	echo " <div class=\"table-responsive\">"; //start RESPONSIVE
+	echo " <table class=\"table\" align=\"left\" width=100%>"; //Start Table
 	echo " <tr> ";
 	echo " <td colspan='2'>";
 	echo " <h3>Add or Edit Categories</h3>";
@@ -302,8 +287,11 @@ $http_pdf.="	  </tr> ";
 	echo "		<td><input type='text' class='form-control' name='problem_name' ";
 	echo "			value = '$edit_problem_name'></td>";
 	echo "	  </tr> ";
-	
-
+	echo "	  <tr> ";
+	echo "		<td>Problem name shortened: </td>";
+	echo "		<td><input type='text' name='problem_short_name' ";
+	echo "			value = '$edit_problem_short_name'></td>";
+	echo "	  </tr> ";
 	echo "	  <tr> ";
 	echo "		<td align='right'>Problem location: </td>";
 	echo "		<td><input type='text' class='form-control' name='problem_loc' ";
@@ -326,9 +314,27 @@ $http_pdf.="	  </tr> ";
 
 
 
-	echo "</div>";
-	echo "</form>";
+	echo "</table>"; //end table
+	echo "</div>"; //end responsive
+	echo "</div>"; //end COL
+
+
+	echo "<div class=\"col-md-6\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
+	echo $cur_problems;
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
+
+	if($error_msg)
+	{
+		echo "<table>$error_msg</table>";
+	}
+
+	
+
+	echo "</form>";
 	echo "</div>";
 	include("lib/footer.inc");
 ?>

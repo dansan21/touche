@@ -32,13 +32,17 @@
 		echo "<center><br><font color=\"#ee0000\">Judging pending on a previous submission, please wait.</b></font><br></center>\n";
 	}
 	?>
-	<br><b><center>Submit a Solution</center></b><br>
-	<table align="center" bgcolor="#000000" width="90%" cellpadding="0"  cellspacing="0" border="0"><tr><td>
-		<table align="center" width="100%" cellpadding="5" cellspacing="1" border="0">
+	
+		<div class="container\">
+			 <div class="table-responsive">
+			 <table class="table" align="left" width=100%>
+			 	<tr bgcolor="#CCCCCC">
+			 		<td  colspan='2' align='center'>
+			 			<h3>Submit a Solution</h3>
+			 		</td>
+				</tr>
 			
 			<form method="post" enctype="multipart/form-data" action="submit_solution.php">
-			<tr><td align="center" bgcolor="<?echo "$data_bg_color1"?>" colspan="3">
-			<table>
 				<tr><td align="right">Source File (C, C++, or Java) &nbsp</td>
 				<td><input type="file" name="source_file"></td></tr>
 				<tr><td align="right">Problem &nbsp</td><td>
@@ -57,17 +61,20 @@
 	echo "</td></tr></table>\n";
 	echo "</td></tr>\n";
 	echo "</form></table>\n";
-	echo "</td></tr></table>\n";
+	echo "</td></tr>\n";
+	echo "</div>";
+	echo "</div>";
 	
 	reset($problems);
 	$prob_num = 1;
-	echo "<br><b><center>Submissions</center></b><br>\n";
+	echo "<table  class='table' align=\"center\" width=100%>";
+	echo "<tr><td colspan=2 align='center' bgcolor='#CCCCCC'><h3>Submissions</h3></td></tr>";
+	echo "</table>";
 	foreach ($problems as $problem) {
-		echo "<table align=\"center\" bgcolor=\"#000000\" width=\"90%\" cellpadding=\"0\"  cellspacing=\"0\" border=\"0\"><tr><td>\n";
-		echo "<table align=\"center\" width=\"100%\" cellpadding=\"5\" cellspacing=\"1\" border=\"0\">\n";
-		echo "	<tr><td bgcolor=\"$hd_bg_color1\" colspan=\"3\">\n";
-		echo "		<font color=\"$hd_txt_color1\"><b>Problem #$prob_num: ".$problem['name']."<b><br>\n";
-		echo "	</td></tr>\n";
+		echo "<table  class='table' align=\"center\" width=100%>";
+		echo " <tr><td  colspan=\"3\" align='center'>";
+		echo "		<b>Problem #$prob_num: ".$problem['name']."</b><br>";
+		echo " </td></tr>";
 	
 		$sql =  "SELECT TS, ATTEMPT, RESPONSE_ID ";
 		$sql .= "FROM JUDGED_SUBMISSIONS ";

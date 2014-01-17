@@ -124,14 +124,10 @@ else
 //must be a http GET
 	echo " <div class=\"container\">";
 
-	//filler column
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
-
 	//Select Language Column
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"center\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_headers.php method=post>";
 	echo $cur_headers;
 	echo "</table>";
@@ -146,9 +142,9 @@ else
 
 
 
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"center\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo "	  <tr>";
 	echo "		<td colspan=2>";
 	echo "		<h3>$action</h3></td>";

@@ -59,6 +59,7 @@ $row = mysql_fetch_assoc($contest_info);
     $contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
     $contest_end_ts = $contest_start_ts + $contest_end_time;
 	$contest_started = $row['HAS_STARTED'];
+	$time_penalty = $row['TIME_PENALTY'];
 
 if(isset($team_id)){
     $sql = "SELECT * FROM SITE, TEAMS ";

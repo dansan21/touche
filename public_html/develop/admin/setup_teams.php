@@ -229,33 +229,14 @@ else
 //must be a http GET
 	echo " <div class=\"container\">"; // open container
 
-	//filler column
-	echo "<div class=\"col-md-3\">"; //open col
-	echo "</div>"; //close col
 
 
-	echo "<div class=\"col-md-3\">"; //open col
-
-	echo " <div class=\"table-responsive\">"; //open responsive
-	echo " <table class=\"table\" align=\"left\">";
-	echo "<tr>";
-	echo $cur_teams;
-	echo "</tr>";
-	echo "</table>";
-	echo "</div>"; //close responsive
-
-	if($error_msg)
-	{
-		echo "<h3>$error_msg</h3>";
-	}
-
-	echo "</div>"; //close col
 
 
-	echo "<div class=\"col-md-4\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <form action=setup_teams.php method=post>";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 
 
 	echo "	  <tr>";
@@ -349,6 +330,26 @@ if(!$edit_password) {
 	echo "</table>";
 	echo "</div>"; //close column
 	echo "</div>"; //close responsive
+
+
+	echo "<div class=\"col-md-5\">"; //open col
+
+	echo " <div class=\"table-responsive\">"; //open responsive
+	echo " <table class=\"table\" align=\"left\"  width=100%>";
+	echo "<tr>";
+	echo $cur_teams;
+	echo "</tr>";
+	echo "</table>";
+	echo "</div>"; //close responsive
+
+	if($error_msg)
+	{
+		echo "<h3>$error_msg</h3>";
+	}
+
+	echo "</div>"; //close col
+
+
 	
 	echo "</form>"; // close form
 	echo "</div>"; //close container
