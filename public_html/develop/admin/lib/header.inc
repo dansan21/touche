@@ -11,6 +11,8 @@
 
 include_once("admin_config.inc");
 include_once ("session.inc");
+include_once("data.inc");
+
 
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
@@ -96,10 +98,10 @@ if (!$connect_good) {
                 echo "'active'";
             }
         ?>><a href="setup_categories.php">Categories</a></li>
-    <li class=<?php if (strpos($actual_link,'start') !== false) {
+    <li class=<?php if (strpos($actual_link,'setup_team_category') !== false) {
                 echo "'active'";
             }
-        ?>><a href="setup_team_category.php">Team Categories</a></li>
+        ?>><a href="setup_team_category.php">TCats</a></li>
     <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 		$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 		$lang_sql  .= "FROM LANGUAGE";
@@ -130,7 +132,7 @@ if (!$connect_good) {
          <li class=<?php if (strpos($actual_link,'start.php') !== false) {
                 echo "'active'";
             }
-        ?>><a href="start.php">Start Contest</a></li>
+        ?>><a href="start.php">Start</a></li>
 
     <!--<li><a href="#">&raquo;</a></li> -->
   </ul>
@@ -142,22 +144,35 @@ if (!$connect_good) {
             <table class="table" align='center'>
                 <tr>
                 <?
-                    $freeze_diff = $contest_freeze_ts + $site_start_offset - time();
-                    $time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
+                        $freeze_diff = $contest_freeze_ts + $site_start_offset - time();
+                        $time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
+                        $time_till_contest_end = gmdate("H:i:s", $contest_end_ts - time());
+                        $end_diff = $contest_end_ts + $site_start_offset - time();
 
                     if ($freeze_diff > 0) {
                                             print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
                                             print "<td align='left'><h3>$time_till_freeze_starts</h3></td>";
                                     }
                     else {
-                        print"<td align='center' colspan=2><div class='tablehelp'><h4>Standings Are Now Frozen Frozen</h4></div></td>";
+                        print"<td align='center' colspan=2><div class='tablehelp'><h4>Standings Are Now Frozen</h4></div></td>";
                     }
                 ?>
                     
                 </tr>
                 <tr>
-                    <td align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
-                    <td align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+                        <?php
+                        if ($end_diff > 0) {
+
+                            print "<td align='right'><div class=\"tablehelp\"><h4>Contest Ends in:</h4></div></td>";
+                            print "<td align='left'><h3>$time_till_contest_end</h3></td>";
+                        }
+
+                        else {
+                            print "<td align='right' colspan=2><div class='tablehelp'><h4>Contest is Over</h4></div></td>";
+
+                        }
+
+                        ?>
                 </tr>
 
             </table>

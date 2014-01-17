@@ -145,6 +145,8 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 	  				<?
 						$freeze_diff = $contest_freeze_ts + $site_start_offset - time();
 						$time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
+						$time_till_contest_end = gmdate("H:i:s", $contest_end_ts - time());
+						$end_diff = $contest_end_ts + $site_start_offset - time();
 
 						if ($freeze_diff > 0) {
 					                            print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
@@ -158,9 +160,37 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 	  					<td align='left'><h3><?=$num_queued?></h3></td>
 	  					
 	  				</tr>
+
+
+
+
+
+
 	  				<tr>
-	  					<td align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
-	  					<td align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+	  					<?php
+	  					if ($end_diff > 0) {
+
+	  						print "<td align='right'><div class=\"tablehelp\"><h4>Contest Ends in:</h4></div></td>";
+	  						print "<td align='left'><h3>$time_till_contest_end</h3></td>";
+	  					}
+
+	  					else {
+	  						print "<td align='right' colspan=2><div class='tablehelp'><h4>Contest is Over</h4></div></td>";
+
+	  					}
+
+	  					?>
+
+	  					
+	  					
+
+
+
+
+
+
+
+
 	  					<td align='right'><div class="tablehelp"><h4>Unanswered Clarifications:</h4></div></td>
 	  					<td align='left'><h3><?=$num_clarifications?></h3></td>
 	  				</tr>

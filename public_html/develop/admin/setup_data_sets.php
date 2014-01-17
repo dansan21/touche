@@ -195,14 +195,11 @@ else
 
 	echo " <div class=\"container\">";
 
-	//filler div
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
 
 
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_data_sets.php enctype='multipart/form-data' method=post>";
 	echo $cur_data_sets;
 	echo "<tr><td>";
@@ -220,9 +217,9 @@ else
 
 
 	//Table for inputing a new input and output data set.
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align='left'>";
+	echo " <table class=\"table\" align='left' width=100%>";
 	echo "<tr><td colspan='2'><h3>$action</h3></td></tr>";
 	echo $http_form;
 	echo "</table>";

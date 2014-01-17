@@ -29,41 +29,58 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 	}
     }
 </script>
+
+<style>
+<?php include_once("../styles/css/bootstrap.css"); ?>
+</style>
+
 </head>
-<body bgcolor=<?=$page_bg_color?> onLoad="set_focus()">
+<body onLoad="set_focus()">
 
-<form name="f" method="post" action="index.php">
-<table align="center" height="100%" border="0"><tr><td>
-<table cellpadding="1" cellspacing="0" border="0" bgcolor="#000000"><tr><td>
-<table cellpadding="5" cellspacing="0" border="0" bgcolor="<?=$title_bg_color?>"><tr><td>
-<font color="#ffffff">
-<b><?php echo $contest_name ?></b><br>
-<small><?php echo $contest_host ?></small>
-</font>
-</td></tr><tr><td bgcolor="#ffffff">
+    <div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+            <?php 
+            $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+            header("Content-Type: image/png");
+            echo "<img src='$path' alt='Logo'>";
+            ?>
 
-<?
-    if (isset($state) && $state == 1) {
-	echo "<center><b>";
-	echo "Login or Password Invalid</b></center>\n";
-    }
-    else if (isset($state) && $state == 2) {
-	echo "<center><b>";
-	echo "You are not yet logged in</b></center>\n";
-    }
-?>
+        </div>
+        <div class="text-right">
+            <form class="form-inline" name="f" method="post" action="index.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="user" size="30" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" size="30" placeholder="Password">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-default" name="submit">Sign in</button>
+                </div>
+                <?
+                    if (isset($state) && $state == 1) {
+                	echo "<center><b>";
+                	echo "Login or Password Invalid</b></center>\n";
+                    }
+                    else if (isset($state) && $state == 2) {
+                	echo "<center><b>";
+                	echo "You are not yet logged in</b></center>\n";
+                    }
+                ?>
+                </form>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h3>Judge Login for: <?=$contest_name?></h3>
+        </div>
+        <div class="row">
+            <h4><?=$contest_host?></h4>
+        </div>  
+    </div>
 
-<table cellpadding="5" cellspacing="0" border="0">
-<tr><td>Login:</td><td><input type="text" name="user" size="20">
-</td></tr>
-<tr><td>Password:</td><td><input type="password" name="password" size="20"></td></tr>
-<tr><td>&nbsp;</td><td><input type="submit" name="submit" value="  OK  ">
-<input type="reset" name="submit" value=" Cancel "></td></tr>
-</table>
-</td></tr></table>
-</td></tr></table>
-</td></tr></table>
-</form>
 </body>
 </html>
 <?
@@ -75,7 +92,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($user == $judge_user && $password == $judge_pass) {
 	$_SESSION['judge_username'] = $user;
 	$_SESSION['judge_password'] = $password;
-	header ("Location: start.php");
+	header ("Location: judge.php");
     }
     else {
 	header ("Location: index.php?state=1");

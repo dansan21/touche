@@ -151,11 +151,9 @@ else
 
 	//table for Editing a Site
 	echo " <div class=\"container\">";
-	echo "<div class=\"col-md-3\">";
-	echo "</div>";
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo "<tr>";
 	echo "<td>";
 	echo " <h3>Edit a Site</h3>";
@@ -169,12 +167,12 @@ else
 
 
 	//Table for Adding a Site
-	echo "<div class=\"col-md-3\">";
+	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_site.php method=post>";
 	echo "<th colspan='2'>";
-	echo " $action";
+	echo " <h3>$action</h3>";
 	echo "</th>";
 	echo " <tr>";
 	echo " <td>Site name: </td>";

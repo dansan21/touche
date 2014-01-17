@@ -318,13 +318,10 @@ End of POST section
                 echo "</center>";
                 echo "<p>";
                 echo " <div class=\"table-responsive\">";
-                echo " <table class=\"table\" align=\"center\">";
+                echo " <table class=\"table\" align=\"center\" width=100%>";
                 echo "  <tr>\n";
                 echo "<form method=POST action=misc.php>\n";
-                echo "          <td colspan=\"2\"><h3>Misc Contest Actions</h3></td>\n";
-                echo "  </tr>";
-                echo "  <tr>";
-                echo "          <td colspan=\"2\">Extend the Contest</td>";
+                echo "          <td colspan=\"2\" align='center'><h3>Misc Contest Actions</h3></td>\n";
                 echo "  </tr>";
                 $host = $row['HOST'];
                 $contest_name = $row['CONTEST_NAME'];
@@ -346,7 +343,7 @@ End of POST section
 		$ext_second = "00";
 	}
         echo "          <tr>";
-        echo "                  <td>Extend Contest By (HH:mm:ss)</td> ";
+        echo "                  <td align='right'>Extend Contest By (HH:mm:ss)</td> ";
         echo "                  <td><input type=\"text\" name=\"ext_hour\" size=\"2\"";
         echo "                          maxlength=2 value=\"$ext_hour\"></input>:";
         echo "                  <input type=\"text\" name=\"ext_minute\" size=\"2\"";
@@ -359,49 +356,36 @@ End of POST section
         echo "                  <td><input type=\"submit\" value=\"Extend Contest\" name=\"B1\"></input></td> ";
         echo "          </tr>";
 
-
         echo "          <tr>";
-        echo "                  <td colspan=2>Clear the Contest</td>";
-        echo "          </tr>";
-
-        echo "          <tr>";
-        echo "                  <td>Problems, Teams, Categories, etc. will be kept.</td>";
+        echo "                  <td align='right'>Problems, Teams, Categories, etc. will be kept.</td>";
         echo "                  <td><input type=\"submit\" value=\"Clear Contest\" name=\"B2\"</input></td>";
 	      echo "		      </tr>";
 
-
-
         echo "          <tr>";
-        echo "                  <td colspan=2>Clone the Contest.</td>";
+        echo "                  <td align='right'>Clone Contest:</td>";
+        echo "                  <td><input type=\"text\" name=\"clone_name\" placeholder=\"Clone Name\" size=\"17\"></input></td>";
         echo "          </tr>";
 
 
-
         echo "          <tr>";
-        echo "                  <td>Name of the Clone:</td>";
-        echo "                  <td><input type=\"text\" name=\"clone_name\" size=\"17\"></input></td>";
-        echo "          </tr>";
-
-
-        echo "          <tr";
         echo "                  <td></td> ";
-        echo "                  <td><input type=\"submit\" value=\"Clone Contest\" name=\"B3\"></input></td> ";
+        echo "                  <td align='left'><input type=\"submit\" value=\"Clone Contest\" name=\"B3\"></input></td> ";
         echo "          </tr>";
 
 
 	      echo "          <tr>";
-        echo "                  <td colspan=2>Send files to teams</td>";
+        echo "                  <td colspan=1 align='right'>Send files to teams</td>";
         echo "          </tr>";
 
 
         echo "          <tr>";
-        echo "                  <td>Admin Email (Send all contest files to):</td>";
+        echo "                  <td align='right'>Admin Email (Send all contest files to):</td>";
         echo "                  <td><input type=\"text\" name=\"admin_email\" size=\"17\"></input></td>";
         echo "          </tr>";
 
 
         echo "          <tr>";
-        echo "                  <td>Zip each teams files and send files</td> ";
+        echo "                  <td align='right'>Zip each teams files and send files</td> ";
         echo "                  <td><input type=\"submit\" value=\"Send Zip Files\" name=\"B4\"></input></td> ";
         echo "          </tr>";
 
@@ -411,23 +395,17 @@ End of POST section
         if(!mysql_num_rows( mysql_query("SHOW TABLES LIKE 'JUDGED_SUBMISSIONS_COPY'"))){
                 echo "  <form action='rejudge.php' method='POST'>\n";
                 echo "          <tr>";
-                echo "                  <td colspan=2>recalculate responses</td>";
-                echo "          </tr>";
-                echo "          <tr>";
-                echo "                  <td>calculate new auto responses for each submission</td> ";
+                echo "                  <td align='right'>calculate new auto responses for each submission</td> ";
                 echo "                  <td><input type=\"submit\" value='recalculate responses' onClick='return confirmSubmit()'></td> ";
                 echo "          </tr>";
 
                 echo "  </form></table>";
         }
         else{
-                echo "          <tr>";
-                echo "                  <td colspan=2>recalculate responses</td>";
-                echo "          </tr>";
 
 
                 echo "          <tr>";
-                echo "                  <td>It has Already been recalculated</td> ";
+                echo "                  <td align='right'>It has Already been recalculated</td> ";
                 echo "                  <td><a href='review.php'>review new judgements</a></td> ";
                 echo "          </tr>";
 

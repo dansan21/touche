@@ -103,8 +103,7 @@ if($_POST['submit'] == 'Start')
 echo "<form action=start.php method=post>";
 
 
-echo "<div class='container'>";
-echo "<div class='innerglow'>";
+
 echo "<div class='table-responsive'>";
 echo "<table class='table' align=center width=100%>\n";
 echo "<tr><td colspan=2 align='center'>\n";
@@ -153,11 +152,10 @@ while($row = mysql_fetch_assoc($result))
 		}
 	}
 }
-echo "<tr><td colspan=2><input type=submit name=submit value=Start></form></td></tr>";
+echo "<tr><td colspan=2 align='center'><input type=submit name=submit value=Start></form></td></tr>";
 echo "</table>\n";
 echo "</div>";
-echo "</div>";
-echo "</div>";
+
 	
     include("lib/footer.inc");
 ?>

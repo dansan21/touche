@@ -238,7 +238,7 @@ End of POST section
 		echo " <div class=\"container\">";
 		echo " <form method=POST action=setup_contest.php>\n";
 		echo " <div class=\"table-responsive\">";
-		echo " <table class=\"table\" align=\"center\" width=70%>";
+		echo " <table class=\"table\" align=\"left\" width=90%>";
 		echo " <td align='right'><h3>Edit Contest Info</h3></td>";
 		$host = $row['HOST'];
 		$contest_name = $row['CONTEST_NAME'];
