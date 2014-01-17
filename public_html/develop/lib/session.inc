@@ -13,12 +13,12 @@
 
     session_name("TOUCHE-$db_name");
     session_start();
-	header ("expires:Tuesday, 25 Apr 1995 09:30:00 -0700");
-    $team_id = $_SESSION['team_id'];
-    $team_name = $_SESSION['team_name'];
+	$team_id = $_SESSION['team_id'];
+    $team_name = $_SESSION['team_name'];	
+
     if(!isset($_SESSION['contestant_user']) 
 	|| !isset($_SESSION['contestant_pass'])
-	|| ($_SESSION['test_team'])=="0"
+	|| ($_SESSION['test_team']=="0" && $_SESSION['result']=="2")
 	){
 	header ("Location: index.php?state=2");
 	exit(0);

@@ -88,6 +88,15 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$_SESSION['test_team']=$users[$user]['test_team'];
 	$_SESSION['team_id'] = $users[$user]['team_id'];
 	$_SESSION['team_name'] = $users[$user]['team_name'];
+	$sql = "SELECT SITE_ID FROM TEAMS WHERE TEAM_ID = " . $_SESSION['team_id'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_assoc($result);
+	$sql = "SELECT HAS_STARTED FROM SITE WHERE SITE_ID = " . $row['SITE_ID'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_assoc($result);
+	$_SESSION['result']=$row['HAS_STARTED'];
+	
+	
 	header ("Location: main.php");
     }
     else {
