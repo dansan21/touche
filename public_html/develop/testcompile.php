@@ -32,7 +32,7 @@
     if ($state == 5){
         echo "<center><font color=\"#ee0000\">Compile Errors</b></font><br><br></center>\n";
 	$errors = str_replace("\n", "<br />", $errors);
-	echo "<p> $errors </p>";
+	echo "<div class = 'error'><br>$errors</div>";
     }
 
 	

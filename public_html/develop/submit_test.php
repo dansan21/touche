@@ -67,8 +67,8 @@
 	$sql .= "WHERE EXT = '$extension' ";
 	$sql_result = mysql_query($sql);
 	if(!$sql_result){
-        	sql_error($sql);
-        }
+		sql_error($sql);
+    }
 
 	//Get Language of extension
 	$row = mysql_fetch_assoc($sql_result);
@@ -137,7 +137,7 @@
 ##-----
 ## Fatal error: Call to undefined function: () in /home/contest/public_html/SBtest4/submit_test.php on line 136
 ##-----
-echo "Test compilation currently disabled due to problem. Sorry.<br />\n";
+echo "<div class = 'error'><br>Test compilation currently disabled due to problem. Sorry.<div>";
 		exit(0);
 #                $problem_handle['preprocess']($headers);
                 save_file($problem_handle['comp_dir'].$uploadfile.".".$extension,$problem_handle['judged_source']);
@@ -149,14 +149,14 @@ echo "Test compilation currently disabled due to problem. Sorry.<br />\n";
               $tmp = system($sys_command,$result);
               if($result == 127) {
           	    $auto_response_number = EUNKNOWN;
-              	    $submission_output .= "**Unknown Error**";
+              	    $submission_output .= "<div class = 'error'><br>Unknown Error</div>";
 		$_SESSION['compile_errors'] = $problem_handle['process_errors']($submission_output, $orig_file_name);
 		header("location: testcompile.php?state=5");
 		exit(0);
               }
               else if($result) {
-		$auto_response_number = ECOMPILE;
-              	$submission_output .=
+				$auto_response_number = ECOMPILE;
+              	$submission_output .= "<div class = 'error'><br>Compile Error</div>"
                 read_entire_file($problem_handle['comp_dir'] . $problem_handle['file_name'] . ".err");
 		$_SESSION['compile_errors'] = $problem_handle['process_errors']($submission_output, $orig_file_name);
 		header("location: testcompile.php?state=5");
@@ -184,12 +184,12 @@ function read_entire_file($filename) {
 function save_file($filename,$file) {
     if($handle = fopen($filename,"w+")) {
                 if($file && !fwrite($handle,$file)){
-                        $submission_output .= "Error: Unable to write to the file!";
+                        $submission_output .= "<div class = 'error'><br>Error: Unable to write to the file!</div>";
                         fclose($handle);
                 }
         }
     else{
-                $submission_output .= "Error: Unable to open the file!";
+                $submission_output .= "<div class = 'error'><br>Error: Unable to open the file!</div>";
         }
 }
 

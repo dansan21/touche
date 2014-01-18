@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	if (document.f.user.value) {
 	    document.f.password.focus();
 	} else {
-	document.f.user.focus();
+		document.f.user.focus();
 	}
     }
     function check_input() {
@@ -70,12 +70,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 </div>
                 <?
                     if (isset($state) && $state == 1) {
-                	echo "<center><b>";
-                	echo "Login or Password Invalid</b></center>\n";
+						echo "<div class = 'error'><br>Login or Password Invalid</div>";
                     }
                     else if (isset($state) && $state == 2) {
-                	echo "<center><b>";
-                	echo "You are not yet logged in</b></center>\n";
+						echo "<div class = 'error'><br>You are not yet logged in</div>"
                     }
                 ?>
                 </form>
@@ -94,13 +92,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     </div>
 
 		<?php
-		    if(isset($state) && $state == 1) {
-			echo "<center><font color=#cc0000><b>";
-			echo "Login or Password Invalid</b></font></center>\n";
-		    } else if(isset($state) && $state == 2) {
-			echo "<center><font color=#cc0000><b>";
-			echo "You are not yet logged in</b></font></center>\n";
-		    }
+		    if (isset($state) && $state == 1) {
+				echo "<div class = 'error'><br>Login or Password Invalid</div>";
+			}
+            else if (isset($state) && $state == 2) {
+				echo "<div class = 'error'><br>You are not yet logged in</div>"
+            }
 
 		?>
 

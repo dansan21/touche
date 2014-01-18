@@ -13,7 +13,7 @@
 	$sql = "SELECT * from TEAMS WHERE TEAM_ID = $team_id";
 	$result = mysql_query($sql);
 	if (!$result) {
-		echo 'Could not run query: ' . mysql_error();
+		echo '<div class = "error"><br>Could not run query: ' . mysql_error().'</div>';
 		exit;
 	}
 	$row = mysql_fetch_assoc($result);

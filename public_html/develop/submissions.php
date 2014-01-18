@@ -17,19 +17,19 @@
 	$state = $_GET['state'];
 	
 	if ($state == 1) {
-		echo "<center><br><font color=\"#ee0000\">No file selected for submission!</font><br></center>\n";
+		echo "<div class = 'error'><br>No file selected for submission!</div>";
 	}
 	
 	if ($state == 2) {
-		echo "<center><br><font color=\"#ee0000\">You have alread solved this problem!</font><br></center>\n";
+		echo "<div class = 'error'><br>You have alread solved this problem!</div>";
 	}
 	
 	if ($state == 3) {
-		echo "<center><br><font color=\"#00aa00\">Submission successful. Judging pending.</b></font><br></center>\n";
+		echo "<div class = 'success'><br>Submission successful. Judging pending.</div>";
 	}
 	
 	if ($state == 4) {
-		echo "<center><br><font color=\"#ee0000\">Judging pending on a previous submission, please wait.</b></font><br></center>\n";
+		echo "<div class = 'error'><br>Judging pending on a previous submission, please wait.</div>";
 	}
 	?>
 	

@@ -22,11 +22,12 @@ include_once("lib/header.inc");
     if(isset($_POST["submit"]))
     {
     	$sql = "DELETE FROM CATEGORY_TEAM";
-	mysql_query($sql);
+		mysql_query($sql);
 	
     	foreach($_POST as $box => $value) {
 	    if($value == 'on') {
 	    	$team = explode("|", $box);
+			echo $team;
 		$sql = "INSERT INTO CATEGORY_TEAM (TEAM_ID, CATEGORY_ID) VALUES ('$team[0]', '$team[1]');";
 		mysql_query($sql);
 	    }

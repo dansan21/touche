@@ -18,7 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-//echo $problem_dir."<br/>";
+
 
 if ($_GET)
 {
@@ -138,26 +138,24 @@ else if($_POST)
 			{
 				$error_msg .= "Failed to upload pdf file";
 			}
-		}
-		else{			
-			if(isset($_SESSION['edit_problem']))
+		}		
+		if(isset($_SESSION['edit_problem']))
+		{
+			$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
+			$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
+			$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
+			$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
+			$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
+			$result = mysql_query($sql);
+			if(!$result)
 			{
-				$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
-				$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
-				$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
-				$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
-				$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
-				$result = mysql_query($sql);
-				if(!$result)
-				{
-					$error_msg = "Error: " . mysql_error();
-					$error_msg .= "<br>SQL: $sql";
-				}
-				else
-				{
-					unset($_SESSION['edit_problem']);
-					$error_msg = "<h3>Problem changed successfully</h3>";
-				}
+				$error_msg = "Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql";
+			}
+			else
+			{
+				unset($_SESSION['edit_problem']);
+				$error_msg = "<h3>Problem changed successfully</h3>";
 			}
 			//--------------------------------------------------------------------------------------------------------
 			else if($error_msg) {
@@ -202,7 +200,7 @@ End of POST section
 
 //build some http strings we'll need later
 
-echo " <div class=\"container\">";
+//echo " <div class=\"container\">";
 $cur_problems = "";
 //get all the current categories
 $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";

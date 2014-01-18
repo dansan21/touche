@@ -12,7 +12,7 @@
     if (file_exists("lib/motd.inc")) {
 	    include_once("lib/motd.inc");
     } else {
-	    echo "<br><b>No welcome message defined.</b><br><br>\n";
+	    echo "<div class = 'error'><br>No welcome message defined.</div>;
     }
     include_once("lib/footer.inc");
 ?>
