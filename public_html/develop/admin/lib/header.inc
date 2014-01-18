@@ -28,7 +28,7 @@ if (!$connect_good) {
 	include_once ("../lib/config.inc");
 #	include_once ("../lib/data.inc");
 	include_once ("lib/session.inc");
-	$result = mysql_query("SELECT * FROM CONTEST_CONFIG");
+	$result = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 	if (mysql_num_rows($result) > 0) {
 		include_once ("lib/contest_info.inc");
 	}

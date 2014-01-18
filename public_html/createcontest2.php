@@ -5,7 +5,7 @@ if($_POST['B1'] == "Submit") {
    $contest = $_POST['contest_name'];
    $dbhost = $_POST['dbhost'];
    $dbpw = $_POST['dbpassword'];
-   $HOST = $_POST['contest_host'];
+   $CONTEST_HOST = $_POST['contest_host'];
 }
 ?>
 <html>
@@ -234,7 +234,7 @@ if (!$connect_good) {
     exit;
 }
 
-$contest_info = mysql_query("INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, JUDGE_USER) VALUES ('$HOST', '$contest', '14400', '18000', '$base_dir', 'judge')");
+$contest_info = mysql_query("INSERT INTO SITE (CONTEST_HOST, CONTEST_NAME, FREEZE_DELAY, CONTEST_END_DELAY, BASE_DIRECTORY, JUDGE_USER) VALUES ('$CONTEST_HOST', '$contest', '14400', '18000', '$base_dir', 'judge')");
 if (!$contest_info) {
     print "Sorry.  Database request (INSERT) failed.";
     exit;

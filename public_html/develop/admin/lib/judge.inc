@@ -25,21 +25,21 @@ if (!$connect_good) {
     print "Sorry.  Database selection failed.  Retrying...";
     exit;
 }
-/*
-$contest_info = mysql_query("SELECT * FROM CONTEST_CONFIG");
+
+$contest_info = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 if (!$contest_info) {
-    print "Sorry.  Database request (CONTEST_CONFIG) failed.  Retrying...";
+    print "Sorry.  Database request (SITE) failed.  Retrying...";
     exit;
 }
-*/
+
 $row = mysql_fetch_assoc($contest_info);
-    if (mysql_num_rows($contest_info) < 1) {
+   if (mysql_num_rows($contest_info) < 1) {
 	print "Sorry.  No contest configuration information exists.<br /> ";
 	print "Please contact a system administrator.";
 	exit;
     }
 
-    $contest_host = $row['HOST'];
+    $contest_host = $row['CONTEST_HOST'];
     $contest_name = $row['CONTEST_NAME'];
     $contest_date = $row['CONTEST_DATE'];
     list ($contest_year, $contest_month, $contest_day)

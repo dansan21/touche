@@ -104,7 +104,36 @@ else if($_POST)
 			$sql = "INSERT into SITE (SITE_NAME, START_TIME) ";
 			$sql .= "values('" . $_POST['site_name'] . "',";
 			$sql .= "'" . $_POST['start_time_hours'] . ":" . $_POST['start_time_minutes'] . "')";
-			$result = mysql_query($sql);
+			mysql_query($sql);			
+			$sql = "select * from SITE";
+			$bigresult = mysql_query($sql);
+			mysql_fetch_assoc($bigresult);
+			$contest_host=$row['CONTEST_HOST'];
+			$contest_name=$row['CONTEST_NAME'];
+			$freeze_delay=$row['FREEZE_DELAY'];
+			$contest_end_delay=$row['CONTEST_END_DELAY'];
+			$base_dir=$row['BASE_DIRECTORY'];
+			$num_problems=$row['NUM_PROBLEMS'];
+			$ignore_stderr=$row['IGNORE_STDERR'];
+			$judge_user=$row['JUDGE_USER'];
+			$judge_pass=$row['JUDGE_PASS'];
+			$team_show=$row['TEAM_SHOW'];
+			$time_penalty=$row['TIME_PENALTY'];
+			while($row = mysql_fetch_assoc($bigresult)){
+				$sql = "update SITE set CONTEST_HOST = '$contest_host', ";
+				$sql .= "CONTEST_NAME = '$contest_name', FREEZE_DELAY = $freeze_delay, ";
+				$sql .= "CONTEST_END_DELAY = $contest_end_delay, BASE_DIRECTORY = '$base_dir', ";
+				$sql .= "NUM_PROBLEMS = $num_problems, IGNORE_STDERR = $ignore_stderr, ";
+				$sql .= "JUDGE_USER = '$judge_user', JUDGE_PASS = '$judge_pass', ";
+				$sql .= "TEAM_SHOW = $team_show, TIME_PENALTY = $time_penalty ";
+				$sql .= "where SITE_ID = '" . $row['SITE_ID'] . "'";
+				$result = mysql_query($sql);
+				if(!$result){
+					echo "bad update";
+				}
+			}
+			
+
 			if($result)
 			{
 				$error_msg = "Successfull: New site created";
@@ -132,13 +161,15 @@ if(mysql_num_rows($result) > 0) {
 	$cur_sites .= "<br><table>";
 	$cur_sites .= "<tr><td><b>Edit Current Sites</b></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
-		$cur_sites .= "<tr><td>" . $row['SITE_NAME']; 
-		$cur_sites .= " </td><td>";
-		$cur_sites .= "<a href=setup_site.php?site_id=" . $row['SITE_ID'] . ">Edit</a>";
-		$cur_sites .= "</td><td>";
-		$cur_sites .= "<a href=setup_site.php?remove_id=" . $row['SITE_ID'] . ">Delete</a>";
-		$cur_sites .= "<br>\n";
-		$cur_sites .= "</td></tr>";
+		if($row['SITE_ID'] != '1'){
+			$cur_sites .= "<tr><td>" . $row['SITE_NAME']; 
+			$cur_sites .= " </td><td>";
+			$cur_sites .= "<a href=setup_site.php?site_id=" . $row['SITE_ID'] . ">Edit</a>";
+			$cur_sites .= "</td><td>";
+			$cur_sites .= "<a href=setup_site.php?remove_id=" . $row['SITE_ID'] . ">Delete</a>";
+			$cur_sites .= "<br>\n";
+			$cur_sites .= "</td></tr>";
+		}
 	}
 	$cur_sites .= "</table>";
 }

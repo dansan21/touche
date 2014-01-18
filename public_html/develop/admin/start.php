@@ -74,13 +74,13 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 				}
 			}
 			//print "cur hour: $cur_hour cur minute: $cur_minute cur second: $cur_second";
-			$sql = "UPDATE CONTEST_CONFIG set START_TIME = '$cur_hour:$cur_minute:$cur_second'";
+			$sql = "UPDATE SITE set START_TIME = '$cur_hour:$cur_minute:$cur_second' WHERE SITE_ID = 1";
 			$result = mysql_query($sql);
 			if(!$result)
 			{
 				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
 			}
-			$sql = "UPDATE CONTEST_CONFIG set START_TS = '" . time() . "'";
+			$sql = "UPDATE SITE set START_TS = '" . time() . "' WHERE SITE_ID = 1";
 			$result = mysql_query($sql);
 			if(!$result)
 			{
@@ -88,7 +88,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			}
 /*			
 			if($_POST['test_submit'] == 'Test Start'){
-				$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '2'";
+				$sql = "UPDATE SITE WHERE SITE_ID = 1 set HAS_STARTED = '2'";
 				$result = mysql_query($sql);
 				if(!$result)
 				{
@@ -97,7 +97,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			}
 			
 			if($_POST['submit'] == 'Start'){
-				$sql = "UPDATE CONTEST_CONFIG set HAS_STARTED = '1'";
+				$sql = "UPDATE SITE set HAS_STARTED = '1' WHERE SITE_ID = 1";
 				$result = mysql_query($sql);
 				if(!$result)
 				{
@@ -151,6 +151,7 @@ echo "<div class='table-responsive'>";
 echo "<table class='table' align=center width=100%>\n";
 echo "<tr><td colspan=2 align='center'>\n";
 echo "<h3>Start Contest</h3></td></tr>\n";
+/*
 echo "<tr><td>Start contest</td><td>";
 //$cur_time = time();
 
@@ -166,7 +167,7 @@ else
 }
 
 echo "</td></tr>";
-
+*/
 $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
@@ -176,14 +177,10 @@ if(!$result)
 
 while($row = mysql_fetch_assoc($result))
 {
-	echo "<tr><td>" . $row['SITE_NAME'];
-	echo "</td><td>";
-	if(!$contest_started)
-	{	
-		echo "<input type=checkbox name=chksite[] value='" . $row['SITE_ID'] . "' disabled></td></tr>";
-	}
-	else
-	{
+	if($row['SITE_ID']!='1'){
+		echo "<tr><td>" . $row['SITE_NAME'];
+		echo "</td><td>";
+		
 		$site_started = $row['HAS_STARTED'];
 		if($site_started!=1)
 		{

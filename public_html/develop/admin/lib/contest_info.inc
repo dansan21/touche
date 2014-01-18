@@ -10,9 +10,9 @@
 # arch-tag: lib/contest_info.inc
 #
 
-$contest_info = mysql_query("SELECT * FROM CONTEST_CONFIG");
+$contest_info = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 if (!$contest_info) {
-    print "Sorry.  Database request (CONTEST_CONFIG) failed.  Retrying...";
+    print "Sorry.  Database request failed.  Retrying...";
     exit;
 }
 
@@ -23,7 +23,7 @@ $row = mysql_fetch_assoc($contest_info);
         #exit;
     }
 
-    $contest_host = $row['HOST'];
+    $contest_host = $row['CONTEST_HOST'];
     $contest_name = $row['CONTEST_NAME'];
     $contest_date = $row['CONTEST_DATE'];
     list ($contest_year, $contest_month, $contest_day)

@@ -32,6 +32,7 @@ if ($_POST)
 	$password = $_POST['password'];
 	$base_directory = $_POST['base_directory'];
 	
+	
 	//if the three checkboxes are not checked, they are submitted
 	//as undefined/not set.  Therefore, I used the isset function
 	//exclusively to decide if they wanted these three options
@@ -128,38 +129,42 @@ if ($_POST)
 		exit;
 	}
 
-	$contest_exists = mysql_query("SELECT * FROM CONTEST_CONFIG");
+	$contest_exists = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 #		echo mysql_num_rows($contest_exists);
 	$save_ts = 0;
 	$save_hs = 0;
 	$save_start = 0;
+	
+	$contest_date = $contest_year.'-'.$contest_month.'-'.$contest_day;
+	$freeze_delay = $freeze_hour*3600 + $freeze_minute*60 + $freeze_second;
+	$contest_delay = $end_hour*3600 + $end_minute*60 + $end_second;
+	
 	if (mysql_num_rows($contest_exists) > 0) {
 		$row = mysql_fetch_assoc($contest_exists);
 		$save_ts = $row['START_TS'];
 		$save_hs = $row['HAS_STARTED'];
 		$save_start = $row['START_TIME'];
-		$delete = mysql_query("DELETE FROM CONTEST_CONFIG");
-		if (!$delete) {
-			echo "<font color=\"#ff0000\"> Error!  Contest";
-			echo "creation failed.  Contact administrator.</font>";
-		}
+		$sql = "UPDATE SITE SET CONTEST_HOST = '$host_name', CONTEST_NAME = '$contest_name', NUM_PROBLEMS = '$num_problems', ";
+		$sql.= "CONTEST_DATE = '$contest_date', START_TIME = '$save_start', FREEZE_DELAY = '$freeze_delay', CONTEST_END_DELAY = '$contest_delay', ";
+		$sql.= "BASE_DIRECTORY = '$base_directory', IGNORE_STDERR = '$ignore_stderr', JUDGE_USER = '$username', JUDGE_PASS = '$password', TEAM_SHOW = '$show_team_names', ";
+		$sql.= "START_TS = '$save_ts', HAS_STARTED = '$save_hs', TIME_PENALTY = '$time_penalty'";
+		$sql.= "WHERE SITE_ID = 1";
+		$success = mysql_query($sql);
 	}
 	//whether or not a contest was there, it should be deleted now
 	//and we can go ahead and create it.
-	$contest_date = $contest_year.'-'.$contest_month.'-'.$contest_day;
-	$freeze_delay = $freeze_hour*3600 + $freeze_minute*60 + $freeze_second;
-	$contest_delay = $end_hour*3600 + $end_minute*60 + $end_second;
-//		$sql = "UPDATE CONTEST_CONFIG ";
-//		$sql.= "SET HOST = '$host_name', CONTEST_NAME = '$contest_name'";
-
-	$sql = "INSERT INTO CONTEST_CONFIG (HOST, CONTEST_NAME, NUM_PROBLEMS, ";
-	$sql.= "CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, ";
-	$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED, TIME_PENALTY) ";
-	$sql.= "VALUES ( '$host_name', '$contest_name', '$num_problems', '$contest_date', ";
-	$sql.= "	     '$save_start', '$freeze_delay', '$contest_delay', ";
-	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs', '$time_penalty') ";
-	$success = mysql_query($sql);
-	echo $success;
+	
+	else{
+		$sql = "INSERT INTO SITE (CONTEST_HOST, CONTEST_NAME, NUM_PROBLEMS, ";
+		$sql.= "CONTEST_DATE, START_TIME, FREEZE_DELAY, CONTEST_END_DELAY, ";
+		$sql.= "BASE_DIRECTORY, IGNORE_STDERR, JUDGE_USER, JUDGE_PASS, TEAM_SHOW, START_TS, HAS_STARTED, TIME_PENALTY) ";
+		$sql.= "VALUES ('$host_name', '$contest_name', '$num_problems', '$contest_date', ";
+		$sql.= "	     '$save_start', '$freeze_delay', '$contest_delay', ";
+		$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs', '$time_penalty')";
+		$success = mysql_query($sql);
+		echo "hi";
+	}
+	
 	if ($success) {
 		if ($forbidden_c == 1 || $forbidden_cpp == 1 || $forbidden_java == 1) {
 			$forbidden = true;
@@ -216,7 +221,7 @@ End of POST section
 		exit;
 	}
 
-	$sql = mysql_query("SELECT * FROM CONTEST_CONFIG");
+	$sql = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 	if (!$sql) {
 		print "Could not tell if a contest has been created.  bailing out.";
 		exit;
@@ -242,7 +247,7 @@ End of POST section
 		echo " <div class=\"table-responsive\">";
 		echo " <table class=\"table\" align=\"left\" width=90%>";
 		echo " <td align='right'><h3>Edit Contest Info</h3></td>";
-		$host = $row['HOST'];
+		$host = $row['CONTEST_HOST'];
 		$contest_name = $row['CONTEST_NAME'];
 		$today_month  = date('m', $contest_start_ts);
 		$today_day    = date('d', $contest_start_ts);

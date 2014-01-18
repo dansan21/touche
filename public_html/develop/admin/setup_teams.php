@@ -318,8 +318,17 @@ if(!$edit_password) {
     echo "                  value = '$edit_email'></td>";
     echo "    </tr> ";
 	echo "    <tr>";
+		$sql = "select * from TEAMS WHERE TEAM_ID = $team_id";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		if($row['TEST_TEAM']=='1'){
+			$isChecked="checked";
+		}
+		else{
+			$isChecked="";
+		}
     echo "          <td>Test Team: </td>";
-    echo "          <td><input type='checkbox' name='test_team' value=1";
+    echo "          <td><input type='checkbox' name='test_team' value=1 $isChecked";
     echo "                  value = '$edit_test_team'></td>";
     echo "    </tr> ";
 

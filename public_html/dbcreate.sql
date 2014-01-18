@@ -121,7 +121,7 @@ CREATE TABLE CATEGORIES (
 DROP TABLE IF EXISTS SITE;
 
 CREATE TABLE SITE (
-  HOST char(30) NOT NULL default '',
+  CONTEST_HOST char(30) NOT NULL default '',
   CONTEST_NAME char(30) NOT NULL default '',
   CONTEST_DATE date NOT NULL,
   SITE_ID int(11) NOT NULL auto_increment,
@@ -140,7 +140,8 @@ CREATE TABLE SITE (
   IGNORE_STDERR int(1) NOT NULL default '0',
   JUDGE_USER char(30) NOT NULL default '',
   JUDGE_PASS char(30) NOT NULL default '',
-  TEAM_SHOW smallint(1) NOT NULL default '0'
+  TEAM_SHOW smallint(1) NOT NULL default '0',
+  TIME_PENALTY int(2) NOT NULL default '20'
 );
 /*
 DROP TABLE IF EXISTS CONTEST_CONFIG;

@@ -15,7 +15,7 @@ if ($_POST) {
         $ext_second = $_POST['ext_second'];
 
 
-        $sql = mysql_query("SELECT * FROM CONTEST_CONFIG");
+        $sql = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
 	$row = mysql_fetch_assoc($sql);	
 	$contest_np = $row['CONTEST_NAME'];
 	$freeze_hour = (int)($row['FREEZE_DELAY']/3600);
@@ -32,7 +32,7 @@ if ($_POST) {
 if($_POST['B1']) {
 	$exist = $ext_hour + $ext_minute + $ext_second;
 	if($exist > 0) {
-		$sql = "UPDATE CONTEST_CONFIG ";
+		$sql = "UPDATE SITE WHERE SITE_ID = 1 ";
 		$sql .= "SET FREEZE_DELAY = '$freeze_delay',";
 		$sql .= "    CONTEST_END_DELAY = '$contest_delay' ";
 		$sql .= "WHERE CONTEST_NAME = '$contest_name'";
@@ -46,8 +46,8 @@ if($_POST['B1']) {
     	}
 }
 elseif($_POST['B2']) {
-#$delete = mysql_query("UPDATE CONTEST_CONFIG SET FREEZE_DELAY = '0', CONTEST_END_DELAY = '0', START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
-$delete = mysql_query("UPDATE CONTEST_CONFIG SET START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
+#$delete = mysql_query("UPDATE SITE WHERE SITE_ID = 1 SET FREEZE_DELAY = '0', CONTEST_END_DELAY = '0', START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
+$delete = mysql_query("UPDATE SITE WHERE SITE_ID = 1 SET START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
 if(!$delete) {
    echo "Error! could not clear the info!!!";
 }
@@ -169,7 +169,7 @@ if (!$connect_good) {
     exit;
 }
 $base_dir = "/home/contest/$contest_clone_name";
-$contest_info = mysql_query("UPDATE CONTEST_CONFIG SET CONTEST_NAME = \"$contest_clone_name\", CONTEST_DATE = '0000-00-00', START_TIME='00:00:00', FREEZE_DELAY='14400', CONTEST_END_DELAY='18000', BASE_DIRECTORY=\"$base_dir\", START_TS='0', HAS_STARTED='0'");
+$contest_info = mysql_query("UPDATE SITE WHERE SITE_ID = 1 SET CONTEST_NAME = \"$contest_clone_name\", CONTEST_DATE = '0000-00-00', START_TIME='00:00:00', FREEZE_DELAY='14400', CONTEST_END_DELAY='18000', BASE_DIRECTORY=\"$base_dir\", START_TS='0', HAS_STARTED='0'");
 if (!$contest_info) {
     print "Sorry.  Database request (UPDATE) failed.";
     exit;
@@ -295,7 +295,7 @@ End of POST section
                 exit;
         }
 
-        $sql = mysql_query("SELECT * FROM CONTEST_CONFIG");
+        $sql = mysql_query("SELECT * FROM SITE WHERE SITE_ID = 1");
         if (!$sql) {
                 print "Could not tell if a contest has been created.  bailing out.";
                 exit;
@@ -323,7 +323,7 @@ End of POST section
                 echo "<form method=POST action=misc.php>\n";
                 echo "          <td colspan=\"2\" align='center'><h3>Misc Contest Actions</h3></td>\n";
                 echo "  </tr>";
-                $host = $row['HOST'];
+                $host = $row['CONTEST_HOST'];
                 $contest_name = $row['CONTEST_NAME'];
                 //calculating the number of seconds since January 1 1970 at midnight
                 //for our particular freeze/contest end values in seconds

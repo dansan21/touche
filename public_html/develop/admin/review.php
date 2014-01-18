@@ -42,7 +42,7 @@ if ($_GET['problem'] && $_GET['problem'] != "all")
 
 #get contest start time
 $sql = "SELECT * ";
-$sql .= "FROM CONTEST_CONFIG ";
+$sql .= "FROM SITE WHERE SITE_ID = 1 ";
 
 $sql_result = mysql_query($sql);
 
