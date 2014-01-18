@@ -162,7 +162,7 @@ if(!$contest_started)
 else
 {
 	echo "<input type=checkbox name=chksite[] value='contest' disabled checked>";
-	echo "<div class='success'><br>Contest has started!</div>"
+	echo "<div class='success'><br>Contest has started!</div>";
 	//$contest_started = true;
 }
 
@@ -172,7 +172,7 @@ $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
 {
-	echo "<tr><td>SELECT from SITE table failed</tr></td>";
+	echo "<div class='success'><br><tr><td>SELECT from SITE table failed</tr></td></div>";
 }
 
 while($row = mysql_fetch_assoc($result))
