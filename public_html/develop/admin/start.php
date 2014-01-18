@@ -46,7 +46,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 #	system("crontab $base_dir/start_contest.crontab", $result);
 	system("touch $base_dir/../active-contests/$contest_name", $result);
         if ($result != 0){
-                echo "<p><font color=$hd_txt_color2>Warning! Crontab Failed to start, please contact the system administrator</font></p>";
+                echo "<div class='error'>Warning! Crontab Failed to start, please contact the system administrator</div>";
         }
 	
 	foreach($_POST['chksite'] as $site)
@@ -69,7 +69,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 					make_file_readable("$problem_name.ps", &$missing_files);
 					make_file_readable("$problem_name.pdf", &$missing_files);
 					if ($missing_files == 3) {
-						echo "Warning: no problem file for " . $row['PROBLEM_NAME'] . "<br />";
+						echo "<div class='error'><br>Warning: no problem file for " . $row['PROBLEM_NAME'] . "<br /></div>";
 					}
 				}
 			}
@@ -78,13 +78,13 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			$sql = "UPDATE CONTEST_CONFIG set START_TS = '" . time() . "'";
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			
 			if($_POST['test_submit'] == 'Test Start'){
@@ -92,7 +92,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 				$result = mysql_query($sql);
 				if(!$result)
 				{
-					print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+					print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 				}
 			}
 			
@@ -101,7 +101,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 				$result = mysql_query($sql);
 				if(!$result)
 				{
-					print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+					print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 				}
 			}
 			
@@ -113,13 +113,13 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			$sql = "UPDATE SITE set START_TS = '" . time() . "' WHERE SITE_ID = '$site'";
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			
 			if($_POST['test_submit'] == 'Test Start'){
@@ -127,7 +127,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			}
 			else{
@@ -135,7 +135,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				print "Grevious error: update failed: " . mysql_error() . "\n<br>$sql";
+				print "<div class='error'><br>Grevious error: update failed: " . mysql_error() . "\n<br>$sql</div>";
 			}
 			}
 		}
@@ -162,6 +162,7 @@ if(!$contest_started)
 else
 {
 	echo "<input type=checkbox name=chksite[] value='contest' disabled checked>";
+	echo "<div class='success'><br>Contest has started!</div>";
 	//$contest_started = true;
 }
 
@@ -171,7 +172,7 @@ $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
 {
-	echo "<tr><td>SELECT from SITE table failed</tr></td>";
+	echo "<div class='success'><br><tr><td>SELECT from SITE table failed</tr></td></div>";
 }
 
 while($row = mysql_fetch_assoc($result))

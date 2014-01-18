@@ -16,27 +16,32 @@
 
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C/DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
-<body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">
-<table width="90%" align="center" cellpadding="1" cellspacing="0" border="0" bgcolor="#000000">
-	<tr><td>
-		<table width="100%" cellpadding="5" cellspacing="0" border="0">
-			<tr bgcolor="<?=$title_bg_color?>">	
-				<td>
-                <!-- Beautification hack. 2006-09-25 -sb -->
-                <img src="images/favicon.ico">
+<head>
+<style>
+	<?php include_once("styles/css/bootstrap.css"); ?>
+</style>
+</head>
+<body>
 
-  				<font color="#ffffff">
-  				<b><?=$contest_name?></b> - <small><?=$contest_host?></small>
-  				</font>
-				</td>
-				<td align="right">
- 					 <font color="#ffffff">
- 					 <b><?=$team_name?></b>
- 					 </font>
-				</td>
-			</tr>
-			</tr>
-			<tr>
-				<td bgcolor="#ffffff" colspan="2">
+
+<!-- This is the start of the top bar -->
+<div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+            <?php 
+            $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+            header("Content-Type: image/png");
+            echo "<img src='$path' alt='Logo'>";
+            ?>
+        </div>
+         	<div class="text-right">
+            	<h3><?=$team_name?></h3>
+        	</div>
+        </div>
+</div>
+
+
+<div class='container'>
+	<div class='innerglow'>

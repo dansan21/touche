@@ -26,14 +26,14 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg .= "<div class='error'>Error:" . mysql_error();
+                $error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				if(mysql_num_rows($result)==0)
 				{
-					$error_msg = "<br>No rows returned: SQL: $sql";
+					$error_msg = "<div class='success'>No rows returned: SQL: $sql</div>";
 				}
 				else
 				{			
@@ -68,12 +68,12 @@ if ($_GET)
 
 		if(!$result || !$result2)
 		{
-			$error_msg = "Error: " . mysql_error();
-			$error_msg .= "<br>SQL: $sql";
+			$error_msg .= "<div class='error'>Error:" . mysql_error();
+            $error_msg .= "<br>SQL: $sql</div>";
 		}
 		else
 		{
-			$error_msg = "Team deleted successfully";
+			$error_msg = "<div class='success'>Team deleted successfully</div>";
 		}
 	}
 }
@@ -99,13 +99,13 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg .= "<div class='error'>Error:" . mysql_error();
+                $error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				unset($_SESSION['edit_team']);
-				$error_msg = "Team changed successfully";
+				$error_msg = "<div class='success'>Team changed successfully</div>";
 			}
 		}
 		else
@@ -129,11 +129,11 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if($result)
 			{
-				$error_msg = "Successful: New team created";
+				$error_msg = "<div class='success'>Successful: New team created</div>";
 			}
 			else{
-				$error_msg = "Error:" . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				 $error_msg .= "<div class='error'>Error:" . mysql_error();
+                 $error_msg .= "<br>SQL: $sql</div>";
 			}
 		}
 	}
@@ -189,7 +189,7 @@ $sql = "select * from TEAMS";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 	//$cur_teams = "<a href=setup_teams.php><font size=+1>Add New Team</font></a><br>";
-	$cur_teams .= "<td colspan=2><h3>Edit Current Teams</h3></td>";
+
 	while($row = mysql_fetch_assoc($result)){
 		if($row['TEST_TEAM']=='1'){
 			$isChecked="checked";
@@ -197,11 +197,11 @@ if(mysql_num_rows($result) > 0) {
 		else{
 			$isChecked="";
 		}
-		$cur_teams .= "<tr><td><input type='checkbox' name='show_test_team' value=1 $isChecked>";
-		$cur_teams .= "</td><td>" . $row['TEAM_NAME']; 
-		$cur_teams .= " </td><td>";
+		$cur_teams .= "<tr><td align='center'><input type='checkbox' name='show_test_team' value=1 $isChecked>";
+		$cur_teams .= "</td><td align='center'>" . $row['TEAM_NAME']; 
+		$cur_teams .= " </td><td align='center'>";
 		$cur_teams .= "<a href=setup_teams.php?team_id=" . $row['TEAM_ID'] . ">Edit</a>";
-		$cur_teams .= "</td><td>";
+		$cur_teams .= "</td><td align='center'>";
 		$cur_teams .= "<a href=setup_teams.php?remove_id=" . $row['TEAM_ID'] . ">Delete</a>";
 		$cur_teams .= "<br>\n";
 		$cur_teams .= "</td></tr>";
@@ -240,25 +240,25 @@ else
 
 
 	echo "	  <tr>";
-	echo "		<td colspan=2>";
+	echo "		<td align='center' colspan=2>";
 	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Team name: </td>";
-	echo "		<td><input type='text' name='team_name' ";
+	echo "		<td align='right'>Team name: </td>";
+	echo "		<td><input class='form-control' type='text' name='team_name' ";
 	echo "			value = '$edit_team_name'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Organization: </td>";
-	echo "		<td><input type='text' name='organization' ";
+	echo "		<td align='right'>Organization: </td>";
+	echo "		<td><input class='form-control' type='text' name='organization' ";
 	echo "			value = '$edit_organization'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Username</td>";
-	echo "		<td><input type='text' name='username' ";
+	echo "		<td align='right'>Username</td>";
+	echo "		<td><input class='form-control' type='text' name='username' ";
 	echo "			value = '$edit_username'></td>";
 	echo "	  </tr> ";
 //-----------------------------------------------------------------------------------------------
@@ -271,60 +271,60 @@ if(!$edit_password) {
 }
 //-----------------------------------------------------------------------------------------------
 	echo "	  <tr>";
-	echo "		<td>Password: </td>";
-	echo "		<td><input type='text' name='password' ";
+	echo "		<td align='right'>Password: </td>";
+	echo "		<td><input class='form-control' type='text' name='password' ";
 	echo "			value = '$edit_password'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Site:</td>";
+	echo "		<td align='right'>Site:</td>";
 	echo "		<td><select name=site_id> ";
 	echo "			$http_sites</select></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Coach: </td>";
-	echo "		<td><input type='text' name='coach_name' ";
+	echo "		<td align='right'>Coach: </td>";
+	echo "		<td align='right'><input class='form-control' type='text' name='coach_name' ";
 	echo "			value = '$edit_coach_name'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Contestant 1: </td>";
-	echo "		<td><input type='text' name='contestant_1_name' ";
+	echo "		<td align='right'>Contestant 1: </td>";
+	echo "		<td><input class='form-control' type='text' name='contestant_1_name' ";
 	echo "			value = '$edit_contestant_1_name'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Contestant 2: </td>";
-	echo "		<td><input type='text' name='contestant_2_name' ";
+	echo "		<td align='right'>Contestant 2: </td>";
+	echo "		<td><input class='form-control' type='text' name='contestant_2_name' ";
 	echo "			value = '$edit_contestant_2_name'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Contestant 3: </td>";
-	echo "		<td><input type='text' name='contestant_3_name' ";
+	echo "		<td align='right'>Contestant 3: </td>";
+	echo "		<td><input class='form-control' type='text' name='contestant_3_name' ";
 	echo "			value = '$edit_contestant_3_name'></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td>Alternate (leave empty if none): </td>";
-	echo "		<td><input type='text' name='alternate_name' ";
+	echo "		<td align='right'>Alternate (leave empty if none): </td>";
+	echo "		<td><input class='form-control' type='text' name='alternate_name' ";
 	echo "			value = '$edit_alternate_name'></td>";
 	echo "	  </tr> ";
 
 	echo "    <tr>";
-    echo "          <td>Email: </td>";
-    echo "          <td><input type='text' name='email' ";
+    echo "          <td align='right'>Email: </td>";
+    echo "          <td><input class='form-control' type='text' name='email' ";
     echo "                  value = '$edit_email'></td>";
     echo "    </tr> ";
 	echo "    <tr>";
-    echo "          <td>Test Team: </td>";
+    echo "          <td align='right'>Test Team: </td>";
     echo "          <td><input type='checkbox' name='test_team' value=1";
     echo "                  value = '$edit_test_team'></td>";
     echo "    </tr> ";
 
 
-	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	echo "	<tr><td colspan=2 align='center'><button type=\"submit\" class=\"btn btn-default\" name=\"submit\">Submit</button>";
 	
 	echo "</td></tr>";
 	echo "</table>";
@@ -336,6 +336,17 @@ if(!$edit_password) {
 
 	echo " <div class=\"table-responsive\">"; //open responsive
 	echo " <table class=\"table\" align=\"left\"  width=100%>";
+
+	echo "<tr><td align='center' colspan=4><h3>Edit Current Teams</h3></td></tr>";
+
+	echo "	  <tr>";
+	echo "		<td align='center'><h4>Test Team?</h4></td>";
+	echo "		<td align='center'><h4>Name</h4></td>";
+	echo "		<td align='center'><h4>Edit</h4></td>";
+	echo "		<td align='center'><h4>Delete</h4></td>";
+	echo "	  </tr> ";
+
+
 	echo "<tr>";
 	echo $cur_teams;
 	echo "</tr>";
@@ -344,7 +355,7 @@ if(!$edit_password) {
 
 	if($error_msg)
 	{
-		echo "<h3>$error_msg</h3>";
+		echo "$error_msg";
 	}
 
 	echo "</div>"; //close col

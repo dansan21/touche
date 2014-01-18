@@ -32,6 +32,7 @@ if (!$connect_good) {
 	if (mysql_num_rows($result) > 0) {
 		include_once ("lib/contest_info.inc");
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@ if (!$connect_good) {
         <div class="img-responsive2">
             <?php 
             $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
-            header("Content-Type: image/png");
+            /*header("Content-Type: image/png");*/
             echo "<img src='$path' alt='Logo'>";
             ?>
         </div>
@@ -98,10 +99,6 @@ if (!$connect_good) {
                 echo "'active'";
             }
         ?>><a href="setup_categories.php">Categories</a></li>
-    <li class=<?php if (strpos($actual_link,'setup_team_category') !== false) {
-                echo "'active'";
-            }
-        ?>><a href="setup_team_category.php">TCats</a></li>
     <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 		$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 		$lang_sql  .= "FROM LANGUAGE";
@@ -138,59 +135,105 @@ if (!$connect_good) {
   </ul>
 
 <!-- END OF NAVIGATION -->
+                <?php
 
-<div class="panel panel-default">
-        <div class="panel-body">
-            <table class="table" align='center'>
-                <tr>
-                <?
+
                         $freeze_diff = $contest_freeze_ts + $site_start_offset - time();
                         $time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
                         $time_till_contest_end = gmdate("H:i:s", $contest_end_ts - time());
                         $end_diff = $contest_end_ts + $site_start_offset - time();
 
-                    if ($freeze_diff > 0) {
-                                            print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
-                                            print "<td align='left'><h3>$time_till_freeze_starts</h3></td>";
-                                    }
-                    else {
-                        print"<td align='center' colspan=2><div class='tablehelp'><h4>Standings Are Now Frozen</h4></div></td>";
-                    }
                 ?>
-                    
-                </tr>
-                <tr>
-                        <?php
-                        if ($end_diff > 0) {
 
-                            print "<td align='right'><div class=\"tablehelp\"><h4>Contest Ends in:</h4></div></td>";
-                            print "<td align='left'><h3>$time_till_contest_end</h3></td>";
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <table class="table" align='center'>
+                                <tr>
+                    <?php
+                        //1200 = 20 minutes left
+                        //600 = 10 minutes left
+                        //300 = 5 min
+
+
+
+
+
+
+                        if ($freeze_diff > 1200) {
+                            
+                            print "<td align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+                            print "<td align='left'><h3>$time_till_freeze_starts</h3></td>";
+                        }
+                        elseif ($freeze_diff > 600) {
+                            
+                            print "<td class='active' align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+                            print "<td class='active' align='left'><h3>$time_till_freeze_starts</h3></td>";
+                        }
+                        elseif ($freeze_diff > 300) {
+                            
+                            print "<td class='warning' align='right'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+                            print "<td class='warning' align='left'><h3>$time_till_freeze_starts</h3></td>";
+                        }
+                        elseif ($freeze_diff > 0) {
+                            
+                            print "<td class='danger'><div class=\"tablehelp\"><h4>Freeze begins in:</h4></div></td> ";
+                            print "<td class='danger' align='left'><h3>$time_till_freeze_starts</h3></td>";
+                        }
+                        
+                        else {
+                            print"<td align='center' colspan=2><div class='tablehelp'><h4>Standings Are Now Frozen</h4></div></td>";
+                        }
+                    ?>
+                            </tr>
+
+
+
+                            <tr>
+                    <?php
+
+
+                        if ($end_diff > 1200){
+                            
+                    ?>
+                            <td class='active' align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
+                            <td class='active' align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+                     
+                    <?php
+                        }
+                        elseif ($end_diff > 600){
+                    ?>
+                            <td class='warning' align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
+                            <td class='warning' align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+                    <?php       
+                        }
+
+                        elseif ($end_diff > 0){
+                    ?>
+                            <td class='danger' align='right'><div class="tablehelp"><h4>Contest Ends in:</h4></div></td>
+                            <td class='danger' align='left'><h3><?=gmdate("H:i:s", $contest_end_ts - time())?></h3></td>
+                     <?php 
                         }
 
                         else {
-                            print "<td align='right' colspan=2><div class='tablehelp'><h4>Contest is Over</h4></div></td>";
 
+                    ?>
+                            <td align='center' colspan=2><div class='tablehelp'><h4>Contest is Now Over</h4></div></td>
+                    <?php
                         }
+                
 
-                        ?>
-                </tr>
+                    ?>
+                            </tr>
+                                    
 
-            </table>
-        </div>
+                    </table>
+                    </div>
+                </div>
+
 </div>
 
 
 
-
-</div>
-
-				<?if (!$contest_name)
-				{?>
-  				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
-				<?}
-				else { ?>
-  				
-				<?}?>
 <div class='container'>
 <div class='innerglow'>
  					 
