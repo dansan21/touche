@@ -324,7 +324,7 @@ if(!$edit_password) {
     echo "    </tr> ";
 
 
-	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	echo "	<tr><td colspan=2 align='center'><button type=\"submit\" class=\"btn btn-default\" name=\"submit\">Submit</button>";
 	
 	echo "</td></tr>";
 	echo "</table>";

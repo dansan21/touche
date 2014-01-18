@@ -23,19 +23,19 @@ if($_POST)
 	{
 		$problem_id = $_POST['problem_id'];
 		$_SESSION['edit_problem'] = $problem_id;
-		$error_msg = "Successfull: New data set created";
+		$error_msg = "<div class='success'><br>Successfull: New data set created</div>";
 		$sql = "select * from PROBLEMS WHERE PROBLEM_ID = '$problem_id'";
 		$result = mysql_query($sql);
 		if(!$result)
 		{
-			$error_msg = "Error: " . mysql_error();
-			$error_msg .= "<br>SQL: $sql";
+			$error_msg = "<div class='error'><br>Error: " . mysql_error();
+			$error_msg .= "<br>SQL: $sql</div>";
 		}
 		else
 		{
 			if(mysql_num_rows($result)==0)
 			{
-				$error_msg = "<br>No rows returned: SQL: $sql";
+				$error_msg = "<div class='error'><br>No rows returned: SQL: $sql</div>";
 			}
 			else
 			{			
@@ -47,9 +47,8 @@ if($_POST)
 		//adding a new data set
 		
 
-		echo "<div class='text-center'>"; //center print statements
 
-		print "Filename: " . $_FILES['data_set_in']['name'];
+		//print "Filename: " . $_FILES['data_set_in']['name'];
 
 		if(!preg_match("/\.in$/", $_FILES['data_set_in']['name']))
 		{
@@ -69,7 +68,7 @@ if($_POST)
 		if(!$result)
 		{
 			//print "Failed to upload in file";
-			$error_msg = "Failed to upload 'in' file";
+			$error_msg = "<div class='error'><br>Failed to upload 'in' file</div>";
 		} else {
 			//dos2unix to fix any issues that Microsoft(bleh) could have caused. -TG
 			//echo "dos2unix on " . $data_dir . $_POST['problem_id'] . "_" . $_FILES['data_set_in']['name'] . $in_suffix;
@@ -86,7 +85,7 @@ if($_POST)
 		if(!$result)
 		{
 			//print "Failed to upload out file";
-			$error_msg = "Failed to upload 'out' file";
+			$error_msg = "<div class='error'><br>Failed to upload 'out' file</div>";
 		} else {
 			//dos2unix to fix any issues that Microsoft(bleh) could have caused. -TG
 			//echo "dos2unix on " . $data_dir . $_POST['problem_id'] . "_" . $out_file_name;
@@ -109,14 +108,14 @@ else if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				if(mysql_num_rows($result)==0)
 				{
-					$error_msg = "<br>No rows returned: SQL: $sql";
+					$error_msg = "<div class='error'><br>No rows returned: SQL: $sql</div>";
 				}
 				else
 				{			
@@ -135,16 +134,15 @@ else if ($_GET)
 		$result = unlink($remove_ds_name . ".in") && unlink($remove_ds_name . ".out");
 		if(!$result)
 		{
-			$error_msg = "Error deleting data set $remove_ds_name";
+			$error_msg = "<div class='error'><br>Error deleting data set $remove_ds_name</div>";
 		}
 		else
 		{
-			$error_msg = "Data set deleted successfully";
+			$error_msg = "<div class='success'><br>Data set deleted successfully</div>";
 		}
 	}
 }
 
-echo "</div>";
 /*******************************************************
 End of POST section
 *******************************************************/
@@ -168,7 +166,6 @@ if(mysql_num_rows($result) > 0) {
 		$cur_data_sets .= "</td><td><a href=setup_data_sets.php?problem_id";
 		$cur_data_sets .= "=" . $row['PROBLEM_ID'] . ">Add new data set</a></td></tr>";
 		$fs_parse = glob($data_dir . $row['PROBLEM_ID'] . "*in");
-		$cur_data_sets .= "<tr><td>";
 		foreach ($fs_parse as $file)
 		{
 			$file_names = split("/", $file);
@@ -215,9 +212,7 @@ else
 	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_data_sets.php enctype='multipart/form-data' method=post>";
 	echo $cur_data_sets;
-	echo "<tr><td>";
 	echo " <input type=hidden name=problem_id value=$problem_id>";
-	echo "</td></tr>";
 	echo "</table>";
 	echo "</div>";
 

@@ -26,8 +26,8 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -51,8 +51,8 @@ if ($_GET)
 		}
 		if($result && mysql_num_rows($result) > 0)
 		{
-			$error_msg .= "Sorry, there are teams in that category, you must move them to a differant category";
-			$error_msg .= " before you can delete this category";
+			$error_msg .= "<div class='error'><br>Sorry, there are teams in that category, you must move them to a differant category";
+			$error_msg .= " before you can delete this category</div>";
 		}
 		else
 		{
@@ -65,7 +65,7 @@ if ($_GET)
 			}
 			else
 			{
-				$error_msg = "Category deleted successfully";
+				$error_msg = "<div class='success'><br>Category deleted successfully</div>";
 			}
 		}
 		
@@ -89,7 +89,7 @@ else if($_POST)
 			else
 			{
 				unset($_SESSION['edit_category']);
-				$error_msg = "Category changed successfully";
+				$error_msg = "<div class='success'><br>Category changed successfully</div>";
 			}
 		}
 		else
@@ -99,12 +99,12 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if($result)
 			{
-				$error_msg = "Successfull: New category created";
+				$error_msg = "<div class='success'><br>Successfull: New category created</div>";
 			}
 			else
 			{
-				$error_msg = "Error:" . mysql_error();
-				$error_msg = "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error:" . mysql_error();
+				$error_msg = "<br>SQL: $sql</div>";
 			}
 		}
 	}
@@ -160,7 +160,7 @@ else
 
 	if($error_msg)
 	{
-		echo "<h3>$error_msg</h3>";
+		echo "$error_msg";
 	}
 
 
@@ -194,9 +194,7 @@ else
 	echo "</div>";
 
 	
-	
-	
-//set team categories	
+//setup team categories	
 	
 	$link = mysql_connect ($db_host , $db_user, $db_pass) or die ("Could not connect to database");
     mysql_select_db ($db_name) or die ("Could not select database");
@@ -272,7 +270,7 @@ else
     echo "</form>";
     echo "</div>";
     echo "</div>";
+
+    include("lib/footer.inc");
 	
-	
-	include("lib/footer.inc");
 ?>

@@ -81,35 +81,37 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user = $_POST['user'];
     $password = $_POST['password'];
-	$sql = "SELECT * FROM TEAMS WHERE USERNAME = '".$user."'";
-	$result = mysql_query($sql);
-	//echo "result:".$result;
-	$row = mysql_fetch_assoc($result);
-	$alt_name = $row['ALTERNATE_NAME'];
-	$non_participant = $row['NON_PARTICIPANT'];
-	
+    $sql = "SELECT * FROM TEAMS WHERE USERNAME = '".$user."'";
+    $result = mysql_query($sql);
+    //echo "result:".$result;
+    $row = mysql_fetch_assoc($result);
+    $alt_name = $row['ALTERNATE_NAME'];
+    $non_participant = $row['NON_PARTICIPANT'];
+    
    
     if($password == $users[$user]['password']) {
-		$_SESSION['contestant_user'] = $user;
-		$_SESSION['contestant_pass'] = $password;
-		$_SESSION['team_id'] = $users[$user]['team_id'];
-		$_SESSION['team_name'] = $users[$user]['team_name'];
-		if($non_participant == "unknown"){
-			if ($alt_name == ""){
-				$sql = "UPDATE TEAMS SET NON_PARTICIPANT = 'No Alternate' WHERE USERNAME = '".$user."'";
-				mysql_query($sql);
-			}
-			else{
-				header ("Location: non_participant.php");
-			}
-		}
-		else{
-			header ("Location: main.php");
-		}
+        $_SESSION['contestant_user'] = $user;
+        $_SESSION['contestant_pass'] = $password;
+        $_SESSION['test_team']=$users[$user]['test_team'];
+        $_SESSION['team_id'] = $users[$user]['team_id'];
+        $_SESSION['team_name'] = $users[$user]['team_name'];
+        if($non_participant == "unknown"){
+            if ($alt_name == ""){
+                $sql = "UPDATE TEAMS SET NON_PARTICIPANT = 'No Alternate' WHERE USERNAME = '".$user."'";
+                mysql_query($sql);
+            }
+            else{
+                header ("Location: non_participant.php");
+            }
+        }
+        else{
+            header ("Location: main.php");
+        }
     }
     else {
-	header ("Location: index.php?state=1");
+    header ("Location: index.php?state=1");
     }
 }
 
 ?>
+
