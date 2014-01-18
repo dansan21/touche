@@ -26,8 +26,8 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -38,8 +38,8 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -69,8 +69,8 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg .= "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg .= "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			foreach($build_headers as $header)
 			{
@@ -83,15 +83,15 @@ else if($_POST)
 					$result = mysql_query($sql);
 					if(!$result)
 					{
-						$error_msg .= "Error: " . mysql_error();
-						$error_msg .= "<br>SQL: $sql";
+						$error_msg .= "<div class='error'><br>Error: " . mysql_error();
+						$error_msg .= "<br>SQL: $sql</div>";
 					}
 				}
 			}
 		}
 		if(!isset($error_msg))
 		{
-			$error_msg .= "Header changed successfully";
+			$error_msg .= "<div class='success'><br>Header changed successfully</div>";
 		}
 	}
 }
@@ -135,7 +135,7 @@ else
 
 	if($error_msg)
 	{
-		echo "<tr><td><b>$error_msg</b></td></tr>";
+		echo "$error_msg";
 	}
 
 	echo "</div>";

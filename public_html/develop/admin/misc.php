@@ -38,10 +38,10 @@ if($_POST['B1']) {
 		$sql .= "WHERE CONTEST_NAME = '$contest_name'";
 		$good = mysql_query($sql);
 		if(!$good) {
-			echo "There was an error and the contest was not extended!!!";
+			echo "<div class='error'><br>There was an error and the contest was not extended!!!</div>";
 		}
 		else {
-			echo "Contest Extended Successfully.";
+			echo "<div class='success'><br>Contest Extended Successfully.</div>";
 		}
     	}
 }
@@ -49,25 +49,25 @@ elseif($_POST['B2']) {
 #$delete = mysql_query("UPDATE CONTEST_CONFIG SET FREEZE_DELAY = '0', CONTEST_END_DELAY = '0', START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
 $delete = mysql_query("UPDATE CONTEST_CONFIG SET START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
 if(!$delete) {
-   echo "Error! could not clear the info!!!";
+   echo "<div class='error'><br>Error! could not clear the info!!!</div>";
 }
 $delete = mysql_query("DELETE FROM CLARIFICATION_REQUESTS");
 if(!$delete) {
-   echo "Error! could not clear the info!!!";
+   echo "<div class='error'><br>Error! could not clear the info!!!</div>";
 }
 $delete = mysql_query("DELETE FROM JUDGED_SUBMISSIONS");
 if(!$delete) {
-   echo "Error! could not clear the info!!!";
+   echo "<div class='error'><br>Error! could not clear the info!!!</div>";
 }
 $delete = mysql_query("DELETE FROM QUEUED_SUBMISSIONS");
 if(!$delete) {
-   echo "Error! could not clear the info!!!";
+   echo "<div class='error'><br>Error! could not clear the info!!!</div>";
 }
 $delete = mysql_query("UPDATE SITE SET START_TS = '0', HAS_STARTED = '0'");
 if(!$delete) {
-   echo "Error! could not clear the info!!!";
+   echo "<div class='error'><br>Error! could not clear the info!!!</div>";
 } else {
-   echo "Contest Cleared Successfully!";
+   echo "<div class='success'><br>Contest Cleared Successfully!</div>";
   }
 }
 elseif($_POST['B3']) {
@@ -148,8 +148,8 @@ echo "<p>Making Directories . . . ";
    $cmd2 .= $contest_clone_es;
    $cmd2 .= "/data";
    system($cmd2, $result);
-echo"Finished.</p>";
-echo "<p>Creating Database . . . ";
+echo"<div class='success'><br>Finished.</p>";
+echo "<p>Creating Database . . . </div>";
    $mypwd = "pc2bgone";
    $cmd3 = "mysqldump --password=$mypwd -u root $db_name > $db_clone_name.sql";
    system($cmd3, $result);
@@ -159,24 +159,24 @@ echo "<p>Creating Database . . . ";
    system($cmd3, $result);
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {
-    print "Sorry.  Database connect failed.";
+    print "<div class='error'><br>Sorry.  Database connect failed.</div>";
     exit;
 }
 
 $connect_good = mysql_select_db($db_clone_name);
 if (!$connect_good) {
-    print "Sorry.  Database selection failed.";
+    print "<div class='error'><br>Sorry.  Database selection failed.</div>";
     exit;
 }
 $base_dir = "/home/contest/$contest_clone_name";
 $contest_info = mysql_query("UPDATE CONTEST_CONFIG SET CONTEST_NAME = \"$contest_clone_name\", CONTEST_DATE = '0000-00-00', START_TIME='00:00:00', FREEZE_DELAY='14400', CONTEST_END_DELAY='18000', BASE_DIRECTORY=\"$base_dir\", START_TS='0', HAS_STARTED='0'");
 if (!$contest_info) {
-    print "Sorry.  Database request (UPDATE) failed.";
+    print "<div class='error'><br>Sorry.  Database request (UPDATE) failed.</div>";
     exit;
 }
 $contest_info = mysql_query("UPDATE SITE SET START_TIME='00:00:00', START_TS='0', HAS_STARTED='0'");
 if (!$contest_info) {
-    print "Sorry.  Database request (UPDATE) failed.";
+    print "<div class='error'><br>Sorry.  Database request (UPDATE) failed.</div>";
     exit;
 }
 
@@ -184,9 +184,9 @@ if (!$contest_info) {
    $cmd4 = "cp -r ~contest/public_html/$db_name ~contest/public_html/";
    $cmd4 .= $contest_clone_name;
    system($cmd4, $result);
-echo"Finished.</p>";
+echo"<div class='success'><br>Finished.</p>";
 #-----------editing database.inc----------------------------------
-echo "<p>Editing Settings . . . ";
+echo "<p>Editing Settings . . .</div> ";
 $fhdl = fopen("../../$contest_clone_name/lib/database.inc", "r") OR die("Error with opening file");
 $file = fread($fhdl, filesize("../../$contest_clone_name/lib/database.inc"));
 $file = preg_replace("/$db_name/", "$db_clone_name", $file);
@@ -208,7 +208,7 @@ $cmd5 = "sudo chown root:root ../../../$contest_clone_name/chroot_wrapper.exe";
 system($cmd5, $result);
 $cmd5 = "sudo chmod +s ../../../$contest_clone_name/chroot_wrapper.exe";
 system($cmd5, $result);
-echo "Finished.</p>";
+echo "<div class='success'><br>Finished.</div></p>";
 #what about readme for this???
 echo "<a href=\"http://jacob.css.tayloru.edu/~contest/$contest_clone_name/admin\">Click to go to setup for clone</a>";
 
@@ -219,7 +219,7 @@ echo "<a href=\"http://jacob.css.tayloru.edu/~contest/$contest_clone_name/admin\
 elseif($_POST['B4']) {
 	$sql = mysql_query("SELECT * FROM TEAMS ORDER BY TEAM_ID");
 	if(!$sql) {
-		print "Error! could not find any team information";
+		print "<div class='error'><br>Error! could not find any team information</div>";
 		exit;
 	}
 	else {
@@ -235,14 +235,14 @@ elseif($_POST['B4']) {
                                         $cmd .= "$contest_name.tar.gz $email < email_body.txt";
                                         system($cmd, $result);
                                         if(!$result) {
-                                                echo "Files sent to Administrator<br>";
+                                                echo "<div class='success'><br>Files sent to Administrator<br></div>";
                                         }
                                         else {
-                                                echo "File could not be sent to Administrator!<br>";
+                                                echo "<div class='error'><br>File could not be sent to Administrator!<br></div>";
                                         }
                         }
                         else {
-                                echo "Could not gather contest files for administrator!<br>";
+                                echo "<div class='error'><br>Could not gather contest files for administrator!<br></div>";
                         }
                 }
 		#$path = "../../../develop/judged/";
@@ -263,17 +263,17 @@ elseif($_POST['B4']) {
 					system($cmd, $result);
 					if(!$result) {
 						$team_name_send = $row['TEAM_NAME'];
-						echo "Files sent to Team $team_name_send<br>";
+						echo "<div class='success'><br>Files sent to Team $team_name_send<br></div>";
 					}
 					else {
 						$team_name_send = $row['TEAM_NAME'];
-						echo "File could not be sent to Team $team_name_send!<br>";
+						echo "<div class='error'>File could not be sent to Team $team_name_send!<br></div>";
 					}
 				}
 			}
 			else {
 				$team_name_send = $row['TEAM_NAME'];
-				echo "Could not gather team files for Team $team_name_send !<br>";
+				echo "<div class='error'><br>Could not gather team files for Team $team_name_send !<br></div>";
 			}
 		}
 	}
@@ -286,18 +286,18 @@ End of POST section
 	include("lib/header.inc");
 	        $link = mysql_connect($db_host, $db_user, $db_pass);
         if(!$link){
-                print "Sorry.  Database connect failed.  Check your internet connection.";
+                print "<div class='error'><br>Sorry.  Database connect failed.  Check your internet connection.</div>";
                 exit;
         }
         $connect_good = mysql_select_db($db_name);
         if (!$connect_good) {
-                print "Sorry.  Couldn't select the database name $db_name. Exiting...";
+                print "<div class='error'><br>Sorry.  Couldn't select the database name $db_name. Exiting...</div>";
                 exit;
         }
 
         $sql = mysql_query("SELECT * FROM CONTEST_CONFIG");
         if (!$sql) {
-                print "Could not tell if a contest has been created.  bailing out.";
+                print "<div class='error'><br>Could not tell if a contest has been created.  bailing out.</div>";
                 exit;
                 #die or break
         }
@@ -349,12 +349,14 @@ End of POST section
         echo "                  <input type=\"text\" name=\"ext_minute\" size=\"2\"";
         echo "                          maxlength=2 value=\"$ext_minute\"></input>:";
         echo "                  <input type=\"text\" name=\"ext_second\" size=\"2\"";
-        echo "                          maxlength=2 value=\"$ext_second\"></input></td> ";
+        echo "                          maxlength=2 value=\"$ext_second\"></input>";
+
+        echo "                  <br><br><input type=\"submit\" value=\"Extend Contest\" name=\"B1\"></input></td> ";
         echo "          </tr>";
-        echo "          <tr>";
-        echo "                  <td></td> ";
-        echo "                  <td><input type=\"submit\" value=\"Extend Contest\" name=\"B1\"></input></td> ";
-        echo "          </tr>";
+
+
+
+
 
         echo "          <tr>";
         echo "                  <td align='right'>Problems, Teams, Categories, etc. will be kept.</td>";
@@ -363,30 +365,18 @@ End of POST section
 
         echo "          <tr>";
         echo "                  <td align='right'>Clone Contest:</td>";
-        echo "                  <td><input type=\"text\" name=\"clone_name\" placeholder=\"Clone Name\" size=\"17\"></input></td>";
-        echo "          </tr>";
+        echo "                  <td><input type=\"text\" name=\"clone_name\" placeholder=\"Clone Name\" size=\"17\"></input>";
 
-
-        echo "          <tr>";
-        echo "                  <td></td> ";
-        echo "                  <td align='left'><input type=\"submit\" value=\"Clone Contest\" name=\"B3\"></input></td> ";
-        echo "          </tr>";
-
-
-	      echo "          <tr>";
-        echo "                  <td colspan=1 align='right'>Send files to teams</td>";
+        echo "                  <br><br><input type=\"submit\" value=\"Clone Contest\" name=\"B3\"></input></td> ";
         echo "          </tr>";
 
 
         echo "          <tr>";
         echo "                  <td align='right'>Admin Email (Send all contest files to):</td>";
-        echo "                  <td><input type=\"text\" name=\"admin_email\" size=\"17\"></input></td>";
-        echo "          </tr>";
+        echo "                  <td><input type=\"text\" name=\"admin_email\" size=\"17\"></input>";
 
-
-        echo "          <tr>";
-        echo "                  <td align='right'>Zip each teams files and send files</td> ";
-        echo "                  <td><input type=\"submit\" value=\"Send Zip Files\" name=\"B4\"></input></td> ";
+        echo "                  <br><br>";
+        echo "                  <input type=\"submit\" value=\"Send Zip Files\" name=\"B4\"></input></td> ";
         echo "          </tr>";
 
 

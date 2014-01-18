@@ -121,7 +121,6 @@ while ($row = mysql_fetch_assoc($categories_query)) {
 	    $categories[$cat_name]['team_ids'] = array();
 	}
 	array_push($categories[$cat_name]['team_ids'], $row['TEAM_ID']);
-	print $categories[$cat_name]['team_ids'].$row['TEAM_ID']."<br />";
     }
 }
 

@@ -43,7 +43,7 @@ if ($_GET)
 			{
 				if(mysql_num_rows($result)==0)
 				{
-					$error_msg = "<br>No rows returned: SQL: $sql";
+					$error_msg = "<div class='error'><br>No rows returned: SQL: $sql</div>";
 				}
 				else
 				{			
@@ -72,7 +72,7 @@ if ($_GET)
 		}
 		else
 		{
-			$error_msg = "<h3>Problem deleted successfully</h3>";
+			$error_msg = "<div class='success'><br>Problem deleted successfully</div>";
 		}
 	}
 	else
@@ -97,26 +97,26 @@ else if($_POST)
 		}
 		if(strlen($_POST['problem_name']) == 0)
 		{
-			$error_msg .= "You forget to set the problem name<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the problem name</div>\n";
 		}
 		if(strlen($_POST['problem_short_name']) == 0)
 		{
-			$error_msg .= "You forget to set the shortened problem name<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the shortened problem name</div>\n";
 		}
 		else if(strlen($_POST['problem_loc']) == 0)
 		{
-			$error_msg .= "You forget to set the problem location<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the problem location</div>\n";
 		}
 		//---------------------------------------------------------------------------
 		else if(preg_match("/ /", $_POST['problem_loc']))
 		{
-			$error_msg .= "There are no spaces allowed in problem name!<br>\n";
+			$error_msg .= "<div class='error'>There are no spaces allowed in problem name!<br></div>\n";
 		}
 		//---------------------------------------------------------------------------
 		else if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
-			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
-			$error_msg .= " does not exist.";
+			$error_msg .= "<div class='error'><br>The location:" . $problem_dir . $_POST['problem_loc'];
+			$error_msg .= " does not exist.</div>";
 		}
 		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
 		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
@@ -127,7 +127,7 @@ else if($_POST)
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".html");
 			if(!$result)
 			{
-				$error_msg .= "Failed to upload html file";
+				$error_msg .= "<div class='error'><br>Failed to upload html file</div>";
 			}
 		}
 		if(($_POST['upload_pdf_id']) && strlen($_FILES['pdf_file']['tmp_name']) > 0)
@@ -136,7 +136,7 @@ else if($_POST)
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".pdf");
 			if(!$result)
 			{
-				$error_msg .= "Failed to upload pdf file";
+				$error_msg .= "<div class='error'><br>Failed to upload pdf file</div>";
 			}
 		}
 		else{			
@@ -156,12 +156,12 @@ else if($_POST)
 				else
 				{
 					unset($_SESSION['edit_problem']);
-					$error_msg = "<h3>Problem changed successfully</h3>";
+					$error_msg = "<div class='success'><br>Problem changed successfully</div>";
 				}
 			}
 			//--------------------------------------------------------------------------------------------------------
 			else if($error_msg) {
-				$error_msg .= "<h3>No Problem Created</h3>";
+				$error_msg .= "";
 			}
 			//--------------------------------------------------------------------------------------------------------
 			else
@@ -176,7 +176,7 @@ else if($_POST)
 				$result = mysql_query($sql);
 				if($result)
 				{
-					$error_msg .= "<h3>New problem created!</h3>";
+					$error_msg .= "<div class='success'><br>New problem created!</div>";
 				}
 				else{
 					$error_msg .= "Error:" . mysql_error();

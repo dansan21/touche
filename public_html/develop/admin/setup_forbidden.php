@@ -26,8 +26,8 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -38,8 +38,8 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -69,8 +69,8 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg .= "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg .= "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			foreach($build_forbidden_words as $forbidden_word)
 			{
@@ -83,15 +83,15 @@ else if($_POST)
 					$result = mysql_query($sql);
 					if(!$result)
 					{
-						$error_msg .= "Error: " . mysql_error();
-						$error_msg .= "<br>SQL: $sql";
+						$error_msg .= "<div class='error'><br>Error: " . mysql_error();
+						$error_msg .= "<br>SQL: $sql</div>";
 					}
 				}
 			}
 		}
 		if(!isset($error_msg))
 		{
-			$error_msg .= "Forbidden Word changed successfully";
+			$error_msg .= "<div class='success'><br>Forbidden Word changed successfully</div>";
 		}
 	}
 }
@@ -136,7 +136,7 @@ else
 
 	if($error_msg)
 	{
-		echo "<tr><td><h3>$error_msg</h3></td></tr>";
+		echo "$error_msg";
 	}
 
 
