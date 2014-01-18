@@ -418,5 +418,5 @@ echo " <script LANGUAGE='JavaScript'>
                         // -->
                 </script> ";
 
-                include("lib/footer.inc");
+    include("lib/footer.inc");
 ?>	

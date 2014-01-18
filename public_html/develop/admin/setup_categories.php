@@ -46,7 +46,7 @@ if ($_GET)
 		$result = mysql_query($sql);
 		if(!$result)
 		{
-			$error_msg = "Error: " . mysql_error();
+			$error_msg = "<div class='error'>Error: " . mysql_error();
 			$error_msg .= "<br>SQL: $sql";
 		}
 		if($result && mysql_num_rows($result) > 0)
@@ -60,7 +60,7 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
+				$error_msg = "<div class='error'>Error: " . mysql_error();
 				$error_msg .= "<br>SQL: $sql";
 			}
 			else
@@ -83,8 +83,8 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg = "<br>SQL: $sql";
+				$error_msg = "<div class='error'>Error: " . mysql_error();
+				$error_msg = "<br>SQL: $sql</div>";
 			}
 			else
 			{
@@ -123,12 +123,12 @@ $sql = "select * from CATEGORIES";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 	
-	$cur_categories .= "<tr><td colspan=3><h3>Pick Category to Edit</h3></td></tr>";
+	$cur_categories .= "<tr><td align='center' colspan=3><h3>Pick Category to Edit</h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
-		$cur_categories .= "<tr><td>" . $row['CATEGORY_NAME']; 
-		$cur_categories .= " </td><td>";
+		$cur_categories .= "<tr><td align='center'>" . $row['CATEGORY_NAME']; 
+		$cur_categories .= " </td><td align='center'>";
 		$cur_categories .= "<a href=setup_categories.php?edit_id=" . $row['CATEGORY_ID'] . ">Edit</a>";
-		$cur_categories .= "</td><td>";
+		$cur_categories .= "</td><td align='center'>";
 		$cur_categories .= "<a href=setup_categories.php?remove_id=" . $row['CATEGORY_ID'] . ">Delete</a>";
 		$cur_categories .= "</td></tr>";
 
@@ -148,47 +148,41 @@ else
 	echo " <div class=\"container\">";
 
 
-	//Edit a category
-	echo "<div class=\"col-md-5\">";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\" width=100%>";
-	echo $cur_categories;
-	echo " </table>";
 
-
-	echo "</div>";
-
-	if($error_msg)
-	{
-		echo "$error_msg";
-	}
-
-
-	echo "</div>";
 
 
 
 	//Add a category
-	echo "<div class=\"col-md-6\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_categories.php method=post>";
 
 	echo "	  <tr>";
-	echo "		<td colspan='2'>";
+	echo "		<td align='center' colspan='2'>";
 	echo "		<h3>$action</h3></td>";
 	echo "	  </tr> ";
 
 	echo "	  <tr>";
-	echo "		<td><input type='text' name='category_name' ";
+	echo "		<td><input class='form-control' type='text' name='category_name' placeholder='Enter a Category' ";
 	echo "			value = '$edit_category_name'></td>";
 	echo "	  </tr> ";
 
 
-	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	echo "	<tr><td align='center'><input name=submit type=submit value='Submit'></td></tr>";
 
 	echo "</form>";
 	echo "</table>";
+	echo "</div>";
+	echo "</div>";
+
+
+	//Edit a category
+	echo "<div class=\"col-md-6\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
+	echo $cur_categories;
+	echo " </table>";
 	echo "</div>";
 	echo "</div>";
 	echo "</div>";
@@ -222,14 +216,15 @@ else
     echo " <div class=\"container\">";
     echo " <div class=\"table-responsive\">";
     echo "<form method='POST' action='setup_categories.php'>";
-    echo " <table class=\"table\" align=\"left\" width=90%>";
-    echo "<tr><td>";
+    echo "<div class=\"col-md-11\">";
+    echo " <table class=\"table\" align=\"left\" width=100%>";
+    echo "<tr><td align='center' colspan=5>";
     echo "<h3>Teams</h3>";
     echo "</td></tr>";
     echo "<tr>";
-    echo "<td>Team Name</td>\n";
+    echo "<td align='center'><h4>Team Name</h4></td>\n";
     for($i=1; $i<=$num_cat; $i++) { 
-	echo "<td><b>".$cat_row["CATEGORY_NAME"]."</b></td>";
+	echo "<td align='center'><b>".$cat_row["CATEGORY_NAME"]."</b></td>";
 	$cat_row = mysql_fetch_assoc($category);
     }
     echo "</tr>\n";
@@ -245,14 +240,14 @@ else
 	} else {
 	    echo "<tr>\n";
 	}
-	echo "<td>".$team_row["TEAM_NAME"]."</td>";
+	echo "<td align='center'>".$team_row["TEAM_NAME"]."</td>";
 
 	for($x=1; $x<=$num_cat; $x++) {
 	    $sql = "SELECT * FROM CATEGORY_TEAM WHERE TEAM_ID = ".$team_row["TEAM_ID"]." AND CATEGORY_ID=$x";
 	    $query = mysql_query($sql);
 	    $check = mysql_num_rows($query);
 	    
-	    echo "<td><input type='checkbox' ";
+	    echo "<td align='center'><input type='checkbox' ";
 	    if($check==1)
 	    	echo"checked=checked ";
 	    echo "name='".$team_row["TEAM_ID"]."|$x'/></td>";
@@ -270,6 +265,12 @@ else
     echo "</form>";
     echo "</div>";
     echo "</div>";
+    echo "</div>";
+	
+	if($error_msg)
+	{
+		echo "$error_msg";
+	}
 
     include("lib/footer.inc");
 	

@@ -9,27 +9,30 @@ if($_POST['B1'] == "Submit") {
 }
 ?>
 <html>
-<body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">
-<table width="90%" align="center" cellpadding="1" cellspacing="0" border="0" bgcolor="#000000">
-        <tr><td>
-                <table width="100%" cellpadding="5" cellspacing="0" border="0">
-                        <tr bgcolor="<?=$title_bg_color?>">
-                                <td>
-                                <!-- Beautification hack. 2006-09-25 -sb -->
+<head>
 
-                                <font color="#ffffff">
-                                <b>Creating Contest</b>  <small></small>
-                                </font>
-                                </td>
-                                <td align="right">
-                                         <font color="#ffffff">
-                                         <b>ADMIN</b>
-                                         </font>
-                                </td>
-                        </tr>
-                        <tr>
-                                <td bgcolor="#ffffff" colspan="2">
-				<center><b>
+
+<style>
+<?php include_once("develop/styles/css/bootstrap.css"); ?>
+</style>
+
+</head>
+<body onLoad="set_focus()">
+
+<div class="page-header">
+        <div class="container">
+        <div class="img-responsive2">
+            <?php 
+            $path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+            header("Content-Type: image/png");
+            echo "<img src='$path' alt='Logo'>";
+            ?>
+        </div>
+        </div>
+</div>
+<div class="container">
+<table width="90%" class="table" align="center">
+                                   
 <?php
 
 $user = `whoami`;
@@ -44,7 +47,7 @@ $contest = preg_replace("/ /", "\ ", $contest);
 $contest_dir = "../$contest";
 $base_dir = "/home/$user/$contest";
 
-echo "<p>Creating contest folder (takes a while) . . . \n";
+echo "<br><br><p>Creating contest folder (takes a while) . . . \n";
    $cmd = "cp -pr ../develop/ ";
    $cmd .= $contest_dir;
    system($cmd, $result);

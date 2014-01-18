@@ -46,7 +46,7 @@ if($_POST['submit'] == 'Start' || $_POST['test_submit'] == 'Test Start')
 #	system("crontab $base_dir/start_contest.crontab", $result);
 	system("touch $base_dir/../active-contests/$contest_name", $result);
         if ($result != 0){
-                echo "<p><font color=$hd_txt_color2>Warning! Crontab Failed to start, please contact the system administrator</font></p>";
+                echo "<div class='error'>Warning! Crontab Failed to start, please contact the system administrator</div>";
         }
 	
 	foreach($_POST['chksite'] as $site)
@@ -162,7 +162,7 @@ if(!$contest_started)
 else
 {
 	echo "<input type=checkbox name=chksite[] value='contest' disabled checked>";
-	echo "<div class='success'><br>Contest has started!</div>"
+	echo "<div class='success'><br>Contest has started!</div>";
 	//$contest_started = true;
 }
 
@@ -172,7 +172,7 @@ $sql = "SELECT * FROM SITE";
 $result = mysql_query($sql);
 if(!$result)
 {
-	echo "<tr><td>SELECT from SITE table failed</tr></td>";
+	echo "<div class='success'><br><tr><td>SELECT from SITE table failed</tr></td></div>";
 }
 
 while($row = mysql_fetch_assoc($result))

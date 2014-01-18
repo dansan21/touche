@@ -23,7 +23,7 @@ if($_POST)
 	{
 		$problem_id = $_POST['problem_id'];
 		$_SESSION['edit_problem'] = $problem_id;
-		$error_msg = "<div class='success'><br>Successfull: New data set created</div>";
+		$error_msg = "<div class='success'><br>Successful: New data set created</div>";
 		$sql = "select * from PROBLEMS WHERE PROBLEM_ID = '$problem_id'";
 		$result = mysql_query($sql);
 		if(!$result)
@@ -160,10 +160,10 @@ $cur_data_sets = "";
 $sql = "select * from PROBLEMS ORDER BY 'PROBLEM_ID'";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_data_sets .= "<tr><td colspan='2'><h3>Edit Current Data Sets</h3></td></tr>";
+	$cur_data_sets .= "<tr><td align='center' colspan='2'><h3>Edit Current Data Sets</h3></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
-		$cur_data_sets .= "<tr><td>" . $row['PROBLEM_NAME']; 
-		$cur_data_sets .= "</td><td><a href=setup_data_sets.php?problem_id";
+		$cur_data_sets .= "<tr><td align='center'>" . $row['PROBLEM_NAME']; 
+		$cur_data_sets .= "</td><td align='center'><a href=setup_data_sets.php?problem_id";
 		$cur_data_sets .= "=" . $row['PROBLEM_ID'] . ">Add new data set</a></td></tr>";
 		$fs_parse = glob($data_dir . $row['PROBLEM_ID'] . "*in");
 		foreach ($fs_parse as $file)
@@ -171,8 +171,8 @@ if(mysql_num_rows($result) > 0) {
 			$file_names = split("/", $file);
 			$file_name = $file_names[count($file_names)-1];
 			$data_set_name = preg_replace("/\.in$/", "",$file_name);
-			$cur_data_sets .= "<tr><td> $data_set_name</td>";
-			$cur_data_sets .= "<td><a href=setup_data_sets.php";
+			$cur_data_sets .= "<tr><td align='center'> $data_set_name</td>";
+			$cur_data_sets .= "<td align='center'><a href=setup_data_sets.php";
 			$cur_data_sets .= "?remove_ds_name=$data_set_name>Delete</a></td></tr>";
 		}
 		$cur_data_sets .="</td></tr>";
@@ -186,12 +186,12 @@ else
 if(isset($_GET['problem_id']) || isset($_POST['problem_id']))
 {
 	$http_form .=  "	  <tr>";
-	$http_form .=  "		<td>Input File: </td>";
-	$http_form .=  "		<td><input type='file' name='data_set_in'</td>";
+	$http_form .=  "		<td align='center'>Input File: </td>";
+	$http_form .=  "		<td align='center'><input type='file' name='data_set_in'</td>";
 	$http_form .=  "	  </tr> ";
 	$http_form .=  "	  <tr>";
-	$http_form .=  "		<td>Output File: </td>";
-	$http_form .=  "		<td><input type='file' name='data_set_out'</td>";
+	$http_form .=  "		<td align='center'>Output File: </td>";
+	$http_form .=  "		<td align='center'><input type='file' name='data_set_out'</td>";
 	$http_form .=  "	  </tr> ";
 	$http_form .=  "	<tr><td colspan='2'><input name=submit type=submit value='Submit'></td></tr>";
 }
@@ -218,7 +218,7 @@ else
 
 	if($error_msg)
 	{
-		echo "<h3>$error_msg</h3>";
+		echo "$error_msg";
 	}
 
 	echo "</div>";
@@ -228,7 +228,7 @@ else
 	echo "<div class=\"col-md-6\">";
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align='left' width=100%>";
-	echo "<tr><td colspan='2'><h3>$action</h3></td></tr>";
+	echo "<tr><td align='center' colspan='2'><h3>$action</h3></td></tr>";
 	echo $http_form;
 	echo "</table>";
 	echo "</div>";

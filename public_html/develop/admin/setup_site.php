@@ -129,13 +129,11 @@ $cur_sites = "";
 $sql = "select * from SITE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_sites .= "<br><table>";
-	$cur_sites .= "<tr><td><b>Edit Current Sites</b></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
-		$cur_sites .= "<tr><td>" . $row['SITE_NAME']; 
-		$cur_sites .= " </td><td>";
+		$cur_sites .= "<tr><td align='center'>" . $row['SITE_NAME']; 
+		$cur_sites .= " </td><td align='center'>";
 		$cur_sites .= "<a href=setup_site.php?site_id=" . $row['SITE_ID'] . ">Edit</a>";
-		$cur_sites .= "</td><td>";
+		$cur_sites .= "</td><td align='center'>";
 		$cur_sites .= "<a href=setup_site.php?remove_id=" . $row['SITE_ID'] . ">Delete</a>";
 		$cur_sites .= "<br>\n";
 		$cur_sites .= "</td></tr>";
@@ -158,15 +156,14 @@ else
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo " <form action=setup_site.php method=post>";
-	echo "<th colspan='2'>";
+	echo "<td align='center' colspan='2' >";
 	echo " <h3>$action</h3>";
-	echo "</th>";
+	echo "</td>";
 	echo " <tr>";
-	echo " <td>Site name: </td>";
-	echo " <td><input type='text' name='site_name' ";
+	echo " <td><input class='form-control' type='text' name='site_name' placeholder='Site Name' ";
 	echo " value = '$edit_site_name'></td>";
 	echo " </tr> ";
-	echo " <tr><td colspan=2><input name=submit type=submit value='Submit'></td></tr>";
+	echo " <tr><td align='center' colspan=2><input name=submit type=submit value='Submit'></td></tr>";
 	echo " </form>";
 	echo " </td></tr>";
 
@@ -186,7 +183,7 @@ else
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo "<tr>";
-	echo "<td>";
+	echo "<td align='center' colspan=3>";
 	echo " <h3>Edit a Site</h3>";
 	echo $cur_sites;
 	echo "</td>";

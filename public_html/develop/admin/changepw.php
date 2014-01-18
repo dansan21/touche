@@ -81,23 +81,31 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 ?>
   <div class="form-group">
+    <div class="col-xs-4">
     <div class="col-sm-10">
       <input type="text" class="form-control" name="user" placeholder="Username">
     </div>
+    </div>
   </div>
   <div class="form-group">
+    <div class="col-xs-4">
     <div class="col-sm-10">
       <input type="password" class="form-control" name="password" placeholder="Password">
     </div>
+</div>
   </div>
   <div class="form-group">
+    <div class="col-xs-4">
     <div class="col-sm-10">
       <input type="password" class="form-control" name="password2"  placeholder="Retype Password">
     </div>
+</div>
   </div>
   <div class="form-group">
+    <div class="col-xs-4">
     <div class="col-sm-10">
       <input type="submit" class="btn btn-default" name="submit" value="Change">
+    </div>
     </div>
   </div>
 </form>
