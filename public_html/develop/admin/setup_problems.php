@@ -306,7 +306,8 @@ $http_pdf.="	  </tr> ";
 		echo $http_html;
 		echo $http_pdf;
 	}
-	echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+	echo "<tr><td></td>";
+	echo "<td align='left'><button name=submit type=submit class=\"btn btn-default\" value='Submit'>Submit</button></td></tr>";
 
 
 

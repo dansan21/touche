@@ -122,20 +122,6 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 <!-- START OF PANEL -->
 <div class="container">
 <div class="text-center">
-
-
-<?
-		    $sql  = "SELECT * ";
-	    $sql .= "FROM CLARIFICATION_REQUESTS ";
-	    $sql .= "WHERE ";
-	    $sql .= "    RESPONSE='' ";
-	    $result = mysql_query($sql);
-		$num_clarifications = mysql_num_rows($result);
-	    if($row = mysql_fetch_row($result)) {
-		echo "Clarification Requested";
-	    }
-?>
-
 								    
 	<div class="panel panel-default">
 	  		<div class="panel-body">

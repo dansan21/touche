@@ -169,7 +169,7 @@ else
 	echo "	  </tr> ";
 
 
-	echo "	<tr><td align='center'><input name=submit type=submit value='Submit'></td></tr>";
+	echo "	<tr><td align='center'><button class=\"btn btn-default\" name=submit type=submit value='Submit'>Add Category</button></td></tr>";
 
 	echo "</form>";
 	echo "</table>";
@@ -257,8 +257,8 @@ else
 	echo "</tr>";
     }
     echo "<tr>";
-    echo "<td colspan=5>";
-    echo "<input type='submit' value='Make Changes' name='makechanges'/>";
+    echo "<td align='center' colspan=5>";
+    echo "<button class=\"btn btn-default\" type='submit' value='Make Changes' name='makechanges'/>Make Changes</button>";
     echo "</td>";
     echo "</tr>";
     echo "</table>";

@@ -161,7 +161,7 @@ else
 		}
 		echo "			</textarea></td>";
 		echo "	  </tr> ";
-		echo "	<tr><td><input name=submit type=submit value='Submit'></td></tr>";
+		echo "	<tr><td><button class=\"btn btn-default\" name=submit type=submit value='Submit'>Make Changes</button></td></tr>";
 	}
 	echo "</form>";
 	echo "</td></tr>";

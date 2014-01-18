@@ -77,6 +77,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     <div class="container">
 <h2>Welcome to Touche!</h2>
 <p>Begin by logging in to create a programming contest</p>
+<h4>Username: create</h4>
+<h4>Password: contest</h4>
 </div>
 </body>
 </html>

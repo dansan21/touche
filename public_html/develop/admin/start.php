@@ -151,7 +151,7 @@ echo "<div class='table-responsive'>";
 echo "<table class='table' align=center width=100%>\n";
 echo "<tr><td colspan=2 align='center'>\n";
 echo "<h3>Start Contest</h3></td></tr>\n";
-echo "<tr><td>Start contest</td><td>";
+echo "<tr><td align='right'>Start contest</td><td>";
 //$cur_time = time();
 
 
@@ -177,7 +177,7 @@ if(!$result)
 
 while($row = mysql_fetch_assoc($result))
 {
-	echo "<tr><td>" . $row['SITE_NAME'];
+	echo "<tr><td align=right>" . $row['SITE_NAME'];
 	echo "</td><td>";
 	if(!$contest_started)
 	{	
@@ -197,8 +197,8 @@ while($row = mysql_fetch_assoc($result))
 	}
 }
 
-echo "<tr><td align=center><input type=submit name=submit value=Start>";
-echo "<align=center><input type=submit name=test_submit value='Test Start'></tr>";
+echo "<tr><td align=center><button class=\"btn btn-success\" type=submit name=submit value=Start>Official Start</button></td>";
+echo "<td align=center><button class=\"btn btn-warning\" type=submit name=test_submit value='Test Start'>Test Start</button></td></tr>";
 
 echo "</table>\n";
 echo "</div>";

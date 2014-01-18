@@ -163,7 +163,7 @@ else
 	echo " <td><input class='form-control' type='text' name='site_name' placeholder='Site Name' ";
 	echo " value = '$edit_site_name'></td>";
 	echo " </tr> ";
-	echo " <tr><td align='center' colspan=2><input name=submit type=submit value='Submit'></td></tr>";
+	echo " <tr><td align='center' colspan=2><button class=\"btn btn-default\" name=submit type=submit value='Submit'>Add Site</button></td></tr>";
 	echo " </form>";
 	echo " </td></tr>";
 

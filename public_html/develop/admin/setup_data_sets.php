@@ -186,14 +186,14 @@ else
 if(isset($_GET['problem_id']) || isset($_POST['problem_id']))
 {
 	$http_form .=  "	  <tr>";
-	$http_form .=  "		<td align='center'>Input File: </td>";
-	$http_form .=  "		<td align='center'><input type='file' name='data_set_in'</td>";
+	$http_form .=  "		<td align='right'>Input File: </td>";
+	$http_form .=  "		<td align='left'><input type='file' name='data_set_in'</td>";
 	$http_form .=  "	  </tr> ";
 	$http_form .=  "	  <tr>";
-	$http_form .=  "		<td align='center'>Output File: </td>";
-	$http_form .=  "		<td align='center'><input type='file' name='data_set_out'</td>";
+	$http_form .=  "		<td align='right'>Output File: </td>";
+	$http_form .=  "		<td align='left'><input type='file' name='data_set_out'</td>";
 	$http_form .=  "	  </tr> ";
-	$http_form .=  "	<tr><td colspan='2'><input name=submit type=submit value='Submit'></td></tr>";
+	$http_form .=  "	<tr><td></td><td align='left' colspan='2'><button class=\"btn btn-default\"  name=submit type=submit value='Submit'>Add</button></td></tr>";
 }
 else
 {

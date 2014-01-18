@@ -351,7 +351,7 @@ End of POST section
         echo "                  <input type=\"text\" name=\"ext_second\" size=\"2\"";
         echo "                          maxlength=2 value=\"$ext_second\"></input>";
 
-        echo "                  <br><br><input type=\"submit\" value=\"Extend Contest\" name=\"B1\"></input></td> ";
+        echo "                  <br><br><button class=\"btn btn-default\" type=\"submit\" value=\"Extend Contest\" name=\"B1\">Extend Contest</button></td> ";
         echo "          </tr>";
 
 
@@ -360,23 +360,23 @@ End of POST section
 
         echo "          <tr>";
         echo "                  <td align='right'>Problems, Teams, Categories, etc. will be kept.</td>";
-        echo "                  <td><input type=\"submit\" value=\"Clear Contest\" name=\"B2\"</input></td>";
+        echo "                  <td><button class=\"btn btn-default\" type=\"submit\" value=\"Clear Contest\" name=\"B2\">Clear Contest</button></td>";
 	      echo "		      </tr>";
 
         echo "          <tr>";
         echo "                  <td align='right'>Clone Contest:</td>";
-        echo "                  <td><input type=\"text\" name=\"clone_name\" placeholder=\"Clone Name\" size=\"17\"></input>";
+        echo "                  <td><input class='form-control' type=\"text\" name=\"clone_name\" placeholder=\"Clone Name\" size=\"17\"></input>";
 
-        echo "                  <br><br><input type=\"submit\" value=\"Clone Contest\" name=\"B3\"></input></td> ";
+        echo "                  <br><br><button class=\"btn btn-default\" type=\"submit\" value=\"Clone Contest\" name=\"B3\">Clone Contest</button></td> ";
         echo "          </tr>";
 
 
         echo "          <tr>";
         echo "                  <td align='right'>Admin Email (Send all contest files to):</td>";
-        echo "                  <td><input type=\"text\" name=\"admin_email\" size=\"17\"></input>";
+        echo "                  <td><input class='form-control' type=\"text\" name=\"admin_email\" size=\"17\"></input>";
 
         echo "                  <br><br>";
-        echo "                  <input type=\"submit\" value=\"Send Zip Files\" name=\"B4\"></input></td> ";
+        echo "                  <button class=\"btn btn-default\" type=\"submit\" value=\"Send Zip Files\" name=\"B4\">Send Zip Files</button></td> ";
         echo "          </tr>";
 
 
@@ -386,7 +386,7 @@ End of POST section
                 echo "  <form action='rejudge.php' method='POST'>\n";
                 echo "          <tr>";
                 echo "                  <td align='right'>calculate new auto responses for each submission</td> ";
-                echo "                  <td><input type=\"submit\" value='recalculate responses' onClick='return confirmSubmit()'></td> ";
+                echo "                  <td><button class=\"btn btn-default\" type=\"submit\" value='recalculate responses' onClick='return confirmSubmit()'>Recalculate responses</button></td> ";
                 echo "          </tr>";
 
                 echo "  </form></table>";
