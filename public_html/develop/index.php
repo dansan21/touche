@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	if (document.f.user.value) {
 	    document.f.password.focus();
 	} else {
-		document.f.user.focus();
+	document.f.user.focus();
 	}
     }
     function check_input() {
@@ -39,8 +39,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	return true;
     }
 </script>
+
+<style>
+<?php include_once("styles/css/bootstrap.css"); ?>
+</style>
+
 </head>
-<<<<<<< HEAD
 <body onLoad="set_focus()">
 
     <div class="page-header">
@@ -66,10 +70,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 </div>
                 <?
                     if (isset($state) && $state == 1) {
-						echo "<div class = 'error'><br>Login or Password Invalid</div>";
+                	echo "<center><b>";
+                	echo "Login or Password Invalid</b></center>\n";
                     }
                     else if (isset($state) && $state == 2) {
-						echo "<div class = 'error'><br>You are not yet logged in</div>"
+                	echo "<center><b>";
+                	echo "You are not yet logged in</b></center>\n";
                     }
                 ?>
                 </form>
@@ -88,36 +94,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     </div>
 
 		<?php
-		    if (isset($state) && $state == 1) {
-				echo "<div class = 'error'><br>Login or Password Invalid</div>";
-			}
-            else if (isset($state) && $state == 2) {
-				echo "<div class = 'error'><br>You are not yet logged in</div>"
-            }
+		    if(isset($state) && $state == 1) {
+			echo "<center><font color=#cc0000><b>";
+			echo "Login or Password Invalid</b></font></center>\n";
+		    } else if(isset($state) && $state == 2) {
+			echo "<center><font color=#cc0000><b>";
+			echo "You are not yet logged in</b></font></center>\n";
+		    }
 
 		?>
-<?php
-    if(isset($state) && $state == 1) {
-	echo "<center><font color=#cc0000><b>";
-	echo "Login or Password Invalid</b></font></center>\n";
-    } else if(isset($state) && $state == 2) {
-	echo "<center><font color=#cc0000><b>";
-	echo "You are not yet logged in</b></font></center>\n";
-    }
 
-?>
 
-<table cellpadding="5" cellspacing="0" border="0">
-<tr><td>Login:</td><td><input type="text" name="user" id="user" size="20">
-</td></tr>
-<tr><td>Password:</td><td><input type="password" name="password" id="password" size="20"></td></tr>
-<tr><td>&nbsp;</td><td><input type="submit" name="submit" value="  OK  " onclick="return check_input()">
-<input type="reset" name="submit" value=" Cancel "></td></tr>
-</table>
-</td></tr></table>
-</td></tr></table>
-</td></tr></table>
-</form>
+
 </body>
 </html>
 <?
@@ -153,9 +141,8 @@ else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		}
     }
     else {
-    header ("Location: index.php?state=1");
+	header ("Location: index.php?state=1");
     }
 }
 
 ?>
-

@@ -22,8 +22,8 @@
 	$p3 = $row['CONTESTANT_3_NAME'];
 	$alt = $row['ALTERNATE_NAME'];
 	
-	echo "<h3>Please indicate which team member will NOT be participating:</h3><br>";
 	echo "<table class='table' align='center' width=100%><tr><td>";
+	echo "<h3>Please indicate which team member will NOT be participating:</h3><br>";
 	echo '<form name="f" action=non_participant.php method=post>';
 	echo '	<input type="radio" name="radio" value="CONTESTANT_1_NAME">'.$p1.'</br>';
 	echo '	<input type="radio" name="radio" value="CONTESTANT_2_NAME">'.$p2.'</br>';

@@ -63,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 						echo "<div class = 'error'><br>Login or Password Invalid</div>";
 					}
 					else if (isset($state) && $state == 2) {
-						echo "<div class = 'error'><br>You are not yet logged in</div>"
+						echo "<div class = 'error'><br>You are not yet logged in</div>";
 					}
                 ?>
                 </form>
