@@ -118,8 +118,7 @@ else if($_POST)
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
-		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+
 		//process new file uploads if they exist
 		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
 		{
@@ -138,50 +137,48 @@ else if($_POST)
 			{
 				$error_msg .= "Failed to upload pdf file";
 			}
-		}
-		else{			
-			if(isset($_SESSION['edit_problem']))
+		}		
+		if(isset($_SESSION['edit_problem']))
+		{
+			$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
+			$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
+			$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
+			$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
+			$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
+			$result = mysql_query($sql);
+			if(!$result)
 			{
-				$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
-				$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
-				$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
-				$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
-				$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
-				$result = mysql_query($sql);
-				if(!$result)
-				{
-					$error_msg = "Error: " . mysql_error();
-					$error_msg .= "<br>SQL: $sql";
-				}
-				else
-				{
-					unset($_SESSION['edit_problem']);
-					$error_msg = "<h3>Problem changed successfully</h3>";
-				}
+				$error_msg = "Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql";
 			}
-			//--------------------------------------------------------------------------------------------------------
-			else if($error_msg) {
-				$error_msg .= "<h3>No Problem Created</h3>";
-			}
-			//--------------------------------------------------------------------------------------------------------
 			else
-			{		
-				//adding a new problem
-				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
-				$sql .= "values('" . $_POST['problem_name'] . "', '";
-				$sql .= $_POST['problem_short_name'] . "', '";
-				$sql .= $_POST['problem_loc'] . "', '";
-				$sql .= $_POST['problem_note'] . "')";
-				
-				$result = mysql_query($sql);
-				if($result)
-				{
-					$error_msg .= "<h3>New problem created!</h3>";
-				}
-				else{
-					$error_msg .= "Error:" . mysql_error();
-					$error_msg .= "<br>SQL: $sql";
-				}
+			{
+				unset($_SESSION['edit_problem']);
+				$error_msg = "<h3>Problem changed successfully</h3>";
+			}
+		}
+		//--------------------------------------------------------------------------------------------------------
+		else if($error_msg) {
+			$error_msg .= "<h3>No Problem Created</h3>";
+		}
+		//--------------------------------------------------------------------------------------------------------
+		else
+		{		
+			//adding a new problem
+			$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
+			$sql .= "values('" . $_POST['problem_name'] . "', '";
+			$sql .= $_POST['problem_short_name'] . "', '";
+			$sql .= $_POST['problem_loc'] . "', '";
+			$sql .= $_POST['problem_note'] . "')";
+			
+			$result = mysql_query($sql);
+			if($result)
+			{
+				$error_msg .= "<h3>New problem created!</h3>";
+			}
+			else{
+				$error_msg .= "Error:" . mysql_error();
+				$error_msg .= "<br>SQL: $sql";
 			}
 		}
 	}
@@ -277,7 +274,7 @@ $http_pdf.="	  </tr> ";
 	echo " <table class=\"table\" align=\"left\" width=100%>"; //Start Table
 	echo " <tr> ";
 	echo " <td colspan='2'>";
-	echo " <h3>Add or Edit Categories</h3>";
+	echo " <h3>Add or Edit Problems</h3>";
 	echo " </td>";
 	echo " </tr>";
 

@@ -98,10 +98,6 @@ if (!$connect_good) {
                 echo "'active'";
             }
         ?>><a href="setup_categories.php">Categories</a></li>
-    <li class=<?php if (strpos($actual_link,'setup_team_category') !== false) {
-                echo "'active'";
-            }
-        ?>><a href="setup_team_category.php">TCats</a></li>
     <?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 		$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 		$lang_sql  .= "FROM LANGUAGE";

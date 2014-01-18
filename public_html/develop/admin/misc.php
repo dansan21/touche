@@ -231,8 +231,8 @@ elseif($_POST['B4']) {
                         system($cmd, $result);
                         if(!$result) {
                                         $email = $_POST['admin_email'];
-                                        $cmd = "echo | mutt -s \"Programming Contest Files\" -a $path";
-                                        $cmd .= "$contest_name.tar.gz $email < email_body.txt";
+                                        $cmd = "echo | mutt -s \"Programming Contest Files\" ";
+                                        $cmd .= "$email -a $path/$contest_name.tar.gz < email_body.txt";
                                         system($cmd, $result);
                                         if(!$result) {
                                                 echo "Files sent to Administrator<br>";
@@ -258,8 +258,8 @@ elseif($_POST['B4']) {
 				#email to teams
 				if($row['EMAIL']) {
 					$email = $row['EMAIL'];
-					$cmd = "echo | mutt -s \"Programming Contest Files\" -a $path";
-					$cmd .= "Team$team_id.tar.gz $email < email_body.txt";
+					$cmd = "echo | mutt -s \"Programming Contest Files\" ";
+					$cmd .= "$email -a $path/Team$team_id.tar.gz < email_body.txt";
 					system($cmd, $result);
 					if(!$result) {
 						$team_name_send = $row['TEAM_NAME'];
