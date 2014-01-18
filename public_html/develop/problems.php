@@ -21,19 +21,19 @@ echo "<tr bgcolor='#CCCCCC'><td colspan=5 align=center>\n";
 echo "<h3>Problems Listing</h3></td></tr>\n";
 
 
-#echo "<table width=400 align=center>\n";
+//echo "<table width=400 align=center>\n";
 echo "<tr><td><h4>Problem Name</h4></td>";
 echo "<td align=center><h4>HTML</h4></td>";
-#echo "<td bgcolor=$hd_bg_color2 align=center>PS</td>";
+//echo "<td bgcolor=$hd_bg_color2 align=center>PS</td>";
 echo "<td align=center><h4>PDF</h4></td></tr>";
-#echo "<tr><td bgcolor=$data_bg_color1>All problems</td>";
-#echo "<td bgcolor=$data_bg_color1 align=center>";
-#echo "<a href='$problem_url/problems.html'>HTML</td>";
+//echo "<tr><td bgcolor=$data_bg_color1>All problems</td>";
+//echo "<td bgcolor=$data_bg_color1 align=center>";
+//echo "<a href='$problem_url/problems.html'>HTML</td>";
 //echo "<td bgcolor=$data_bg_color1 align=center>";
 //echo "<a href='$problem_url/problems.ps'>PS</td>";
-#echo "<td bgcolor=$data_bg_color1 align=center>";
-#echo "<a href='$problem_url/problems.pdf'>PDF</td>";
-#echo "</tr>";
+//echo "<td bgcolor=$data_bg_color1 align=center>";
+//echo "<a href='$problem_url/problems.pdf'>PDF</td>";
+//echo "</tr>";
 
 $problem_counter = 1;
 foreach ($problems as $problem) {

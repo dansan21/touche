@@ -13,7 +13,7 @@
 	$sql = "SELECT * from TEAMS WHERE TEAM_ID = $team_id";
 	$result = mysql_query($sql);
 	if (!$result) {
-		echo 'Could not run query: ' . mysql_error();
+		echo '<div class = "error"><br>Could not run query: ' . mysql_error().'</div>';
 		exit;
 	}
 	$row = mysql_fetch_assoc($result);
@@ -22,7 +22,8 @@
 	$p3 = $row['CONTESTANT_3_NAME'];
 	$alt = $row['ALTERNATE_NAME'];
 	
-	echo "Please indicate which team member will NOT be participating:<br>";
+	echo "<table class='table' align='center' width=100%><tr><td>";
+	echo "<h3>Please indicate which team member will NOT be participating:</h3><br>";
 	echo '<form name="f" action=non_participant.php method=post>';
 	echo '	<input type="radio" name="radio" value="CONTESTANT_1_NAME">'.$p1.'</br>';
 	echo '	<input type="radio" name="radio" value="CONTESTANT_2_NAME">'.$p2.'</br>';
@@ -30,6 +31,7 @@
 	echo '	<input type="radio" name="radio" value="ALTERNATE_NAME" checked>'.$alt.'</br>';
 	echo '	<input name=submit type=submit value="Submit">';
 	echo'</form>';
+	echo "</td></tr></table>";
 ?>
 </body>
 </html>

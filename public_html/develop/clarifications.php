@@ -76,6 +76,7 @@ if($problem_id != 0) {
 $sql .= "ORDER BY SUBMIT_TS DESC ";
 $result = mysql_query($sql);
 
+
 $clar = 0;	
 while ($row = mysql_fetch_assoc($result)) {
 	$clar = 1;

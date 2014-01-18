@@ -18,7 +18,7 @@ include_once("lib/header.inc");
 
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
-//echo $problem_dir."<br/>";
+
 
 if ($_GET)
 {
@@ -36,14 +36,14 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg .= "<div class='error'>Error:" . mysql_error();
+                $error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				if(mysql_num_rows($result)==0)
 				{
-					$error_msg = "<br>No rows returned: SQL: $sql";
+					$error_msg = "<div class='error'><br>No rows returned: SQL: $sql</div>";
 				}
 				else
 				{			
@@ -67,12 +67,12 @@ if ($_GET)
 		$result = mysql_query($sql);
 		if(!$result)
 		{
-			$error_msg = "Error: " . mysql_error();
-			$error_msg .= "<br>SQL: $sql";
+			$error_msg .= "<div class='error'>Error:" . mysql_error();
+            $error_msg .= "<br>SQL: $sql</div>";
 		}
 		else
 		{
-			$error_msg = "<h3>Problem deleted successfully</h3>";
+			$error_msg = "<div class='success'><br>Problem deleted successfully</div>";
 		}
 	}
 	else
@@ -97,26 +97,26 @@ else if($_POST)
 		}
 		if(strlen($_POST['problem_name']) == 0)
 		{
-			$error_msg .= "You forget to set the problem name<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the problem name</div>\n";
 		}
 		if(strlen($_POST['problem_short_name']) == 0)
 		{
-			$error_msg .= "You forget to set the shortened problem name<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the shortened problem name</div>\n";
 		}
 		else if(strlen($_POST['problem_loc']) == 0)
 		{
-			$error_msg .= "You forget to set the problem location<br>\n";
+			$error_msg .= "<div class='error'><br>You forget to set the problem location</div>\n";
 		}
 		//---------------------------------------------------------------------------
 		else if(preg_match("/ /", $_POST['problem_loc']))
 		{
-			$error_msg .= "There are no spaces allowed in problem name!<br>\n";
+			$error_msg .= "<div class='error'>There are no spaces allowed in problem name!<br></div>\n";
 		}
 		//---------------------------------------------------------------------------
 		else if(!file_exists($problem_dir . $_POST['problem_loc']))
 		{
-			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
-			$error_msg .= " does not exist.";
+			$error_msg .= "<div class='error'><br>The location:" . $problem_dir . $_POST['problem_loc'];
+			$error_msg .= " does not exist.</div>";
 		}
 		//echo $_FILES['html_file']['tmp_name'] . "<br/>";
 		//print "File lengths:" . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
@@ -127,7 +127,7 @@ else if($_POST)
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".html");
 			if(!$result)
 			{
-				$error_msg .= "Failed to upload html file";
+				$error_msg .= "<div class='error'><br>Failed to upload html file</div>";
 			}
 		}
 		if(($_POST['upload_pdf_id']) && strlen($_FILES['pdf_file']['tmp_name']) > 0)
@@ -136,52 +136,46 @@ else if($_POST)
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".pdf");
 			if(!$result)
 			{
-				$error_msg .= "Failed to upload pdf file";
+				$error_msg .= "<div class='error'><br>Failed to upload pdf file</div>";
 			}
 		}
-		else{			
-			if(isset($_SESSION['edit_problem']))
+		if(isset($_SESSION['edit_problem']))
+		{
+			$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
+			$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
+			$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
+			$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
+			$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
+			$result = mysql_query($sql);
+			if(!$result)
 			{
-				$sql = "update PROBLEMS set PROBLEM_NAME = '" . $_POST['problem_name'] . "', ";
-				$sql .= "PROBLEM_SHORT_NAME = '" . $_POST['problem_short_name'] . "',  ";
-				$sql .= "PROBLEM_LOC = '" . $_POST['problem_loc'] . "',  ";
-				$sql .= "PROBLEM_NOTE = '" . $_POST['problem_note'] . " ";
-				$sql .= "' where PROBLEM_ID = " . $_SESSION['edit_problem'];
-				$result = mysql_query($sql);
-				if(!$result)
-				{
-					$error_msg = "Error: " . mysql_error();
-					$error_msg .= "<br>SQL: $sql";
-				}
-				else
-				{
-					unset($_SESSION['edit_problem']);
-					$error_msg = "<h3>Problem changed successfully</h3>";
-				}
+				$error_msg = "<div class='error'>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
-			//--------------------------------------------------------------------------------------------------------
-			else if($error_msg) {
-				$error_msg .= "<h3>No Problem Created</h3>";
-			}
-			//--------------------------------------------------------------------------------------------------------
 			else
-			{		
-				//adding a new problem
-				$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
-				$sql .= "values('" . $_POST['problem_name'] . "', '";
-				$sql .= $_POST['problem_short_name'] . "', '";
-				$sql .= $_POST['problem_loc'] . "', '";
-				$sql .= $_POST['problem_note'] . "')";
-				
-				$result = mysql_query($sql);
-				if($result)
-				{
-					$error_msg .= "<h3>New problem created!</h3>";
-				}
-				else{
-					$error_msg .= "Error:" . mysql_error();
-					$error_msg .= "<br>SQL: $sql";
-				}
+			{
+				unset($_SESSION['edit_problem']);
+				$error_msg = "<div class='success'><br>Problem changed successfully</div>";
+			}
+		}
+		//--------------------------------------------------------------------------------------------------------
+		else
+		{		
+			//adding a new problem
+			$sql = "INSERT into PROBLEMS (PROBLEM_NAME, PROBLEM_SHORT_NAME, PROBLEM_LOC, PROBLEM_NOTE) ";
+			$sql .= "values('" . $_POST['problem_name'] . "', '";
+			$sql .= $_POST['problem_short_name'] . "', '";
+			$sql .= $_POST['problem_loc'] . "', '";
+			$sql .= $_POST['problem_note'] . "')";
+			
+			$result = mysql_query($sql);
+			if($result)
+			{
+				$error_msg .= "<div class='success'><br>New problem created!</div>";
+			}
+			else{
+				$error_msg .= "<div class='error'>Error:" . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 		}
 	}
@@ -202,7 +196,7 @@ End of POST section
 
 //build some http strings we'll need later
 
-echo " <div class=\"container\">";
+//echo " <div class=\"container\">";
 $cur_problems = "";
 //get all the current categories
 $sql = "select * from PROBLEMS ORDER by 'PROBLEM_ID'";
@@ -210,13 +204,13 @@ $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
 
 	//$cur_problems = "<font size=+1><a href=setup_problems.php>Add New Problem</a></font><br>";
-	$cur_problems .= "<tr><td colspan='2'><h3>Edit Current Problems</h3></td></tr>";
+	$cur_problems .= "<tr><td align='center' colspan='3'><h3>Edit Current Problems</h3></td></tr>";
 
 	while($row = mysql_fetch_assoc($result)){
-		$cur_problems .= "<tr><td>" . $row['PROBLEM_NAME']; 
-		$cur_problems .= " </td><td>";
+		$cur_problems .= "<tr><td align='center'>" . $row['PROBLEM_NAME']; 
+		$cur_problems .= " </td><td align='center'>";
 		$cur_problems .= "<a href=setup_problems.php?problem_id=" . $row['PROBLEM_ID'] . ">Edit</a>";
-		$cur_problems .= "</font></td><td><font size=-1>";
+		$cur_problems .= "</font></td><td align='center'>";
 		$cur_problems .= "<a href=setup_problems.php?remove_id=" . $row['PROBLEM_ID'] . ">Delete</a>";
 		$cur_problems .= "<br>\n";
 		$cur_problems .= "</td></tr>";
@@ -239,8 +233,9 @@ else
 {
 	$prev_html_name = "<font color='red'>No file uploaded yet</font><br>";
 }
-$http_html.="		<td>";
+
 $http_html.="		<input type=hidden name=upload_html_id value=$edit_problem_id>";
+$http_html.="		<td>";
 $http_html.= $prev_html_name;
 $http_html.="		<input type=file name=html_file></input></td>";
 $http_html.="	  </tr> ";
@@ -256,8 +251,9 @@ else
 {
 	$prev_pdf_name = "<font color='red'>No file uploaded yet</font><br>";
 }
-$http_pdf.="		<td>";
+
 $http_pdf.="		<input type=hidden name=upload_pdf_id value=$edit_problem_id>";
+$http_pdf.="		<td>";
 $http_pdf.= $prev_pdf_name;
 $http_pdf.="		<input type=file name=pdf_file></input></td>";
 $http_pdf.="	  </tr> ";
@@ -271,12 +267,12 @@ $http_pdf.="	  </tr> ";
 
 	echo " <div class=\"container\">"; //start container
 	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
-	echo "<div class=\"col-md-5\">"; //start COL
+	echo "<div class=\"col-md-6\">"; //start COL
 	
 	echo " <div class=\"table-responsive\">"; //start RESPONSIVE
 	echo " <table class=\"table\" align=\"left\" width=100%>"; //Start Table
 	echo " <tr> ";
-	echo " <td colspan='2'>";
+	echo " <td align='center' colspan='2'>";
 	echo " <h3>Add or Edit Categories</h3>";
 	echo " </td>";
 	echo " </tr>";
@@ -288,8 +284,8 @@ $http_pdf.="	  </tr> ";
 	echo "			value = '$edit_problem_name'></td>";
 	echo "	  </tr> ";
 	echo "	  <tr> ";
-	echo "		<td>Problem name shortened: </td>";
-	echo "		<td><input type='text' name='problem_short_name' ";
+	echo "		<td align='right'>Problem name shortened: </td>";
+	echo "		<td><input class='form-control' type='text' name='problem_short_name' ";
 	echo "			value = '$edit_problem_short_name'></td>";
 	echo "	  </tr> ";
 	echo "	  <tr> ";
@@ -319,7 +315,7 @@ $http_pdf.="	  </tr> ";
 	echo "</div>"; //end COL
 
 
-	echo "<div class=\"col-md-6\">";
+	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo $cur_problems;
@@ -329,7 +325,7 @@ $http_pdf.="	  </tr> ";
 
 	if($error_msg)
 	{
-		echo "<table>$error_msg</table>";
+		echo "$error_msg";
 	}
 
 	

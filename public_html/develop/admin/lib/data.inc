@@ -120,6 +120,7 @@ while ($row = mysql_fetch_assoc($categories_query)) {
 		|| !is_array($categories[$cat_name]['team_ids'])) {
 	    $categories[$cat_name]['team_ids'] = array();
 	}
+	array_push($categories[$cat_name]['team_ids'], $row['TEAM_ID']);
     }
 }
 

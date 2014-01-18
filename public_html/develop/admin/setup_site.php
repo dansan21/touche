@@ -26,14 +26,14 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg = "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg = "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				if(mysql_num_rows($result)==0)
 				{
-					$error_msg = "<br>No rows returned: SQL: $sql";
+					$error_msg = "<div class='error'><br>No rows returned: SQL: $sql</div>";
 				}
 				else
 				{			
@@ -52,13 +52,13 @@ if ($_GET)
 		$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg = "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg = "<br>SQL: $sql</div>";
 			}
 		if(mysql_num_rows($result) > 0)
 		{
-			$error_msg = "Sorry, there are teams in that site, you must move them to a differant site";
-			$error_msg .= " before you can delete this site";
+			$error_msg = "<div class='error'><br>Sorry, there are teams in that site, you must move them to a different site";
+			$error_msg .= " before you can delete this site.</div>";
 		}
 		else
 		{
@@ -66,12 +66,12 @@ if ($_GET)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
-				$error_msg = "Site deleted successfully";
+				$error_msg = "<div class='success'><br>Site deleted successfully</div>";
 			}
 		}
 		
@@ -89,13 +89,13 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if(!$result)
 			{
-				$error_msg = "Error: " . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error: " . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 			else
 			{
 				unset($_SESSION['edit_site']);
-				$error_msg = "Site changed successfully";
+				$error_msg = "<div class='success'><br>Site changed successfully</div>";
 			}
 		}
 		else
@@ -136,11 +136,11 @@ else if($_POST)
 
 			if($result)
 			{
-				$error_msg = "Successfull: New site created";
+				$error_msg = "<div class='success'><br>Successfull: New site created</div>";
 			}
 			else{
-				$error_msg = "Error:" . mysql_error();
-				$error_msg .= "<br>SQL: $sql";
+				$error_msg = "<div class='error'><br>Error:" . mysql_error();
+				$error_msg .= "<br>SQL: $sql</div>";
 			}
 		}
 	}
@@ -158,8 +158,6 @@ $cur_sites = "";
 $sql = "select * from SITE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
-	$cur_sites .= "<br><table>";
-	$cur_sites .= "<tr><td><b>Edit Current Sites</b></td></tr>";
 	while($row = mysql_fetch_assoc($result)){
 		if($row['SITE_ID'] != '1'){
 			$cur_sites .= "<tr><td>" . $row['SITE_NAME']; 
@@ -170,6 +168,7 @@ if(mysql_num_rows($result) > 0) {
 			$cur_sites .= "<br>\n";
 			$cur_sites .= "</td></tr>";
 		}
+
 	}
 	$cur_sites .= "</table>";
 }
@@ -180,13 +179,43 @@ else
 
 //must be a http GET
 
-	//table for Editing a Site
+	
 	echo " <div class=\"container\">";
+
+
+	//Table for Adding a Site
 	echo "<div class=\"col-md-5\">";
 	echo " <div class=\"table-responsive\">";
 	echo " <table class=\"table\" align=\"left\" width=100%>";
+	echo " <form action=setup_site.php method=post>";
+	echo "<td align='center' colspan='2' >";
+	echo " <h3>$action</h3>";
+	echo "</td>";
+	echo " <tr>";
+	echo " <td><input class='form-control' type='text' name='site_name' placeholder='Site Name' ";
+	echo " value = '$edit_site_name'></td>";
+	echo " </tr> ";
+	echo " <tr><td align='center' colspan=2><input name=submit type=submit value='Submit'></td></tr>";
+	echo " </form>";
+	echo " </td></tr>";
+
+	if($error_msg)
+	{
+		echo "$error_msg";
+	}
+
+
+	echo " </table>";
+	echo " </div>";
+	echo " </div>";
+
+
+	//table for Editing a Site
+	echo "<div class=\"col-md-6\">";
+	echo " <div class=\"table-responsive\">";
+	echo " <table class=\"table\" align=\"left\" width=100%>";
 	echo "<tr>";
-	echo "<td>";
+	echo "<td align='center' colspan=3>";
 	echo " <h3>Edit a Site</h3>";
 	echo $cur_sites;
 	echo "</td>";
@@ -194,35 +223,6 @@ else
 	echo "</table>";
 	echo "</div>";
 	echo "</div>";
-
-
-
-	//Table for Adding a Site
-	echo "<div class=\"col-md-6\">";
-	echo " <div class=\"table-responsive\">";
-	echo " <table class=\"table\" align=\"left\" width=100%>";
-	echo " <form action=setup_site.php method=post>";
-	echo "<th colspan='2'>";
-	echo " <h3>$action</h3>";
-	echo "</th>";
-	echo " <tr>";
-	echo " <td>Site name: </td>";
-	echo " <td><input type='text' name='site_name' ";
-	echo " value = '$edit_site_name'></td>";
-	echo " </tr> ";
-	echo " <tr><td><input name=submit type=submit value='Submit'></td></tr>";
-	echo " </form>";
-	echo " </td></tr>";
-
-	if($error_msg)
-	{
-		echo "<tr><td><h4>$error_msg</h4></tr></td>";
-	}
-
-
-	echo " </table>";
-	echo " </div>";
-	echo " </div>";
 	echo " </div>";
 
 

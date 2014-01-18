@@ -60,13 +60,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 </div>
                 <?
                     if (isset($state) && $state == 1) {
-                	echo "<center><b>";
-                	echo "Login or Password Invalid</b></center>\n";
-                    }
-                    else if (isset($state) && $state == 2) {
-                	echo "<center><b>";
-                	echo "You are not yet logged in</b></center>\n";
-                    }
+						echo "<div class = 'error'><br>Login or Password Invalid</div>";
+					}
+					else if (isset($state) && $state == 2) {
+						echo "<div class = 'error'><br>You are not yet logged in</div>";
+					}
                 ?>
                 </form>
         </div>

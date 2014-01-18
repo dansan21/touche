@@ -30,6 +30,15 @@
 	    $sql .= " VALUES ";
 	    $sql .= "    ('$team_id', '$problem_id', '".mysql_real_escape_string($question)."', '".time()."')";
 	    mysql_query($sql);
+		if(!$result)
+		{
+			$error_msg = "<div class = 'error'><br>Error: " . mysql_error();
+			$error_msg .= "<br>SQL: $sql</div>";
+		}
+		else
+		{
+			$error_msg = "<div class = 'success'>Request successful.</div>";
+		}
 	}
 
 	echo "<br>\n";
@@ -54,6 +63,10 @@
 	echo "			</font>\n";
 	echo "		</td>\n";
 	echo "	</tr>\n";
+			if($error_msg)
+			{
+				echo $error_msg;
+			}
 	echo "	<tr bgcolor=$hd_bg_color2>\n";
 	echo "		<td align=\"center\" colspan=2><font color=\"$hd_txt_color2\"><b>Question</b></font></td>\n";
 	echo "	</tr>\n";
