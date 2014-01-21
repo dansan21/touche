@@ -42,11 +42,11 @@ echo "<td align=center>PDF</td></tr>";
 foreach ($problems as $problem) {
     echo "<tr><td>$problem[id] - $problem[name]</td>";
     echo "<td align=center>";
-    echo "<a href='../$problem_url/$problem[loc]/$problem[name].html'>HTML</a></td>";
+    echo "<a href='../$problem_url/$problem[loc]/$problem[name].html' target=\"_blank\">HTML</a></td>";
   //  echo "<td bgcolor=$data_bg_color1 align=center>";
   //  echo "<a href='$problem_url/$problem[loc]/problem.ps'>PS</a></td>";
     echo "<td align=center>";
-    echo "<a href='../$problem_url/$problem[loc]/$problem[name].pdf'>PDF</a></td>";
+    echo "<a href='../$problem_url/$problem[loc]/$problem[name].pdf' target=\"_blank\">PDF</a></td>";
     echo "</tr>";
 }
 echo "</table>\n";

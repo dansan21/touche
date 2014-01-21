@@ -128,7 +128,7 @@ while ($row = mysql_fetch_assoc($result)) {
     echo "</tr>\n";
     echo "<tr>\n";
     if ($row['TEAM_ID'] != -1) {
-	echo "<td align=center bgcolor=$data_bg_color1>";
+	echo "<td align=center bgcolor='#CCCCCC'>";
 	echo $teams[$row['TEAM_ID']]['name'] . "</td>\n";
     }
     else {
@@ -160,7 +160,7 @@ while ($row = mysql_fetch_assoc($result)) {
     echo "<td colspan=2>$row[QUESTION]</td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
-    echo "<td align=left valign=top bgcolor=$hd_bg_color2>";
+    echo "<td align=left valign=top bgcolor='#CCCCCC'>";
     echo "<b>Response</b></td>\n";
     echo "<td colspan=2>$row[RESPONSE]</td>\n";
     echo "</tr>\n";
@@ -179,7 +179,7 @@ while ($row = mysql_fetch_assoc($result)) {
 	echo "There are no new clarifications</td></tr>";
     }
     echo "</table>";
-    echo "<center><a href='clarification_response_form.php?clarification_id=0'>Make new Clarification</a></center>\n";
+    echo "<center><a href='clarification_response_form.php?clarification_id=0'><button class=\"btn btn-default\">Make new Clarification</button></a></center>\n";
     echo "</div>";
     echo "</div>";
     echo "</div>";

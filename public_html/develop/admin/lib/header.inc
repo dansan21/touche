@@ -70,7 +70,7 @@ if (!$connect_good) {
 <div class="container">
     <div class="text-center">
 
-        <h5><?=$contest_name?> - <?=$contest_host?></h5>
+        <h5><?=$contest_name?> - <?=$contest_host?> - <?print date("H:i:s"); ?></h5>
     </div>
 
   <ul class="nav nav-tabs nav-justified">
