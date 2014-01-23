@@ -7,6 +7,7 @@
 #
 # arch-tag: judge/main.php
 #
+
     include_once("lib/config.inc");
     include_once("lib/judge.inc");
     include_once("lib/header.inc");

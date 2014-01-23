@@ -1,6 +1,3 @@
-
-
-
 <!--
     Copyright (C) 2002 David Whittington
 

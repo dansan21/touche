@@ -8,6 +8,12 @@
 #
 # arch-tag: judge/lib/header.inc
 #
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
 	include_once ("session.inc");
 	include_once ("config.inc");
 	include_once ("judge.inc");

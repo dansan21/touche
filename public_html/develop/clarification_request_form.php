@@ -7,6 +7,13 @@
 //
 // arch-tag: clarification_request_form.php
 //
+
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	    //ls
 	    //

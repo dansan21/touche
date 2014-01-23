@@ -1,4 +1,5 @@
 <?
+// Copyright (C) 2014 Matt Goldsberry
 	ob_start();
 	include_once("lib/config.inc");
     include_once("lib/data.inc");

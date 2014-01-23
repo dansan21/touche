@@ -9,6 +9,11 @@
 # arch-tag: admin/judge.php
 #
 # Set up default directories
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
 
 	echo "<div class='container'>";
 	echo "<div class='innerglow'>";

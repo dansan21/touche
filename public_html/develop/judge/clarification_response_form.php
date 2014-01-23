@@ -7,6 +7,12 @@
 #
 # arch-tag: admin/clarification_response_form.php
 #
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
 	include_once("lib/header.inc");
 	include_once("lib/config.inc");
 	include_once("lib/judge.inc");

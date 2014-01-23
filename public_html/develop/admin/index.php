@@ -7,6 +7,12 @@
 #
 # arch-tag: admin/index.php
 #
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
     include("lib/admin_config.inc");
     include("lib/data.inc");
 

@@ -9,6 +9,11 @@
 #
 # arch-tag: lib/data.inc
 #
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
 
 $link = mysql_connect($db_host, $db_user, $db_pass);
 if (!$link) {

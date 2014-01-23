@@ -8,6 +8,13 @@
 # arch-tag: admin/index.php
 #
 #    include("lib/admin_config.inc");
+
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
     include("lib/create.inc");
 
 session_name("TOUCHE-CREATE");

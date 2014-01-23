@@ -9,6 +9,12 @@
 #
 # arch-tag: judge/standings.php
 #
+// Copyright (C) 2014 Daniel Sanders
+// Copyright (C) 2014 Tyler Garcia
+// Copyright (C) 2014 Matt Goldsberry
+// Copyright (C) 2014 Xander Wagner 
+// Copyright (C) 2014 Caleb Stevenson
+
     include_once("lib/config.inc");
     include_once("lib/judge.inc");
     include_once("lib/session.inc");
